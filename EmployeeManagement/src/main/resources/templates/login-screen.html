@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1> Login </h1>
+    <form action="#" th:action="@{/ems/home}" th:object="${EmployeeDetail}" method="post">
+ 
+    	<p> <b><label style="width: 100px;display: inline-block;font-family: cursive;font-size: larger;" > userName:</label> <input type="text" field="*{userName}" name="userName" /></p>
+    	<p style="padding-bottom: 30px;"> <b> 
+    	<label style="width: 102px;display: inline-block;font-family: cursive;font-size: larger;"> Password: </label><input type="password" field="*{password}" name="password" />
+    	</p>
+        
+        <p><input style="background-color: steelblue;  font-size: 12px;display: inline-block;color: white;padding: 8px 30px;" type="submit" value="Submit" /> 
+        <input style="background-color: lightslategrey;font-size: 12px;display: inline-block;color: white;padding: 8px 30px;" type="reset" value="Reset" /></p>
+        
+    </form>
+    
+    <div th:if="${error}" style="background-color:pink; width:fit-content; font-size:20px;" th:text="${error}"/> </div>
+
+</body>
+
+</html>
