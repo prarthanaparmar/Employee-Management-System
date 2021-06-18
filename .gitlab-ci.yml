@@ -25,7 +25,7 @@ stages:
   # You will need to define this stage somewhere below.
   - test
   # I will provide this example for you below.
-  - deploy
+  #- deploy
 
 buildStep:
   image: maven:3-jdk-8
