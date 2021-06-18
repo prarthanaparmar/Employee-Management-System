@@ -1,0 +1,78 @@
+variables:
+  # This is a place for you to define variables you can use
+  # later in the script by referring to the variable like so:
+  #   ${EXAMPLE_VARIABLE}
+  EXAMPLE_VARIABLE: "Example"
+  
+
+image: node:latest
+
+before_script:
+  # Do anything you have to do before your stages below here.
+  # For example, do you need to change permissions on a build folder
+  # or modify a file to insert a variable from your CI config here?
+  - apt-get update -qy
+  - apt-get install -y openssh-client
+  - eval $(ssh-agent -s)
+  - echo "$PROD_DEPLOY_SSH_KEY" | tr -d '\r' | ssh-add -
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+
+stages:
+# These are the three states we want, building the app, testing it by
+# executing unit tests and checking the results, and finally if this
+  - build
+  # You will need to define this stage somewhere below.
+  - test
+  # I will provide this example for you below.
+  - deploy
+
+buildStep:
+  image: maven:3-jdk-8
+  stage: build
+  tags:
+    - dalfcs_docker_kvm
+  artifacts:
+    paths:
+    - group10/EmployeeManagement/target
+  script:
+    mvn clean install
+
+testStep:
+  image: maven:3-jdk-8
+  stage: test
+  tags:
+    - dalfcs_docker_kvm
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - group10/EmployeeManagement/target/surefire-reports/TEST-*.xml
+  script:
+    mvn verify
+
+deployStep:
+  stage: deploy
+  tags:
+    # I am tagging the ugrad runner, read this document to learn why:
+    # https://helpdesk.cs.dal.ca/gitlab
+    - dalfcs_docker_kvm
+  artifacts:
+    paths:
+      # Change this directory to the path that contains your built executable
+      - group10/EmployeeManagement/target
+      # - G12-Hockey/src/main/conf
+  script:
+    #- chmod og-rwx ${DEPLOY_SSH_KEY}
+    - chmod og-rwx ${PROD_DB_CONFIG}
+    - chmod og-rwx ${SCHEMA}
+    # The following commands will zip your build folder, and transfer that
+    # zip file to the designated Timberlea account. You will need to change
+    # the <BUILDDIRECTORY> string to the actual directory where your build artifacts
+    # reside when your build commands are complete on the runner.
+    # Notice how these commands are using the variables you defined in your GitLab CI/CD
+    # settings in earlier steps. It will not work without those variables
+    - ssh -o StrictHostKeyChecking=no ${PROD_DEPLOY_USER}@${DEPLOY_HOST} "mkdir ${DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}"
+    - scp -r -o StrictHostKeyChecking=no group10/EmployeeManagement/target/EmployeeManagement-0.0.1-SNAPSHOT "${PROD_DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.jar"
+    - scp -r -o StrictHostKeyChecking=no ${PROD_DB_CONFIG} "${PROD_DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}/dbconfig.properties"
+    - scp -r -o StrictHostKeyChecking=no ${SCHEMA} "${PROD_DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}/schema.json"
