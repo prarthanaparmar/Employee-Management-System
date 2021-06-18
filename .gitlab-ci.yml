@@ -34,7 +34,7 @@ buildStep:
     - dalfcs_docker_kvm
   artifacts:
     paths:
-    - group10/EmployeeManagement/target
+    - group10/target
   script:
     mvn clean install
 
@@ -47,7 +47,7 @@ testStep:
     when: always
     reports:
       junit:
-        - group10/EmployeeManagement/target/surefire-reports/TEST-*.xml
+        - group10/target/surefire-reports/TEST-*.xml
   script:
     mvn verify
 
@@ -73,6 +73,6 @@ testStep:
 #     # Notice how these commands are using the variables you defined in your GitLab CI/CD
 #     # settings in earlier steps. It will not work without those variables
 #     - ssh -o StrictHostKeyChecking=no ${PROD_DEPLOY_USER}@${DEPLOY_HOST} "mkdir ${DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}"
-#     - scp -r -o StrictHostKeyChecking=no group10/EmployeeManagement/target/EmployeeManagement-0.0.1-SNAPSHOT "${PROD_DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.jar"
+#     - scp -r -o StrictHostKeyChecking=no group10/target/EmployeeManagement-0.0.1-SNAPSHOT "${PROD_DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.jar"
 #     - scp -r -o StrictHostKeyChecking=no ${PROD_DB_CONFIG} "${PROD_DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}/dbconfig.properties"
 #     - scp -r -o StrictHostKeyChecking=no ${SCHEMA} "${PROD_DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}/schema.json"
