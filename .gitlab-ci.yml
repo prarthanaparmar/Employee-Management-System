@@ -54,7 +54,7 @@ deployStep:
   stage: deploy
   image: ruby:latest
   script:
-    - cd employee-management-g10/
+    - cd group10/
     - gem install dpl
     - dpl --provider=heroku --app=employee-management-g10 --api-key=$c985f796-640b-4c49-b0c6-b3ff947c47aa
   environment:
