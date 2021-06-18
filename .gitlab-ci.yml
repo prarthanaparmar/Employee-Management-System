@@ -56,7 +56,7 @@ deployStep:
   script:
     - cd /builds/courses/2021-summer/csci-5308/group10/
     - gem install dpl
-    - dpl --provider=heroku --app=employee-management-g10 --api-key=$c985f796-640b-4c49-b0c6-b3ff947c47aa
+    - dpl --provider=heroku --app=employee-management-g10 --api-key=c985f796-640b-4c49-b0c6-b3ff947c47aa
   environment:
     name: staging
     url: https://employee-management-g10.herokuapp.com/
