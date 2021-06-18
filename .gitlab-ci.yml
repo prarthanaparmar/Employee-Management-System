@@ -50,8 +50,7 @@ testStep:
         - group10/target/surefire-reports/TEST-*.xml
   script:
     mvn verify
-
-  deployStep:
+deployStep:
   stage: deploy
   image: ruby:latest
   script:
