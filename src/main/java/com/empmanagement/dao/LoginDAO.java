@@ -29,6 +29,5 @@ public class LoginDAO {
 		return empPassword;
 	}
 
- 
 
 }
