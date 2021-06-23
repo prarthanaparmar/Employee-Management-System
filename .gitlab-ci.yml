@@ -62,7 +62,8 @@ deployStep:
     name: staging
     url: https://employee-management-g10.herokuapp.com/
   only:
-    - branches
+    - develop
+    - master
   tags:
     - dalfcs_gitlab_docker_ci
 
