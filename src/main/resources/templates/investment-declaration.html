@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1> Investment Declaration </h1>
-<a th:href="@{https://loginservice-jg6nylgbna-as.a.run.app/login}"> Go to Login Page </a>
+<a th:href="@{/ems/home}"> Go to Home Page </a>
     <form action="#" th:action="@{/ems/investmentdeclaration/submit}" th:object="${EmployeeDetail}" method="post">
  
         <p> <b><label style="width: 250px;display: inline-block;font-family: cursive;font-size: larger;" > Emp ID:</label><input type = integer field="*{empId}" name="empId" /></p>

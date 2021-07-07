@@ -27,7 +27,7 @@ public class LoginController {
 		return "redirect:/ems/login";
 	}
 
-	@PostMapping("/ems/home")
+	@PostMapping("/ems/login/authenticate")
 	public String loginSubmit(@RequestParam(name = "userName", required = true) String userName,
 			@RequestParam(name = "password", required = true) String password, 
 			RedirectAttributes redirectAttribute,
@@ -37,12 +37,17 @@ public class LoginController {
 
 		if(isPasswordValid) {
 
-			return "home-screen";
+			return "redirect:/ems/home";
 		} else {
 			redirectAttribute.addFlashAttribute("error", "Password provided by you is incorrect, Please try again.");
 			return "redirect:/ems/login";
 		}
 
 		
+	}
+	
+	@GetMapping("/ems/home")
+	public String homePage() {
+		return "home-screen";
 	}
 }

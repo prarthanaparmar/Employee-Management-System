@@ -39,23 +39,4 @@ public class FinanceController {
 
 	}
 
-
-//	@PostMapping("/ems/home")
-//	public String loginSubmit(@RequestParam(name = "userName", required = true) String userName,
-//			@RequestParam(name = "password", required = true) String password, 
-//			RedirectAttributes redirectAttribute,
-//			Model model) {
-//
-//		boolean isPasswordValid = loginService.validatePassword(userName, password);
-//
-//		if(isPasswordValid) {
-//
-//			return "home-screen";
-//		} else {
-//			redirectAttribute.addFlashAttribute("error", "Password provided by you is incorrect, Please try again.");
-//			return "redirect:/ems/login";
-//		}
-//
-//		
-//	}
 }
