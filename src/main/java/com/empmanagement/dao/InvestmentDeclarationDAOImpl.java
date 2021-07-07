@@ -17,12 +17,13 @@ public class InvestmentDeclarationDAOImpl implements InvestmentDeclarationDAO {
 
 		try {
 
-			int rowsUpdatedInUserTable = jdbcTemplate.update(
+			int rowsUpdatedInDBTable = jdbcTemplate.update(
 					"INSERT INTO investment_declaration(empId, homeLoanInterest, lifeInsuranceInvestment, mutualFundInvestment) VALUES (?, ? ,?, ?)", empId, homeLoanInterest, lifeInsuranceInvestment, mutualFundInvestment);
-			System.out.println(rowsUpdatedInUserTable);
+			System.out.println("Successfully updated " + rowsUpdatedInDBTable);
 
-
+            if(rowsUpdatedInDBTable > 0) {
 			dbSaveStatus = "success";
+            }
 
 		} catch (Exception e) {
 			System.err.println(e);
