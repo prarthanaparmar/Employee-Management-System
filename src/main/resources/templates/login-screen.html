@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1> Login </h1>
-    <form action="#" th:action="@{/ems/home}" th:object="${EmployeeDetail}" method="post">
+    <form action="#" th:action="@{/ems/login/authenticate}" th:object="${EmployeeDetail}" method="post">
  
     	<p> <b><label style="width: 100px;display: inline-block;font-family: cursive;font-size: larger;" > userName:</label> <input type="text" field="*{userName}" name="userName" /></p>
     	<p style="padding-bottom: 30px;"> <b> 
