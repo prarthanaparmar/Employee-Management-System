@@ -11,7 +11,7 @@ public class InvestmentDeclarationDAOImpl implements InvestmentDeclarationDAO {
 	String dbSaveStatus;
 
 /*
- * Gets the password from database for the employee
+ * Saves the employee investment declaration into database
  */
 	public String saveInvestmentDeclaration(Long empId, Long homeLoanInterest, Long lifeInsuranceInvestment, Long mutualFundInvestment) {
 
