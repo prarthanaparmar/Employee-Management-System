@@ -14,7 +14,7 @@ Create Table employee_leaves(
 -- Employee Leave Balance Table
 Create Table employee_leave_balance(
 	empId int(11) primary key references employee(empId),
-    pto_leaves int(11) not null,
-    casual_leaves int(11) not null,
-    sick_leaves int(11) not null
+    pto_leaves int(11) not null default 0,
+    casual_leaves int(11) not null default 0,
+    sick_leaves int(11) not null default 0
 );

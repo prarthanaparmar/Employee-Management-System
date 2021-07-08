@@ -5,12 +5,12 @@ package com.empmanagement.domain;
  * @author @neelp (Neel Patel)
  */
 public class LeaveBalance {
-    private int empId;
+    private long empId;
     private int ptoLeaves;
     private int casualLeaves;
     private int sickLeaves;
 
-    public LeaveBalance(int empId) {
+    public LeaveBalance(long empId) {
         this.empId = empId;
     }
 
@@ -86,7 +86,7 @@ public class LeaveBalance {
     /**
      * @return Employee ID
      */
-    public int getEmpId(){
+    public long getEmpId(){
         return this.empId;
     }
 }
