@@ -10,6 +10,7 @@ public class LoginDAOImpl implements LoginDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	String empPassword;
+	Long empId;
 
 /*
  * Gets the password from database for the employee
@@ -27,6 +28,25 @@ public class LoginDAOImpl implements LoginDAO {
 		}
 
 		return empPassword;
+	}
+	
+	
+	/*
+	 * Gets the empId from database for the userName
+	 */
+	public Long getEmpIDFromDatabase(String userName) {
+
+		try {
+
+			empId = jdbcTemplate.queryForObject("select empId from login where empUsername = ?",
+					Long.class, userName);
+
+		} catch (Exception e) {
+
+			System.err.println(e);
+		}
+
+		return empId;
 	}
 
 
