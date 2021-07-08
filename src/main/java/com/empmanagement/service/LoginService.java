@@ -30,5 +30,11 @@ public class LoginService {
 
 		return doesPasswordMatch;
 	}
+	
+	public Long getEmpID(String userName) {
+
+		Long empId = loginDao.getEmpIDFromDatabase(userName);
+		return empId;
+	}
 
 }
