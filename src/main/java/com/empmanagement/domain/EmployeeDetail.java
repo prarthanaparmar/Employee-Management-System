@@ -1,11 +1,25 @@
 package com.empmanagement.domain;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class EmployeeDetail {
-	
+	public EmployeeDetail() {
+	}
+
 	String empName;
+	String empId;
 	String userName;
 	String password;
-	
+
+	public String getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(String empId) {
+		this.empId = empId;
+	}
+
 	public String getEmpName() {
 		return empName;
 	}

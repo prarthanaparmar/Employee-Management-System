@@ -9,13 +9,12 @@ public class LoginDAOImpl implements LoginDAO {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	String empPassword;
+	String empPassword,userId;
 
 /*
  * Gets the password from database for the employee
  */
 	public String getPasswordFromDatabase(String userName) {
-
 		try {
 
 			empPassword = jdbcTemplate.queryForObject("select empPassword from login where empUsername = ?",
@@ -29,5 +28,17 @@ public class LoginDAOImpl implements LoginDAO {
 		return empPassword;
 	}
 
+	public String getId(String userName){
+		try {
 
+			userId = jdbcTemplate.queryForObject("select empId from login where empUsername = ?",
+					String.class, userName);
+
+		} catch (Exception e) {
+
+			System.err.println(e);
+		}
+
+		return userId;
+	}
 }
