@@ -9,5 +9,5 @@ import java.util.List;
 
 @Component
 public interface TimeSheetDAO {
-    public List<TimeSheetDetail> getTimeSheetDetail(String empId);
+    List<TimeSheetDetail> getTimeSheetDetail(String empId);
 }

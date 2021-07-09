@@ -28,17 +28,4 @@ public class LoginDAOImpl implements LoginDAO {
 		return empPassword;
 	}
 
-	public String getId(String userName){
-		try {
-
-			userId = jdbcTemplate.queryForObject("select empId from login where empUsername = ?",
-					String.class, userName);
-
-		} catch (Exception e) {
-
-			System.err.println(e);
-		}
-
-		return userId;
-	}
 }

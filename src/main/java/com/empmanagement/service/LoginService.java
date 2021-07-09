@@ -22,7 +22,6 @@ public class LoginService {
 		if (password.equals(savedPassword)) {
 
 			doesPasswordMatch = true;
-			employeeDetail.setUserName(userName);
 			System.out.println("Password Matches");
 
 		} else {
@@ -31,16 +30,6 @@ public class LoginService {
 		}
 
 		return doesPasswordMatch;
-	}
-
-	public String setEmployeeId(String userName){
-		String id=loginDao.getId(userName);
-
-		if(!id.isEmpty()){
-			employeeDetail.setEmpId(id);
-		}
-
-		return id;
 	}
 
 }

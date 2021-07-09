@@ -38,7 +38,6 @@ public class LoginController {
 		boolean isPasswordValid = loginService.validatePassword(userName, password);
 
 		if(isPasswordValid) {
-			loginService.setEmployeeId(userName);
 			return "home-screen";
 		} else {
 			redirectAttribute.addFlashAttribute("error", "Password provided by you is incorrect, Please try again.");

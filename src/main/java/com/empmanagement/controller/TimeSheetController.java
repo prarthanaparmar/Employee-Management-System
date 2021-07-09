@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,12 +19,12 @@ import java.util.concurrent.TimeUnit;
 public class TimeSheetController {
     @Autowired
     TimeSheetService timeSheetService;
-    @Autowired
-    EmployeeDetail employeeDetail;
 
     @GetMapping("/ems/timeSheet")
-    public String timeSheetInfo(Model model) {
-        List<TimeSheetDetail> tsd=timeSheetService.getTimeSheetDetails(employeeDetail.getEmpId());
+    public String timeSheetInfo(HttpSession session,Model model) {
+        Long employeeId = (Long) session.getAttribute("EMP_ID");
+        System.out.println("For employee id :"+employeeId);
+        List<TimeSheetDetail> tsd=timeSheetService.getTimeSheetDetails(employeeId.toString());
         List<Long> hoursWorked=new ArrayList<>();
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         for(TimeSheetDetail t:tsd){
