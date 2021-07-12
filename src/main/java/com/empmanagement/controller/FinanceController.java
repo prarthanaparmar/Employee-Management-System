@@ -11,11 +11,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.empmanagement.dao.InvestmentDeclarationDAO;
+import com.empmanagement.domain.Earnings;
+import com.empmanagement.domain.Salary;
+import com.empmanagement.service.SalaryService;
 
 @Controller
 public class FinanceController {
 	@Autowired
 	private InvestmentDeclarationDAO investmentDAO;
+	
+	@Autowired
+	private SalaryService salaryService;
 
 	@GetMapping("/ems/investmentdeclaration")
 	public String investmentDeclarationForm(HttpSession session, Model model) {
@@ -51,6 +57,22 @@ public class FinanceController {
 		}
 		return "redirect:/ems/investmentdeclaration";
 
+	}
+	
+	@GetMapping("/ems/salarystructure")
+	public String getSalaryStructure(HttpSession session, Model model) {
+		Long employeeId = (Long) session.getAttribute("EMP_ID");
+		if(employeeId == null) {
+			return "redirect:/ems/login";
+		}
+		Long empId = employeeId;
+		
+		Salary salary = salaryService.getSalaryForEmployee(empId);
+
+		model.addAttribute("salary", salary );
+		
+		model.addAttribute("emp_id", empId);
+		return "salary-structure";
 	}
 
 }

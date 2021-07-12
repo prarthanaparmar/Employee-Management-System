@@ -32,4 +32,20 @@ public class InvestmentDeclarationDAOImpl implements InvestmentDeclarationDAO {
 
 		return dbSaveStatus;
 	}
+
+	@Override
+	public double getBasicSalary(Long empId) {
+		double basic = 0;
+		try {
+
+			basic = jdbcTemplate.queryForObject("SELECT salary.basic FROM salary INNER JOIN employee ON employee.grade = salary.grade where employee.empId = ?  ",
+					Double.class, empId);
+
+		} catch (Exception e) {
+
+			System.err.println(e);
+		}
+
+		return basic;
+	}
 }

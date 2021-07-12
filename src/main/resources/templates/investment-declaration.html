@@ -10,7 +10,6 @@
 
     <form action="#" th:action="@{/ems/investmentdeclaration/submit}" th:object="${EmployeeDetail}" method="post">
   <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Employee ID:   ' + ${emp_id}" />
-        <p> <b><label style="width: 250px;display: inline-block;font-family: cursive;font-size: larger;" > Emp ID:</label><input type = integer field="*{empId}" name="empId" /></p>
     	<p> <b><label style="width: 250px;display: inline-block;font-family: cursive;font-size: larger;" > Home Loan Interest:</label><input field="*{homeLoanInterest}" name="homeLoanInterest" /></p>
     	<p style="padding-bottom: 30px;"> <b> 
     	<label style="width: 250px;display: inline-block;font-family: cursive;font-size: larger;"> Life Insurance Premium:</label><input field="*{lifeInsuranceInvestment}" name="lifeInsuranceInvestment" />
