@@ -31,7 +31,7 @@ public class ManagerController {
             System.out.println(employeeId);
 
             Long empId = employeeId;
-            ManagerDAO.getManagerEmpIDFromDatabase("Finance");
+            //ManagerDAO.getManagerEmpIDFromDatabase("Finance");
             model.addAttribute("emp_id", empId);
 
         return "Manager-profile";
