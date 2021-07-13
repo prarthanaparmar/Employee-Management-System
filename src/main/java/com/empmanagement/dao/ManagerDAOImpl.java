@@ -9,7 +9,7 @@ public class ManagerDAOImpl implements ManagerDAO {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    //String empPassword;
+    String managerScore;
     Long empId;
 
     /*
@@ -20,7 +20,7 @@ public class ManagerDAOImpl implements ManagerDAO {
         try {
 
             managerScore = jdbcTemplate.queryForObject("select manager_score from performance_management where empId= ?",
-                    String.class, empIdmpId);
+                    String.class, empId);
 
         } catch (Exception e) {
 
