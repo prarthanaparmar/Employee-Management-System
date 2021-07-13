@@ -20,6 +20,7 @@ public class ManagerController {
     private MangerDAO ManagerDAO;
 
     @GetMapping("/ems/Manager-profile")
+
     public String loginForm(HttpSession session, Model model) {
 
             Long employeeId = (Long) session.getAttribute("EMP_ID");

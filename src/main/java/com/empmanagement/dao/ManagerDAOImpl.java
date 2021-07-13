@@ -13,21 +13,21 @@ public class ManagerDAOImpl implements ManagerDAO {
     Long empId;
 
     /*
-     * Gets the password from database for the employee
+     * Gets manger score from database for the employee
      */
-    public String getPasswordFromDatabase(String userName) {
+    public String getApraisalDetailsFromDatabase(Int empId) {
 
         try {
 
-            empPassword = jdbcTemplate.queryForObject("select empPassword from login where empUsername = ?",
-                    String.class, userName);
+            managerScore = jdbcTemplate.queryForObject("select manager_score from performance_management where empId= ?",
+                    String.class, empIdmpId);
 
         } catch (Exception e) {
 
             System.err.println(e);
         }
 
-        return empPassword;
+        return managerScore;
     }
 
 
