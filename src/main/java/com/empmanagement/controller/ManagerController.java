@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.empmanagement.dao.ManagerDAO;
+
 @Controller
 public class ManagerController {
 
     @Autowired
-    private MangerDAO ManagerDAO;
+    private ManagerDAO ManagerDAO;
 
     @GetMapping("/ems/Manager-profile")
 
