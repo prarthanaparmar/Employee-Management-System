@@ -15,7 +15,7 @@ public class ManagerDAOImpl implements ManagerDAO {
     /*
      * Gets manger score from database for the employee
      */
-    public String getApraisalDetailsFromDatabase(Int empId) {
+    public String getApraisalDetailsFromDatabase(Integer empId) {
 
         try {
 
