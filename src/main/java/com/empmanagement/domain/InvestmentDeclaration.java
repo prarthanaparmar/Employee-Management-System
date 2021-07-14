@@ -6,6 +6,11 @@ public class InvestmentDeclaration {
 	Long lifeInsuranceInvestment;
 	Long mutualFundInvestment;
 
+	public InvestmentDeclaration(long homeLoanInterest, long lifeInsuranceInvestment, long mutualFundInvestment) {
+		this.homeLoanInterest = homeLoanInterest;
+		this.lifeInsuranceInvestment = lifeInsuranceInvestment;
+		this.mutualFundInvestment = mutualFundInvestment;
+	}
 	public Long getHomeLoanInterest() {
 		return homeLoanInterest;
 	}
