@@ -16,7 +16,7 @@ public class SalaryServiceImpl implements SalaryService {
 	EarningCalculationService earningService;
 
 	@Autowired
-	TaxCalculationService taxService;
+	DeductionService deductionService;
 
 	@Autowired
 	SalaryDAO dao;
@@ -32,22 +32,15 @@ public class SalaryServiceImpl implements SalaryService {
 
 		earnings = earningService.calculateTotalEarnings(getBasicPayForEmployee(empId));
 		totalEarning = earnings.getBasic() + earnings.getHra() + earnings.getAllowances();
-		totalDeductions = taxService.caculateIncomeTax(totalEarning)
-				+ taxService.calculateProfessionalTax(totalEarning);
 
+		Deductions deductions = deductionService.getTotalDeductions(totalEarning);
+		totalDeductions = deductions.getTax().getProfessionalTax() + deductions.getTax().getIncomeTax() + deductions.getProvidentFund();
 		netPay = totalEarning - totalDeductions;
-
-		Taxes tax = new Taxes();
-		tax.setIncomeTax(taxService.caculateIncomeTax(totalEarning));
-		tax.setProfessionalTax(taxService.calculateProfessionalTax(totalEarning));
-
-		Deductions deduction = new Deductions();
-		deduction.setTax(tax);
 
 		Salary salary = new Salary();
 		salary.setEarnings(earnings);
 		salary.setNetPay(netPay);
-		salary.setDeductions(deduction);
+		salary.setDeductions(deductions);
 
 		return salary;
 

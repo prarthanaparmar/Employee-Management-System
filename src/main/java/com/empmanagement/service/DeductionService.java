@@ -4,6 +4,6 @@ import com.empmanagement.domain.Deductions;
 
 public interface DeductionService {
 
-	public Deductions getTotalDeductions();
+	public Deductions getTotalDeductions(double totalEarnings);
 	
 }
