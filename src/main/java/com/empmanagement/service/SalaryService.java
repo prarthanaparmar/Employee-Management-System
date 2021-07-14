@@ -1,7 +1,5 @@
 package com.empmanagement.service;
 
-import org.springframework.stereotype.Service;
-
 import com.empmanagement.domain.Salary;
 
 public interface SalaryService {
