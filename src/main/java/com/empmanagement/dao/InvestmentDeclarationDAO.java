@@ -14,5 +14,4 @@ public interface InvestmentDeclarationDAO {
  */
 	public InvestmentDeclaration getInvestmentDeclaration(Long empId);
 	
-	public double getBasicSalary(Long empId);
 }

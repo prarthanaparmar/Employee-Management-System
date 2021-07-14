@@ -16,29 +16,26 @@ public class InvestmentDeclarationDAOImpl implements InvestmentDeclarationDAO {
 	String dbSaveStatus;
 	InvestmentDeclaration investment = null;
 
-/*
- * Gets the employee's investment declaration from database
- */
+	/*
+	 * Gets the employee's investment declaration from database
+	 */
 	@Override
 	public InvestmentDeclaration getInvestmentDeclaration(Long empId) {
-		
+
 		try {
 
 			investment = jdbcTemplate.queryForObject(
 					"SELECT homeLoanInterest, lifeInsuranceInvestment, mutualFundInvestment FROM investment_declaration where empId = ?",
-					(rs, rowNum) ->
-	                new InvestmentDeclaration(
-	                        rs.getLong("homeLoanInterest"),
-	                        rs.getLong("lifeInsuranceInvestment"),
-	                        rs.getLong("mutualFundInvestment")
-	                ), empId);
-			
-		} catch (EmptyResultDataAccessException e) { 
-			
-			investment = new InvestmentDeclaration(0,0,0);
-			
+					(rs, rowNum) -> new InvestmentDeclaration(rs.getLong("homeLoanInterest"),
+							rs.getLong("lifeInsuranceInvestment"), rs.getLong("mutualFundInvestment")),
+					empId);
+
+		} catch (EmptyResultDataAccessException e) {
+
+			investment = new InvestmentDeclaration(0, 0, 0);
+
 		}
-		
+
 		catch (Exception e) {
 
 			System.err.println(e);
@@ -71,20 +68,4 @@ public class InvestmentDeclarationDAOImpl implements InvestmentDeclarationDAO {
 		return dbSaveStatus;
 	}
 
-	@Override
-	public double getBasicSalary(Long empId) {
-		double basic = 0;
-		try {
-
-			basic = jdbcTemplate.queryForObject(
-					"SELECT salary.basic FROM salary INNER JOIN employee ON employee.grade = salary.grade where employee.empId = ?  ",
-					Double.class, empId);
-
-		} catch (Exception e) {
-
-			System.err.println(e);
-		}
-
-		return basic;
-	}
 }
