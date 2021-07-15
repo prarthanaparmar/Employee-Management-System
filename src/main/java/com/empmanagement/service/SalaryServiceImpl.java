@@ -30,8 +30,8 @@ public class SalaryServiceImpl implements SalaryService {
 	@Override
 	public Salary getSalaryForEmployee(Long empId) {
 
-		earnings = earningService.calculateTotalEarnings(getBasicPayForEmployee(empId));
-		totalEarning = earnings.getBasic() + earnings.getHra() + earnings.getAllowances();
+		earnings = earningService.calculateTotalEarnings(getBasicPayForEmployee(empId), empId);
+		totalEarning = earnings.getBasic() + earnings.getHra() + earnings.getAllowances() + earnings.getShiftAllowance();
 
 		Deductions deductions = deductionService.getTotalDeductions(totalEarning);
 		totalDeductions = deductions.getTax().getProfessionalTax() + deductions.getTax().getIncomeTax() + deductions.getProvidentFund();
