@@ -16,8 +16,8 @@ public class DeductionServiceImpl implements DeductionService {
 	double professionalTax = 0;
 
 	@Override
-	public Deductions getTotalDeductions(double totalEarnings) {
-		incomeTax = taxService.caculateIncomeTax(totalEarnings);
+	public Deductions getTotalDeductions(Long empId, double totalEarnings) {
+		incomeTax = taxService.caculateIncomeTax(empId, totalEarnings);
 		professionalTax = taxService.calculateProfessionalTax(totalEarnings);
 
 		Taxes totalTaxes = new Taxes();

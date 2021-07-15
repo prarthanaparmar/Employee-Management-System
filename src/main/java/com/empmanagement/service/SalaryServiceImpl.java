@@ -33,7 +33,7 @@ public class SalaryServiceImpl implements SalaryService {
 		earnings = earningService.calculateTotalEarnings(getBasicPayForEmployee(empId), empId);
 		totalEarning = earnings.getBasic() + earnings.getHra() + earnings.getAllowances() + earnings.getShiftAllowance();
 
-		Deductions deductions = deductionService.getTotalDeductions(totalEarning);
+		Deductions deductions = deductionService.getTotalDeductions(empId, totalEarning);
 		totalDeductions = deductions.getTax().getProfessionalTax() + deductions.getTax().getIncomeTax() + deductions.getProvidentFund();
 		netPay = totalEarning - totalDeductions;
 
