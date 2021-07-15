@@ -4,6 +4,10 @@ public class Salary {
 	Earnings earnings;
 	Deductions deductions;
 	double netPay;
+	
+	public Salary() {
+		
+	}
 
 	public Salary(Earnings earnings, Deductions deductions, double netPay) {
 
