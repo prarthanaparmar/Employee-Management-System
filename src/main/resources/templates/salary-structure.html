@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+<h1> My Salary and Payslip </h1>
+<a th:href="@{/ems/home}"> Go to Home Page </a> |
+<a th:href="@{/ems/logout}"> Log Out </a>
+    
+    <div>
+          <table>
+            <tr>
+              <th>Earnings</th>
+              <th>Amount</th>
+              <th>Deductions</th>
+              <th>Amount</th>
+
+            </tr>
+            <tr>
+              <td>Basic</td>
+              <td th:text="${salary.earnings.basic}"></td>
+              <td>Income Tax</td>
+              <td th:text="${salary.deductions.tax.incomeTax}"></td>
+              
+            </tr>
+            
+            <tr>
+              <td>House Rent Allowance</td>
+              <td th:text="${salary.earnings.hra}"></td>
+              <td>Professional Tax</td>
+              <td th:text="${salary.deductions.tax.professionalTax}"></td>
+              
+            </tr>
+            <tr>
+            <td>Special Allowance</td>
+              <td th:text="${salary.earnings.allowances}"></td>
+            </tr>
+
+          </table>
+          
+         <p> <b><label style="width: 100px;display: inline-block;font-family: cursive;font-size: larger;" > Net Pay </label> <label style="width: 100px;display: inline-block;font-family: cursive;font-size: larger;"> <span th:text="${salary.netPay}"></span></label> </p>
+        </div>
+    <div th:if="${error}" style="background-color:pink; width:fit-content; font-size:20px;" th:text="${error}"/> </div>
+
+</body>
+
+</html>

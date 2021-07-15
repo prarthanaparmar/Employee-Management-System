@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+<h1> My Investment Declaration </h1>
+<a th:href="@{/ems/home}"> Go to Home Page </a> |
+<a th:href="@{/ems/logout}"> Log Out </a>
+    
+    <div>
+          <table>
+            <tr>
+              <th>Investment Declaration</th>
+              <th>Amount</th>
+
+            </tr>
+            <tr>
+              <td>Home Loan Interest</td>
+              <td th:text="${investment.homeLoanInterest}"></td>
+              
+            </tr>
+            
+            <tr>
+              <td>Life Insurance Premium</td>
+              <td th:text="${investment.lifeInsuranceInvestment}"></td>
+              
+            </tr>
+            <tr>
+            <td>Mutual Fund</td>
+              <td th:text="${investment.mutualFundInvestment}"></td>
+            </tr>
+
+          </table>
+          
+         <p> <b><label style="width: 400px;display: inline-block;font-family: cursive;font-size: larger;" > <a th:href="@{/ems/edit-investmentdeclaration}"> Update Investment Declaration </a> </label> </p>
+        </div>
+    <div th:if="${error}" style="background-color:pink; width:fit-content; font-size:20px;" th:text="${error}"/> </div>
+
+</body>
+
+</html>
