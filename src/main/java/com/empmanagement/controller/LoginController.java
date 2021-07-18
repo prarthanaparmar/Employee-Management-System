@@ -53,7 +53,6 @@ public class LoginController {
 			redirectAttribute.addFlashAttribute("error", "Password provided by you is incorrect, Please try again.");
 			return "redirect:/ems/login";
 		}
-
 	}
 
 	@GetMapping("/ems/home")

@@ -1,5 +1,5 @@
 package com.empmanagement.service;
-
+import com.empmanagement.domain.EmployeeDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +11,8 @@ public class LoginService {
 
 	@Autowired
 	LoginDAO loginDao;
+	@Autowired
+	private EmployeeDetail employeeDetail;
 
 	boolean doesPasswordMatch;
 
@@ -20,7 +22,6 @@ public class LoginService {
 		if (password.equals(savedPassword)) {
 
 			doesPasswordMatch = true;
-
 			System.out.println("Password Matches");
 
 		} else {
