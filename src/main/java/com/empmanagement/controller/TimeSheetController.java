@@ -1,8 +1,8 @@
 package com.empmanagement.controller;
 
-import com.empmanagement.domain.EmployeeDetail;
 import com.empmanagement.domain.TimeSheetDetail;
 import com.empmanagement.service.TimeSheetService;
+import com.empmanagement.service.TimeSheetServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class TimeSheetController {
+
     @Autowired
     TimeSheetService timeSheetService;
 
@@ -22,11 +23,15 @@ public class TimeSheetController {
         Long employeeId = (Long) session.getAttribute("EMP_ID");
         System.out.println("For employee id :"+employeeId);
 
-        model.addAttribute("timesheet",timeSheetService.getTimeSheetDetails(employeeId.toString()));
-        model.addAttribute("totalhours",timeSheetService.getHoursWorked(employeeId.toString()));
-        model.addAttribute("totalhours_week",timeSheetService.getCurrentWeekDetail(employeeId.toString()));
-        model.addAttribute("totalhours_month",timeSheetService.getCurrentMonthDetail(employeeId.toString()));
+        model.addAttribute("timesheet", timeSheetService.getTimeSheetDetails(employeeId.toString()));
+        model.addAttribute("totalhours", timeSheetService.getHoursWorked(employeeId.toString()));
+        model.addAttribute("totalhours_week", timeSheetService.getCurrentWeekDetail(employeeId.toString()));
+        model.addAttribute("totalhours_month", timeSheetService.getCurrentMonthDetail(employeeId.toString()));
+        if(timeSheetService.getLimit(employeeId.toString())){
+            model.addAttribute("limit","Your weekly time exceeds 40 hours. Please report to your manager for this.");
+        }
 
+        model.addAttribute("future_timesheet", timeSheetService.getFutureTimeSheetDetails(employeeId.toString()));
         return "timesheet";
     }
 
