@@ -4,7 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-
+<form method="post" th:action="@{/ems/timeSheet}" th:object="${timeSheet}">
+</form>
 <div th:if="${ not#lists.isEmpty(timesheet)}">
     <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Hello !!  '" />
     <table>
@@ -22,9 +23,13 @@
             <td th:text="${t.end_time}"></td>
             <td th:text="${t.hours_worked}"></td>
         </tr>
-        <table>
+        </table>
             <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your total worked hours are:'" />
-            <div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${totalhours}"/> </div>
+            <div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${totalhours}"/>
+    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your total weekly worked hours are:'" />
+    <div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${totalhours_week}"/>
+    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your total monthly worked hours are:'" />
+    <div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${totalhours_month}"/>
 </div>
 </body>
 </html>

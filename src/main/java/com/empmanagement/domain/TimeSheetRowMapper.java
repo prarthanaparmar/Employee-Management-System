@@ -1,8 +1,6 @@
 package com.empmanagement.domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -18,6 +16,7 @@ public class TimeSheetRowMapper implements RowMapper<TimeSheetDetail> {
         System.out.println(rs.getString("start_time"));
         System.out.println(rs.getString("end_time"));
         System.out.println(rs.getString("empId"));
+
         timeSheetDetail.setDate(rs.getString("date"));
         timeSheetDetail.setDay(rs.getString("day"));
         timeSheetDetail.setStart_time(rs.getString("start_time"));
