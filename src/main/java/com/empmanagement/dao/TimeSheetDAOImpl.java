@@ -19,38 +19,30 @@ public class TimeSheetDAOImpl implements TimeSheetDAO{
     @Override
     public List<TimeSheetDetail> getTimeSheetDetail(String empId) {
 
-        String sql="Select * from timesheet_employee where empId ="+empId;
+        String sql="Select * from timesheet_employee t where t.empId ="+empId+ " and t.date<=localtime()";
         List<TimeSheetDetail> timeSheet= jdbcTemplate.query(sql, new TimeSheetRowMapper());
+        return timeSheet;
+    }
 
-        for(TimeSheetDetail t:timeSheet){
-            System.out.println("Date is " +t.getDate());
-        }
-        System.out.println("-----------------");
+    @Override
+    public List<TimeSheetDetail> getFutureTimeSheetDetail(String empId){
+        String sql="Select * from timesheet_employee t where t.empId ="+empId+ " and t.date>localtime()";
+        List<TimeSheetDetail> timeSheet= jdbcTemplate.query(sql, new TimeSheetRowMapper());
         return timeSheet;
     }
 
     @Override
     public List<TimeSheetDetail> getCurrentMonthDetail(String empId) {
-
-        String sql="Select * from timesheet_employee t where empId = ? AND month(t.date)=Month(localtime()) AND year(t.date)=year(localtime())";
+        String sql="Select * from timesheet_employee t where t.empId = ? AND month(t.date)=Month(localtime()) AND year(t.date)=year(localtime())"+ " and t.date<=localtime()";
         List<TimeSheetDetail> timeSheet= jdbcTemplate.query(sql,new Object[] {empId}, new TimeSheetRowMapper());
-
-        for(TimeSheetDetail t:timeSheet){
-            System.out.println("Date is " +t.getDate());
-        }
         return timeSheet;
     }
 
     @Override
     public List<TimeSheetDetail> getCurrentWeekDetail(String empId) {
 
-        String sql="Select * from timesheet_employee t where empId = ? AND week(date)=week(localtime()) AND year(t.date)=year(localtime())";
+        String sql="Select * from timesheet_employee t where t.empId = ? AND week(t.date)=week(localtime()) AND year(t.date)=year(localtime())"+ " and t.date<=localtime()";
         List<TimeSheetDetail> timeSheet= jdbcTemplate.query(sql,new Object[] {empId}, new TimeSheetRowMapper());
-
-        for(TimeSheetDetail t:timeSheet){
-            System.out.println("Date is " +t.getDate());
-        }
-        System.out.println("-----------------");
         return timeSheet;
     }
 }

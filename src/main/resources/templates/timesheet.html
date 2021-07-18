@@ -7,7 +7,7 @@
 <form method="post" th:action="@{/ems/timeSheet}" th:object="${timeSheet}">
 </form>
 <div th:if="${ not#lists.isEmpty(timesheet)}">
-    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Hello !!  '" />
+    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your current time sheet'" />
     <table>
         <tr>
             <th>Date</th>
@@ -24,12 +24,30 @@
             <td th:text="${t.hours_worked}"></td>
         </tr>
         </table>
+    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your scheduled shift details are'" />
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Day</th>
+            <th>Start time</th>
+            <th>End time</th>
+            <th>Hours worked</th>
+        </tr>
+        <tr th:each="t : ${future_timesheet}">
+            <td th:text="${t.date}"></td>
+            <td th:text="${t.day}"></td>
+            <td th:text="${t.start_time}"></td>
+            <td th:text="${t.end_time}"></td>
+            <td th:text="${t.hours_worked}"></td>
+        </tr>
+    </table>
             <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your total worked hours are:'" />
             <div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${totalhours}"/>
     <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your total weekly worked hours are:'" />
     <div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${totalhours_week}"/>
     <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your total monthly worked hours are:'" />
-    <div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${totalhours_month}"/>
+    <div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${totalhours_month}"/><br/>
+    <div th:if="${limit}" style="background-color:pink; width:fit-content; font-size:20px;" th:text="${limit}"/> </div>
 </div>
 </body>
 </html>

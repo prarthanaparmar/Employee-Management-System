@@ -8,6 +8,7 @@ import java.util.List;
 @Component
 public interface TimeSheetDAO {
     List<TimeSheetDetail> getTimeSheetDetail(String empId);
+    List<TimeSheetDetail> getFutureTimeSheetDetail(String empId);
     List<TimeSheetDetail> getCurrentMonthDetail(String empId);
     List<TimeSheetDetail> getCurrentWeekDetail(String empId);
 }
