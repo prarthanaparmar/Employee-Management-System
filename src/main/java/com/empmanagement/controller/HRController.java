@@ -11,13 +11,19 @@ import com.empmanagement.dao.EmpregisterDAO;
 import com.empmanagement.dao.EmpregisterDAOImpl;
 import com.empmanagement.service.EmpReg;
 import com.empmanagement.service.EmpRegImpl;
+import com.empmanagement.service.ReimbursementService;
+import com.empmanagement.service.ReimbursementServiceImpl;
 
 @Controller
 public class HRController {
 
 	@Autowired
 	private EmpregisterDAO empRegDao = new EmpregisterDAOImpl();
+	@Autowired
 	private EmpReg empreg = new EmpRegImpl();
+	@Autowired
+	private ReimbursementService reimburseservice =  new ReimbursementServiceImpl();
+
 	
 	@GetMapping("ems/hr-homescreen")
 	public String hrhomescreen() {
@@ -51,4 +57,17 @@ public class HRController {
 		return "redirect:/ems/employee-registration";
 	}
 
+	@GetMapping("/ems/reimbursement-approval")
+	public String reimbursementapproval() {
+		return "reimbursement-approval";
+	}
+	
+	@PostMapping("/ems/reimbursement-approval/submit")
+	public String reimburseApproval(RedirectAttributes redirectAttribute,
+			Model model) {
+		
+		reimburseservice.getAllRequests();
+		
+		return "redirect:/ems/reimburement-approval";
+	}
 }
