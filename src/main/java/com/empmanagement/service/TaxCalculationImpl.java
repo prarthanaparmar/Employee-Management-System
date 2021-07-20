@@ -5,11 +5,16 @@ import org.springframework.stereotype.Service;
 
 import com.empmanagement.domain.InvestmentDeclaration;
 
+/**
+ * This class is the service layer implementation of calculating total taxes
+ * @author Priti Sri Pandey
+ *
+ */
 @Service
-public class TaxCalculationImpl implements TaxCalculationService {
+public class TaxCalculationImpl implements ITaxCalculationService {
 
 	@Autowired
-	InvestmentDeclarationService investmentService;
+	IInvestmentDeclarationService investmentService;
 	
 	double incomeTax = 0;
 	double professionaltax = 0;

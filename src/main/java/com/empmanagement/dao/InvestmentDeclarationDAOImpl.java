@@ -1,7 +1,5 @@
 package com.empmanagement.dao;
 
-import java.sql.ResultSet;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,8 +7,13 @@ import org.springframework.stereotype.Repository;
 
 import com.empmanagement.domain.InvestmentDeclaration;
 
+/**
+ * This is the DAO class to get investment related data from the database
+ * @author Priti Sri Pandey
+ *
+ */
 @Repository
-public class InvestmentDeclarationDAOImpl implements InvestmentDeclarationDAO {
+public class InvestmentDeclarationDAOImpl implements IInvestmentDeclarationDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	String dbSaveStatus;
@@ -54,7 +57,6 @@ public class InvestmentDeclarationDAOImpl implements InvestmentDeclarationDAO {
 			int rowsUpdatedInDBTable = jdbcTemplate.update(
 					"INSERT INTO investment_declaration(empId, homeLoanInterest, lifeInsuranceInvestment, mutualFundInvestment) VALUES (?, ? ,?, ?) ON DUPLICATE KEY UPDATE empId = values(empId), homeLoanInterest = values(homeLoanInterest), lifeInsuranceInvestment = values(lifeInsuranceInvestment), mutualFundInvestment = values(mutualFundInvestment)",
 					empId, homeLoanInterest, lifeInsuranceInvestment, mutualFundInvestment);
-			System.out.println("Successfully updated " + rowsUpdatedInDBTable);
 
 			if (rowsUpdatedInDBTable > 0) {
 				dbSaveStatus = "success";

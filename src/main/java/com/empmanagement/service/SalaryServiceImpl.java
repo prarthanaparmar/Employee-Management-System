@@ -3,7 +3,7 @@ package com.empmanagement.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.empmanagement.dao.SalaryDAO;
+import com.empmanagement.dao.ISalaryDAO;
 import com.empmanagement.domain.Deductions;
 import com.empmanagement.domain.Earnings;
 import com.empmanagement.domain.Salary;
@@ -13,13 +13,13 @@ import com.empmanagement.domain.Taxes;
 public class SalaryServiceImpl implements SalaryService {
 
 	@Autowired
-	EarningCalculationService earningService;
+	IEarningCalculationService earningService;
 
 	@Autowired
-	DeductionService deductionService;
+	IDeductionService deductionService;
 
 	@Autowired
-	SalaryDAO dao;
+	ISalaryDAO dao;
 
 	double basicPay = 0;
 	double totalEarning = 0;

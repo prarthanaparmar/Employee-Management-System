@@ -3,14 +3,14 @@ import com.empmanagement.domain.EmployeeDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.empmanagement.dao.LoginDAO;
+import com.empmanagement.dao.ILoginDAO;
 
 
 @Service
 public class LoginService {
 
 	@Autowired
-	LoginDAO loginDao;
+	ILoginDAO loginDao;
 	@Autowired
 	private EmployeeDetail employeeDetail;
 
