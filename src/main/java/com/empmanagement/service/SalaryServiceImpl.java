@@ -9,8 +9,11 @@ import com.empmanagement.domain.Earnings;
 import com.empmanagement.domain.Salary;
 import com.empmanagement.domain.Taxes;
 
+/**
+ * @author Priti Sri Pandey
+ */
 @Service
-public class SalaryServiceImpl implements SalaryService {
+public class SalaryServiceImpl implements ISalaryService {
 
 	@Autowired
 	IEarningCalculationService earningService;

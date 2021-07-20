@@ -16,6 +16,8 @@ public class EarningCalculationServiceImpl implements IEarningCalculationService
 
 	@Autowired
 	ISalaryDAO salaryDAO;
+	
+	private static final double hraRate = 0.3;
 
 	double hra = 0;
 	double monthlyAllowances = 0;
@@ -43,7 +45,7 @@ public class EarningCalculationServiceImpl implements IEarningCalculationService
 	
 	@Override
 	public double getHRAForEmp(double basicPay) {
-		hra = 0.3 * basicPay;
+		hra = hraRate * basicPay;
 
 		return hra;
 	}

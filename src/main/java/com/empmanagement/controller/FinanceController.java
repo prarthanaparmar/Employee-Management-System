@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.empmanagement.domain.Earnings;
 import com.empmanagement.domain.InvestmentDeclaration;
 import com.empmanagement.domain.Salary;
 import com.empmanagement.service.IInvestmentDeclarationService;
-import com.empmanagement.service.SalaryService;
+import com.empmanagement.service.ISalaryService;
 /**
  * This class is the controller class for finance related operations in the application
  * Handles the request mappings for Investment Declaration and salary calculation
@@ -27,7 +26,7 @@ public class FinanceController {
 	private IInvestmentDeclarationService investmentService;
 
 	@Autowired
-	private SalaryService salaryService;
+	private ISalaryService salaryService;
 
 	@GetMapping("/ems/investmentdeclaration")
 	public String investmentDeclarationForm(HttpSession session, Model model) {

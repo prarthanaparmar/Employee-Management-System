@@ -1,9 +1,12 @@
 package com.empmanagement.domain;
 
+/**
+ * @author Priti Sri Pandey
+ */
 public class Salary {
-	Earnings earnings;
-	Deductions deductions;
-	double netPay;
+	private Earnings earnings;
+	private Deductions deductions;
+	private double netPay;
 	
 	public Salary() {
 		
