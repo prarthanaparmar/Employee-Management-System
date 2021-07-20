@@ -1,8 +1,11 @@
 package com.empmanagement.domain;
 
+/**
+ * @author Priti Sri Pandey
+ */
 public class Taxes {
-	double incomeTax;
-	double professionalTax;
+	private double incomeTax;
+	private double professionalTax;
 
 	public double getIncomeTax() {
 		return incomeTax;

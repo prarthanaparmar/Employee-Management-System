@@ -2,7 +2,10 @@ package com.empmanagement.service;
 
 import com.empmanagement.domain.Salary;
 
-public interface SalaryService {
+/**
+ * @author Priti Sri Pandey
+ */
+public interface ISalaryService {
 
 /*
  * Returns the total salary for an employee

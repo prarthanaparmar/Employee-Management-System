@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>   
+	<title>  
+		Registration Employee 
+	</title>  
+</head>
+<body>
+<a th:href="@{/ems/home}"> Go to Home Page </a>
+<form action="#" th:action="@{/ems/employee-registration/submit}" th:object="${EmployeeDetail}" method="post">
+<h1> Register </h1>
+<label>First Name </label>         
+<input type="text" name="firstname" size="15"/> <br> <br>  
+<label>Last Name </label>         
+<input type="text" name="lastname" size="15"/> <br> <br>
+<label>Email</label>
+<input type="email" id="email" name="email"/> <br> <br>
+<label>Date of Joining</label>
+<input type="date" name="doj" placeholder="yyyy-mm-dd" size="15"/> <br> <br>
+<label>Role </label>         
+<input type="text" name="role" size="15"/> <br> <br>
+<label>Grade </label>         
+<input type="text" name="grade" size="15"/> <br> <br>
+<label>Department Name </label>         
+<input type="text" name="deptname" size="15"/> <br> <br>
+<label>Team </label>         
+<input type="text" name="team" size="15"/> <br> <br>
+<label>DOB </label>         
+<input type="date" name="dob" placeholder="yyyy-mm-dd" size="15"/><br><br>
+<br> <br>    
+<input type="submit" value="Submit" />
+</form>
+
+<div th:if="${success}" style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${success}"/> </div>
+<div th:if="${error}" style="background-color:pink; width:fit-content; font-size:20px;" th:text="${error}"/> </div>
+</body>
+</html>

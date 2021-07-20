@@ -3,14 +3,19 @@ package com.empmanagement.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.empmanagement.dao.InvestmentDeclarationDAO;
+import com.empmanagement.dao.IInvestmentDeclarationDAO;
 import com.empmanagement.domain.InvestmentDeclaration;
 
+/**
+ * This class is the service layer implementation of calculating total investments
+ * @author Priti Sri Pandey
+ *
+ */
 @Service
-public class InvestmentDeclarationServiceImpl implements InvestmentDeclarationService {
+public class InvestmentDeclarationServiceImpl implements IInvestmentDeclarationService {
 
 	@Autowired
-	InvestmentDeclarationDAO investmentDAO;
+	IInvestmentDeclarationDAO investmentDAO;
 	
 	InvestmentDeclaration investment = null;
 	

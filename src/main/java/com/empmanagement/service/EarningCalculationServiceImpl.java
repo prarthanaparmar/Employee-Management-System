@@ -3,14 +3,21 @@ package com.empmanagement.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.empmanagement.dao.SalaryDAO;
+import com.empmanagement.dao.ISalaryDAO;
 import com.empmanagement.domain.Earnings;
 
+/**
+ * This class is the service layer implementation of calculating total earnings
+ * @author Priti Sri Pandey
+ *
+ */
 @Service
-public class EarningCalculationServiceImpl implements EarningCalculationService {
+public class EarningCalculationServiceImpl implements IEarningCalculationService {
 
 	@Autowired
-	SalaryDAO salaryDAO;
+	ISalaryDAO salaryDAO;
+	
+	private static final double hraRate = 0.3;
 
 	double hra = 0;
 	double monthlyAllowances = 0;
@@ -38,7 +45,7 @@ public class EarningCalculationServiceImpl implements EarningCalculationService 
 	
 	@Override
 	public double getHRAForEmp(double basicPay) {
-		hra = 0.3 * basicPay;
+		hra = hraRate * basicPay;
 
 		return hra;
 	}
