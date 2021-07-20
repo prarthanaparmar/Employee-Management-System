@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your scores are:'" />
+<p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Communication Score'" />
+<div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${communicationScore}"/>
+<p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Leadership Score'" />
+<div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${leadershipScore}"/>
+<p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Goals Score'" />
+<div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${goalsScore}"/>
+<p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Other Score'" />
+<div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${otherScore}"/>
+
+<div th:if="${pendingReview}" style="background-color:pink; width:fit-content; font-size:20px;" th:text="${pendingReview}"/> </div>
+
+
+<ul style="text-align: center; font-family: cursive;font-size: larger; list-style-type: none;">
+    <li><a th:href="@{/ems/managerReviews}"> Manage your Manager Reviews </a></li>
+    <li><a th:href="@{/ems/peerReviews}"> Manage your Peer Reviews </a></li>
+</ul>
+
+</body>
+</html>
