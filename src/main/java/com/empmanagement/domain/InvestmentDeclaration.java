@@ -1,10 +1,17 @@
 package com.empmanagement.domain;
 
+/**
+ * @author Priti Sri Pandey
+ */
 public class InvestmentDeclaration {
 
-	Long homeLoanInterest;
-	Long lifeInsuranceInvestment;
-	Long mutualFundInvestment;
+	private static final double HOME_LOAN_MAX_LIMIT = 15000;
+	private static final double LIFE_INSURANCE_MAX_LIMIT = 30000;
+	private static final double MUTUAL_FUND_MAX_LIMIT = 25000;
+	
+	private Long homeLoanInterest;
+	private Long lifeInsuranceInvestment;
+	private Long mutualFundInvestment;
 
 	public InvestmentDeclaration(long homeLoanInterest, long lifeInsuranceInvestment, long mutualFundInvestment) {
 		this.homeLoanInterest = homeLoanInterest;
@@ -17,7 +24,7 @@ public class InvestmentDeclaration {
 	}
 
 	public void setHomeLoanInterest(Long homeLoanInterest) {
-		if (homeLoanInterest < 60000) {
+		if (homeLoanInterest < HOME_LOAN_MAX_LIMIT) {
 			this.homeLoanInterest = homeLoanInterest;
 		}
 	}
@@ -27,7 +34,7 @@ public class InvestmentDeclaration {
 	}
 
 	public void setLifeInsuranceInvestment(Long lifeInsuranceInvestment) {
-		if (lifeInsuranceInvestment < 30000) {
+		if (lifeInsuranceInvestment < LIFE_INSURANCE_MAX_LIMIT) {
 			this.lifeInsuranceInvestment = lifeInsuranceInvestment;
 		}
 
@@ -38,7 +45,7 @@ public class InvestmentDeclaration {
 	}
 
 	public void setMutualFundInvestment(Long mutualFundInvestment) {
-		if (mutualFundInvestment < 25000) {
+		if (mutualFundInvestment < MUTUAL_FUND_MAX_LIMIT) {
 			this.mutualFundInvestment = mutualFundInvestment;
 		}
 	}

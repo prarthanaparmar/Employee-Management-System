@@ -1,6 +1,10 @@
 package com.empmanagement.dao;
 
-public interface SalaryDAO {
+/**
+ * Interface for salary DAO
+ * @author Priti Sri Pandey
+ */
+public interface ISalaryDAO {
 
 	public double getBasicSalary(Long empId);
 	public double getMonthlyAllowance(Long empId);

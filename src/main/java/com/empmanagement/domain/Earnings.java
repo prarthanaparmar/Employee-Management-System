@@ -1,10 +1,13 @@
 package com.empmanagement.domain;
 
+/**
+ * @author Priti Sri Pandey
+ */
 public class Earnings {
-	double basic = 0;
-	double hra = 0;
-	double allowances = 0;
-	double shiftAllowance = 0;
+	private double basic = 0;
+	private double hra = 0;
+	private double allowances = 0;
+	private double shiftAllowance = 0;
 
 	public double getBasic() {
 		return basic;
