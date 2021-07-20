@@ -4,8 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+/**
+ * This class in the data access implementation for fetching and updating salary and allowance related data in the database
+ * @author Priti Sri Pandey
+ *
+ */
 @Repository
-public class SalaryDAOImpl implements SalaryDAO {
+public class SalaryDAOImpl implements ISalaryDAO {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;

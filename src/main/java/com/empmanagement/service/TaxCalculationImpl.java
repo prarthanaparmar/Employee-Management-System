@@ -5,11 +5,25 @@ import org.springframework.stereotype.Service;
 
 import com.empmanagement.domain.InvestmentDeclaration;
 
+/**
+ * This class is the service layer implementation of calculating total taxes
+ * @author Priti Sri Pandey
+ *
+ */
 @Service
-public class TaxCalculationImpl implements TaxCalculationService {
+public class TaxCalculationImpl implements ITaxCalculationService {
 
 	@Autowired
-	InvestmentDeclarationService investmentService;
+	IInvestmentDeclarationService investmentService;
+	
+	private static final double TAX_SLAB_A = 15000;
+	private static final double TAX_SLAB_B = 20000;
+	private static final double TAX_SLAB_C = 30000;
+	
+	private static final double incomeTaxRateA = 0.05;
+	private static final double incomeTaxRateB = 0.1;
+	private static final double incomeTaxRateC = 0.2;
+	private static final double professionalTaxRate = 0.2;
 	
 	double incomeTax = 0;
 	double professionaltax = 0;
@@ -26,14 +40,14 @@ public class TaxCalculationImpl implements TaxCalculationService {
 		
 		totalTaxableEarning = totalEarnings - totalMonthlyInvestment;
 		
-		if(totalTaxableEarning < 15000) {
+		if(totalTaxableEarning < TAX_SLAB_A) {
 			incomeTax = 0;
-		} else if (totalTaxableEarning < 20000 && totalTaxableEarning > 15000) {
-			incomeTax = 0.05 * totalEarnings;
-		} else if (totalTaxableEarning < 30000 && totalTaxableEarning > 20000) {
-			incomeTax = 0.1 * totalTaxableEarning;
+		} else if (totalTaxableEarning < TAX_SLAB_B && totalTaxableEarning > TAX_SLAB_A) {
+			incomeTax = incomeTaxRateA * totalEarnings;
+		} else if (totalTaxableEarning < TAX_SLAB_C && totalTaxableEarning > TAX_SLAB_B) {
+			incomeTax = incomeTaxRateB * totalTaxableEarning;
 		} else {
-			incomeTax = 0.2 * totalTaxableEarning;
+			incomeTax = incomeTaxRateC * totalTaxableEarning;
 		}
 		return incomeTax;
 	}
@@ -41,7 +55,7 @@ public class TaxCalculationImpl implements TaxCalculationService {
 	@Override
 	public double calculateProfessionalTax(double basicSalary) {
 
-		professionaltax = 0.02 * basicSalary;
+		professionaltax = professionalTaxRate * basicSalary;
 		return professionaltax;
 	}
 

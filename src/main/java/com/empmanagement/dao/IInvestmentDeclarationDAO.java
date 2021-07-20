@@ -2,7 +2,11 @@ package com.empmanagement.dao;
 
 import com.empmanagement.domain.InvestmentDeclaration;
 
-public interface InvestmentDeclarationDAO {
+/**
+ * Interface for Investment DAO
+ * @author Priti Sri Pandey
+ */
+public interface IInvestmentDeclarationDAO {
 
 /*
  * Saves the employee investment declaration into database

@@ -1,10 +1,11 @@
 package com.empmanagement.dao;
 
-public interface LoginDAO {
-
-/*
- * Gets the password from database for the employee
+/**
+ * Interface for Login DAO
+ * @author Priti Sri Pandey
  */
+public interface ILoginDAO {
+
 	public String getPasswordFromDatabase(String userName);
 	public Long getEmpIDFromDatabase(String userName);
 
