@@ -51,7 +51,7 @@ public class ReimbursementServiceImpl implements ReimbursementService{
 	
 	public boolean validity(int basic, int reimbAmount) {
 		
-		reimbLimit = basic*0.2;
+		reimbLimit = basic*0.1;
 		if(reimbAmount <= reimbLimit) {
 			return true;
 		}
