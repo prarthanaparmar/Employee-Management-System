@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1> Edit Investment Declaration </h1>
+<a th:href="@{/ems/home}"> Go to Home Page </a> |
+<a th:href="@{/ems/logout}"> Log Out </a>
+
+    <form action="#" th:action="@{/ems/investmentdeclaration/submit}" th:object="${EmployeeDetail}" method="post">
+  <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Employee ID:   ' + ${emp_id}" />
+    	<p> <b><label style="width: 250px;display: inline-block;font-family: cursive;font-size: larger;" > Home Loan Interest:</label><input type="number" min="0" max="60000" field="*{homeLoanInterest}" name="homeLoanInterest" /></p>
+    	<p style="padding-bottom: 30px;"> <b> 
+    	<label style="width: 250px;display: inline-block;font-family: cursive;font-size: larger;"> Life Insurance Premium:</label><input type="number" min="0" max="30000" field="*{lifeInsuranceInvestment}" name="lifeInsuranceInvestment" />
+    	</p>
+    	<p style="padding-bottom: 30px;"> <b> 
+    	<label style="width: 250px;display: inline-block;font-family: cursive;font-size: larger;"> Mutual Fund:</label><input type="number" min="0" max="25000" field="*{mutualFundInvestment}" name="mutualFundInvestment" />
+    	</p>
+        
+        <p><input style="background-color: steelblue;  font-size: 12px;display: inline-block;color: white;padding: 8px 30px;" type="submit" value="Submit" /> 
+        <input style="background-color: lightslategrey;font-size: 12px;display: inline-block;color: white;padding: 8px 30px;" type="reset" value="Reset" /></p>
+        
+    </form>
+    
+    <div th:if="${success}" style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${success}"/> </div>
+    <div th:if="${error}" style="background-color:pink; width:fit-content; font-size:20px;" th:text="${error}"/> </div>
+
+</body>
+
+</html>

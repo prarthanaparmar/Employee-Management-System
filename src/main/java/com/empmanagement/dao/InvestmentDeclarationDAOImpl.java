@@ -1,29 +1,66 @@
 package com.empmanagement.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.empmanagement.domain.InvestmentDeclaration;
+
+/**
+ * This is the DAO class to get investment related data from the database
+ * @author Priti Sri Pandey
+ *
+ */
 @Repository
-public class InvestmentDeclarationDAOImpl implements InvestmentDeclarationDAO {
-    @Autowired
+public class InvestmentDeclarationDAOImpl implements IInvestmentDeclarationDAO {
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	String dbSaveStatus;
+	InvestmentDeclaration investment = null;
 
-/*
- * Saves the employee investment declaration into database
- */
-	public String saveInvestmentDeclaration(Long empId, Long homeLoanInterest, Long lifeInsuranceInvestment, Long mutualFundInvestment) {
+	/*
+	 * Gets the employee's investment declaration from database
+	 */
+	@Override
+	public InvestmentDeclaration getInvestmentDeclaration(Long empId) {
+
+		try {
+
+			investment = jdbcTemplate.queryForObject(
+					"SELECT homeLoanInterest, lifeInsuranceInvestment, mutualFundInvestment FROM investment_declaration where empId = ?",
+					(rs, rowNum) -> new InvestmentDeclaration(rs.getLong("homeLoanInterest"),
+							rs.getLong("lifeInsuranceInvestment"), rs.getLong("mutualFundInvestment")),
+					empId);
+
+		} catch (EmptyResultDataAccessException e) {
+
+			investment = new InvestmentDeclaration(0, 0, 0);
+
+		}
+
+		catch (Exception e) {
+
+			System.err.println(e);
+		}
+		return investment;
+	}
+
+	/*
+	 * Saves the employee investment declaration into database
+	 */
+	public String saveInvestmentDeclaration(Long empId, Long homeLoanInterest, Long lifeInsuranceInvestment,
+			Long mutualFundInvestment) {
 
 		try {
 
 			int rowsUpdatedInDBTable = jdbcTemplate.update(
-					"INSERT INTO investment_declaration(empId, homeLoanInterest, lifeInsuranceInvestment, mutualFundInvestment) VALUES (?, ? ,?, ?)", empId, homeLoanInterest, lifeInsuranceInvestment, mutualFundInvestment);
-			System.out.println("Successfully updated " + rowsUpdatedInDBTable);
+					"INSERT INTO investment_declaration(empId, homeLoanInterest, lifeInsuranceInvestment, mutualFundInvestment) VALUES (?, ? ,?, ?) ON DUPLICATE KEY UPDATE empId = values(empId), homeLoanInterest = values(homeLoanInterest), lifeInsuranceInvestment = values(lifeInsuranceInvestment), mutualFundInvestment = values(mutualFundInvestment)",
+					empId, homeLoanInterest, lifeInsuranceInvestment, mutualFundInvestment);
 
-            if(rowsUpdatedInDBTable > 0) {
-			dbSaveStatus = "success";
-            }
+			if (rowsUpdatedInDBTable > 0) {
+				dbSaveStatus = "success";
+			}
 
 		} catch (Exception e) {
 			System.err.println(e);
@@ -32,4 +69,5 @@ public class InvestmentDeclarationDAOImpl implements InvestmentDeclarationDAO {
 
 		return dbSaveStatus;
 	}
+
 }

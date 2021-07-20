@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p style="font-size: 20px;font-family: monospace; background-color: azure;"
+   th:text="'Please note you can review an employee only once. Submitting review for same person is not allowed again.'"/>
+<p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your submitted reviews are:'"/>
+<div th:if="${ not#lists.isEmpty(reviews)}">
+    <table>
+        <tr>
+            <th>Employee ID</th>
+            <th>Communication Score</th>
+            <th>Goals Score</th>
+            <th>Leadership Score</th>
+            <th>Other Score</th>
+            <th>Date</th>
+        </tr>
+        <tr th:each="t : ${reviews}">
+            <td th:text="${t.empId2}"></td>
+            <td th:text="${t.CommunicationScore}"></td>
+            <td th:text="${t.GoalsScore}"></td>
+            <td th:text="${t.LeadershipScore}"></td>
+            <td th:text="${t.OtherScore}"></td>
+            <td th:text="${t.date}"></td>
+        </tr>
+    </table>
+</div>
+</br>
+<form action="#" th:action="@{/ems/managerReviews}" th:object="${reviewForm}" method="post">
+    <table>
+        <tr>
+            <td>Select Manager:</td>
+            <td>
+                <select name="managers">
+                    <option value=""> --</option>
+                    <option th:each="manager : ${managers}"
+                            th:value="${manager.managerId} + ' ' + ${manager.empName}"
+                            th:text="${manager.managerId} + ' ' + ${manager.empName}"></option>
+                </select></td>
+        </tr>
+        <!--        <tr>-->
+        <!--        <td>Select Manager:</td>-->
+        <!--        <td>-->
+        <!--            <select name="reviews">-->
+        <!--    <option th:each="peer : ${peers}"-->
+        <!--            th:value="${peer.empId}+ ' ' + ${peer.empName}"-->
+        <!--            th:text="${peer.empId}+ ' ' + ${peer.empName}"></option>-->
+        <!--            </select></td>-->
+        <!--        </tr>-->
+        <tr>
+            <td>Skills Score (Out of 10):</td>
+            <td><input type="skillsScore" field="*{skillsScore}" name="skillsScore"/></td>
+        </tr>
+        <tr>
+            <td>Communication Score (Out of 10):</td>
+            <td><input type="communicationScore" field="*{communicationScore}" name="communicationScore"/></td>
+        </tr>
+        <tr>
+            <td>Leadership Score (Out of 10):</td>
+            <td><input type="leadershipScore" field="*{leadershipScore}" name="leadershipScore"/></td>
+        </tr>
+        <tr>
+            <td>Other Score (Out of 10):</td>
+            <td><input type="otherScore" field="*{otherScore}" name="otherScore"/></td>
+        </tr>
+        <!--    <p> <b><label style="width: 100px;display: inline-block;font-family: cursive;font-size: larger;" > Skills Score (Out of 10):</label> <input type="skillsScore" field="*{skillsScore}" name="skillsScore" /></p>-->
+        <!--    <p style="padding-bottom: 30px;"> <b>-->
+        <!--        <label style="width: 102px;display: inline-block;font-family: cursive;font-size: larger;"> Communication Score (Out of 10): </label><input type="communicationScore" field="*{communicationScore}" name="communicationScore" />-->
+        <!--        <label style="width: 102px;display: inline-block;font-family: cursive;font-size: larger;"> Leadership Score (Out of 10): </label><input type="leadershipScore" field="*{leadershipScore}" name="leadershipScore" />-->
+        <!--        <label style="width: 102px;display: inline-block;font-family: cursive;font-size: larger;"> Other Score (Out of 10): </label><input type="otherScore" field="*{otherScore}" name="otherScore" />-->
+        <!--    </p>-->
+    </table>
+    <p><input
+            style="background-color: steelblue;  font-size: 12px;display: inline-block;color: white;padding: 8px 30px;"
+            type="submit" value="Submit"/>
+
+    <div th:if="${success}" style="background-color:palegreen; width:fit-content; font-size:20px;"
+         th:text="${success}"/>
+    </div>
+    <div th:if="${error}" style="background-color:pink; width:fit-content; font-size:20px;" th:text="${error}"/>
+    </div>
+    <div th:if="${managerError}" style="background-color:palegreen; width:fit-content; font-size:20px;"
+         th:text="${managerError}"/>
+    </div>
+    <div th:if="${IncorrectInputError}" style="background-color:pink; width:fit-content; font-size:20px;"
+         th:text="${IncorrectInputError}"/>
+    </div>
+
+</form>
+</body>
+</html>

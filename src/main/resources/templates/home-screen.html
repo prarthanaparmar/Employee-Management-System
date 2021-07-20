@@ -2,21 +2,33 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <style>
+ div {
+  width: 200px;
+},
+div.a {
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+  float: right;
+}
+</style>
 </head>
 <body>
-<h1> Home </h1>
-<a th:href="@{/ems/logout}"> Log Out </a>
-    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Hello !!  '" />
+<h1 style="text-align: center"> Home </h1>
+<a style="float: right; font-family: cursive;font-size: medium; padding-right: 10px" th:href="@{/ems/logout}"> Log Out </a>
+    <h1 style="text-align: center; color: steelblue; font-family: cursive; font-size: 20px;"> Welcome </h1>
     
+<h1 style="text-align: center">Redirection Links</h1>
 
-<h3> Redirection Links: </h3>
-<table>
-<tr>
-<td><a th:href="@{/ems/investmentdeclaration}"> Investment Declaration </a> </td>
-</tr>
-
-</table>
-       
-
+<ul style="text-align: center; font-family: cursive;font-size: larger; list-style-type: none;">
+  <li><a th:href="@{/ems/investmentdeclaration}"> Investment Declaration </a></li>
+  <li><a th:href="@{/ems/salarystructure}"> My CTC Structure </a></li>
+    <li><a th:href="@{/ems/timeSheet}"> Your Time Sheet </a> </li>
+    <li><a th:href="@{/ems/performanceManagement}"> Performance Management Portal </a> </li>
+</ul>
+ 
 </body>
 </html>
