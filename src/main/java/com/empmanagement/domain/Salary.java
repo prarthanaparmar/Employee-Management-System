@@ -10,11 +10,9 @@ public class Salary {
 	}
 
 	public Salary(Earnings earnings, Deductions deductions, double netPay) {
-
 		this.earnings = earnings;
 		this.deductions = deductions;
 		this.netPay = netPay;
-
 	}
 
 	public Earnings getEarnings() {

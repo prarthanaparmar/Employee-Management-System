@@ -1,11 +1,26 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
+    <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<form method="post" th:action="@{/ems/timeSheet}" th:object="${timeSheet}">
-</form>
 <div th:if="${ not#lists.isEmpty(timesheet)}">
     <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your current time sheet'" />
     <table>
