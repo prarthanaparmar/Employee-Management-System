@@ -1,22 +1,10 @@
 variables:
-  # This is a place for you to define variables you can use
-  # later in the script by referring to the variable like so:
-  #   ${EXAMPLE_VARIABLE}
   EXAMPLE_VARIABLE: "Example"
   
 
 image: node:latest
 
 before_script:
-  # Do anything you have to do before your stages below here.
-  # For example, do you need to change permissions on a build folder
-  # or modify a file to insert a variable from your CI config here?
-  # - apt-get update -qy
-  # - apt-get install -y openssh-client
-  # - eval $(ssh-agent -s)
-  # - echo "$PROD_DEPLOY_SSH_KEY" | tr -d '\r' | ssh-add -
-  # - mkdir -p ~/.ssh
-  # - chmod 700 ~/.ssh
 
 stages:
 # These are the three states we want, building the app, testing it by
