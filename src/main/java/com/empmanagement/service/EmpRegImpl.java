@@ -1,23 +1,29 @@
 package com.empmanagement.service;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.empmanagement.dao.EmpregisterDAO;
+import com.empmanagement.dao.IEmpregisterDAO;
 import com.empmanagement.dao.EmpregisterDAOImpl;
 
 @Service
-public class EmpRegImpl implements EmpReg{
+public class EmpRegImpl implements IEmpReg{
 	
 	@Autowired
-	EmpregisterDAO empregdao = new EmpregisterDAOImpl();
+	IEmpregisterDAO empregdao = new EmpregisterDAOImpl();
 	int empId;
 	String username;
-	String capitalLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    String smallLetters = "abcdefghijklmnopqrstuvwxyz";
-    String num = "0123456789";
-    String sp_char = "!@#$%^&*_=+-/.?<>)";
+	static final String capitalLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	static final String smallLetters = "abcdefghijklmnopqrstuvwxyz";
+    static final String num = "0123456789";
+    static final String sp_char = "!@#$%^&*_=+-/.?<>)";
+    static final int num_char_pass = 8;
 
 	public Integer getDeptId(String deptname) {
 		int deptId = empregdao.getDeptId(deptname);	
@@ -47,16 +53,37 @@ public class EmpRegImpl implements EmpReg{
 		return num;
 	}
 	
-	public String getPassword() {
+	public String getPassword() throws NoSuchAlgorithmException {
 		
 		String combined = capitalLetters + smallLetters + num + sp_char;
 		Random random = new Random();
-		char[] password = new char[8];
+		char[] password = new char[num_char_pass];
 		for (int i = 0; i < password.length; i++)
 	        {
 	            password[i] = combined.charAt(random.nextInt(combined.length()));
 	  
 	        }
-		return String.valueOf(password);
+		return toHexString(encryptPass(String.valueOf(password)));
 	}
+	
+	private byte[] encryptPass(String password) throws NoSuchAlgorithmException {
+		
+		 MessageDigest mdigest = MessageDigest.getInstance("SHA-256"); 
+		 return mdigest.digest(password.getBytes(StandardCharsets.UTF_8));
+		 
+	}
+	
+	private String toHexString(byte[] hash) {
+		
+		BigInteger num = new BigInteger(1, hash); 
+		StringBuilder hex = new StringBuilder(num.toString());
+		
+		while (hex.length() < 32) 
+        { 
+            hex.insert(0, '0'); 
+        } 
+  
+        return hex.toString(); 
+	}
+	
 }

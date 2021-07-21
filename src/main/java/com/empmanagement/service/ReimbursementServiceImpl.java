@@ -5,17 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.empmanagement.dao.ReimbursementDao;
+import com.empmanagement.dao.IReimbursementDao;
 import com.empmanagement.dao.ReimbursementDaoImpl;
 import com.empmanagement.domain.ReimbursementDetails;
 
 import ch.qos.logback.core.status.Status;
 
 @Service
-public class ReimbursementServiceImpl implements ReimbursementService{
+public class ReimbursementServiceImpl implements IReimbursementService{
 
 	@Autowired
-	ReimbursementDao reimbursementDao = new ReimbursementDaoImpl();
+	IReimbursementDao reimbursementDao = new ReimbursementDaoImpl();
 	private int baseSalary;
 	private String grade;
 	private double reimbLimit;
@@ -29,7 +29,7 @@ public class ReimbursementServiceImpl implements ReimbursementService{
 		List<ReimbursementDetails> details = reimbursementDao.getReimbursementDetails();
 		for(ReimbursementDetails r:details) {
 			
-			ReimbursementService object = new ReimbursementServiceImpl();
+			IReimbursementService object = new ReimbursementServiceImpl();
 			System.out.print("ReimbursementID:" + r.getReimbursementId());
 			System.out.print("Amount:" + r.getReimbursementAmount());
 			System.out.print("empID:" +  r.getEmployeeId());

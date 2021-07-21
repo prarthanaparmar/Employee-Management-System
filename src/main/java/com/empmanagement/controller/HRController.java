@@ -1,5 +1,6 @@
 package com.empmanagement.controller;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,22 +8,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.empmanagement.dao.EmpregisterDAO;
+import com.empmanagement.dao.IEmpregisterDAO;
 import com.empmanagement.dao.EmpregisterDAOImpl;
-import com.empmanagement.service.EmpReg;
+import com.empmanagement.service.IEmpReg;
 import com.empmanagement.service.EmpRegImpl;
-import com.empmanagement.service.ReimbursementService;
+import com.empmanagement.service.IReimbursementService;
 import com.empmanagement.service.ReimbursementServiceImpl;
 
 @Controller
 public class HRController {
 
 	@Autowired
-	private EmpregisterDAO empRegDao = new EmpregisterDAOImpl();
+	private IEmpregisterDAO empRegDao = new EmpregisterDAOImpl();
 	@Autowired
-	private EmpReg empreg = new EmpRegImpl();
+	private IEmpReg empreg = new EmpRegImpl();
 	@Autowired
-	private ReimbursementService reimburseservice =  new ReimbursementServiceImpl();
+	private IReimbursementService reimburseservice =  new ReimbursementServiceImpl();
 
 	
 	@GetMapping("ems/hr-homescreen")
@@ -42,7 +43,7 @@ public class HRController {
 					@RequestParam(name="grade" , required=true) String grade,@RequestParam(name="deptname", required =true)String deptname,
 					@RequestParam(name="team", required=true)String team,
 					RedirectAttributes redirectAttribute,
-					Model model){	
+					Model model) throws NoSuchAlgorithmException{	
 		
 		String companyEmail = empreg.generateEmail(firstname, lastname);
 		String registerStatus = empRegDao.registerEmp(empreg.getFullName(firstname, lastname),companyEmail,doj,dob,role,grade, empRegDao.getDeptId(deptname),team);

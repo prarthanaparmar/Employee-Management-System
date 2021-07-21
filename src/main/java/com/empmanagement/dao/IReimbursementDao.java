@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.empmanagement.domain.ReimbursementDetails;
 
-public interface ReimbursementDao {
+public interface IReimbursementDao {
 	
 	List<ReimbursementDetails> getReimbursementDetails();
 	String getGrade(int empID);
