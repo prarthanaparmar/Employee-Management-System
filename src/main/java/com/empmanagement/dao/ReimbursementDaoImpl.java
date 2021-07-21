@@ -12,7 +12,7 @@ import com.empmanagement.domain.ReimbursementDetails;
 import com.empmanagement.domain.ReimbursementRowMapper;
 
 @Repository
-public class ReimbursementDaoImpl implements ReimbursementDao {
+public class ReimbursementDaoImpl implements IReimbursementDao {
 	
     @Autowired
     private JdbcTemplate jdbcTemplate;
