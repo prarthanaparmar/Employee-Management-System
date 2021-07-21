@@ -4,8 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+/**
+ * This class in the data access implementation for fetching and updating login and authentication related data in the database
+ * @author Priti Sri Pandey
+ *
+ */
 @Repository
-public class LoginDAOImpl implements LoginDAO {
+public class LoginDAOImpl implements ILoginDAO {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;

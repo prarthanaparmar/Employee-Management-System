@@ -4,12 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+/**
+ * This class in the data access implementation for fetching and updating salary and allowance related data in the database
+ * @author Priti Sri Pandey
+ *
+ */
 @Repository
-public class SalaryDAOImpl implements SalaryDAO {
+public class SalaryDAOImpl implements ISalaryDAO {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	@Override
 	public double getBasicSalary(Long empId) {
 		double basic = 0;
@@ -25,6 +30,42 @@ public class SalaryDAOImpl implements SalaryDAO {
 		}
 
 		return basic;
+	}
+
+	@Override
+	public double getMonthlyAllowance(Long empId) {
+		double monthlyAllowance = 0;
+		try {
+
+			monthlyAllowance = jdbcTemplate.queryForObject("SELECT redeemedMAllowance FROM employee where empId = ?  ",
+					Double.class, empId);
+
+		} catch (NullPointerException e) {
+			monthlyAllowance = 0;
+		} catch (Exception e) {
+
+			System.err.println(e);
+		}
+
+		return monthlyAllowance;
+	}
+
+	@Override
+	public double getShiftAllowance(Long empId) {
+		double shiftAllowance = 0;
+		try {
+
+			shiftAllowance = jdbcTemplate.queryForObject("SELECT shiftAllowance FROM employee where empId = ?  ",
+					Double.class, empId);
+
+		} catch (NullPointerException e) {
+			shiftAllowance = 0;
+		} catch (Exception e) {
+
+			System.err.println(e);
+		}
+
+		return shiftAllowance;
 	}
 
 }

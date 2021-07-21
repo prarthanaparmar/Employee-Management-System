@@ -3,23 +3,26 @@ package com.empmanagement.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.empmanagement.dao.SalaryDAO;
+import com.empmanagement.dao.ISalaryDAO;
 import com.empmanagement.domain.Deductions;
 import com.empmanagement.domain.Earnings;
 import com.empmanagement.domain.Salary;
 import com.empmanagement.domain.Taxes;
 
+/**
+ * @author Priti Sri Pandey
+ */
 @Service
-public class SalaryServiceImpl implements SalaryService {
+public class SalaryServiceImpl implements ISalaryService {
 
 	@Autowired
-	EarningCalculationService earningService;
+	IEarningCalculationService earningService;
 
 	@Autowired
-	DeductionService deductionService;
+	IDeductionService deductionService;
 
 	@Autowired
-	SalaryDAO dao;
+	ISalaryDAO dao;
 
 	double basicPay = 0;
 	double totalEarning = 0;
@@ -30,10 +33,10 @@ public class SalaryServiceImpl implements SalaryService {
 	@Override
 	public Salary getSalaryForEmployee(Long empId) {
 
-		earnings = earningService.calculateTotalEarnings(getBasicPayForEmployee(empId));
-		totalEarning = earnings.getBasic() + earnings.getHra() + earnings.getAllowances();
+		earnings = earningService.calculateTotalEarnings(getBasicPayForEmployee(empId), empId);
+		totalEarning = earnings.getBasic() + earnings.getHra() + earnings.getAllowances() + earnings.getShiftAllowance();
 
-		Deductions deductions = deductionService.getTotalDeductions(totalEarning);
+		Deductions deductions = deductionService.getTotalDeductions(empId, totalEarning);
 		totalDeductions = deductions.getTax().getProfessionalTax() + deductions.getTax().getIncomeTax() + deductions.getProvidentFund();
 		netPay = totalEarning - totalDeductions;
 

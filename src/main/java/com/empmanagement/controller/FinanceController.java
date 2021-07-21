@@ -1,5 +1,7 @@
 package com.empmanagement.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,20 +12,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.empmanagement.dao.InvestmentDeclarationDAO;
-import com.empmanagement.domain.Earnings;
 import com.empmanagement.domain.InvestmentDeclaration;
 import com.empmanagement.domain.Salary;
-import com.empmanagement.service.InvestmentDeclarationService;
-import com.empmanagement.service.SalaryService;
-
+import com.empmanagement.service.IInvestmentDeclarationService;
+import com.empmanagement.service.ISalaryService;
+import com.empmanagement.util.DateUtils;
+/**
+ * This class is the controller class for finance related operations in the application
+ * Handles the request mappings for Investment Declaration and salary calculation
+ * @author Priti Sri Pandey
+ * 
+ */
 @Controller
 public class FinanceController {
 	@Autowired
-	private InvestmentDeclarationService investmentService;
+	private IInvestmentDeclarationService investmentService;
 
 	@Autowired
-	private SalaryService salaryService;
+	private ISalaryService salaryService;
 
 	@GetMapping("/ems/investmentdeclaration")
 	public String investmentDeclarationForm(HttpSession session, Model model) {
@@ -46,8 +52,6 @@ public class FinanceController {
 		if (employeeId == null) {
 			return "redirect:/ems/login";
 		}
-
-		System.out.println(employeeId);
 
 		Long empId = employeeId;
 		model.addAttribute("emp_id", empId);
@@ -83,10 +87,11 @@ public class FinanceController {
 			return "redirect:/ems/login";
 		}
 		Long empId = employeeId;
-
+        Date lastSalDate = DateUtils.getLastDayLastMonth();
 		Salary salary = salaryService.getSalaryForEmployee(empId);
 
 		model.addAttribute("salary", salary);
+		model.addAttribute("salaryDate", lastSalDate);
 
 		model.addAttribute("emp_id", empId);
 		return "salary-structure";
