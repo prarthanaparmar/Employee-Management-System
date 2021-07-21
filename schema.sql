@@ -6,9 +6,9 @@ Create Table employee_leaves(
     endDt date not null,
     leaveType varchar(50) not null,
     reason ENUM('PTO', 'CASUAL', 'SICK') not null,
-    applyDt datetime not null,
-    approveDt datetime,
-    cancelDt datetime
+    applyDt date not null,
+    approveDt date,
+    cancelDt date
 );
 
 -- Employee Leave Balance Table

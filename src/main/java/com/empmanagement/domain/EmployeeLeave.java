@@ -1,7 +1,10 @@
 package com.empmanagement.domain;
 
+import java.time.LocalDate;
+
 /**
- * Data model which represents employee leaves
+ * Data model which represents employee leave
+ * 
  * @author @neelp (Neel Patel)
  */
 public class EmployeeLeave {
@@ -11,87 +14,94 @@ public class EmployeeLeave {
 
     private int leaveId;
     private long empId;
-    private int ptoLeaves;
-    private int casualLeaves;
-    private int sickLeaves;
+    private LocalDate startDt;
+    private LocalDate endDt;
+    private LocalDate applyDt;
+    private String leaveType;
+    private String comment;
+    private LocalDate approveDt;
+    private LocalDate cancelDt;
 
-    public EmployeeLeave(long empId) {
+    public EmployeeLeave(int leaveId, long empId, String leaveType, LocalDate startDt, LocalDate endDt,
+            LocalDate applyDt, LocalDate approveDt, LocalDate cancelDt, String comment) {
         this.empId = empId;
-    }
-
-    /**
-     * Updates PTO leaves balance and return old PTO leaves balance
-     * @param ptoLeaves PTO leave balance
-     * @return old PTO leave balance
-     * @throws IllegalArgumentException if `ptoLeaves` is less than zero
-     */
-    public int setPtoLeaves(int ptoLeaves) {
-        if (ptoLeaves >= 0){
-            int t = this.ptoLeaves;
-            this.ptoLeaves = ptoLeaves;
-            return t;
-        }else{
-            throw new IllegalArgumentException("PTO Leave Balance can't be negative.");
-        }
-    }
-    
-    /**
-     * Updates Casual leaves balance and return old Casual leaves balance
-     * @param casualLeaves Casual leave balance
-     * @return old Casual leave balance
-     * @throws IllegalArgumentException if `casualLeaves` is less than zero
-     */
-    public int setCasualLeaves(int casualLeaves) {
-        if (casualLeaves >= 0){
-            int t = this.casualLeaves;
-            this.casualLeaves = casualLeaves;
-            return t;
-        }else{
-            throw new IllegalArgumentException("Casual Leave Balance can't be negative.");
-        }
-    }
-
-    /**
-     * Updates Sick leaves balance and return old Sick leaves balance
-     * @param sickLeaves Sick leave balance
-     * @return old Sick leave balance
-     * @throws IllegalArgumentException if `sickLeaves` is less than zero
-     */
-    public int setSickLeaves(int sickLeaves) {
-        if (sickLeaves >= 0){
-            int t = this.sickLeaves;
-            this.sickLeaves = sickLeaves;
-            return t;
-        }else{
-            throw new IllegalArgumentException("Sick Leave Balance can't be negative.");
-        }
-    }
-
-    /**
-     * @return PTO Leaves
-     */
-    public int getPtoLeaves(){
-        return this.ptoLeaves;
-    }
-
-    /**
-     * @return Casual Leaves
-     */
-    public int getCasualLeaves(){
-        return this.casualLeaves;
-    }
-    
-    /**
-     * @return Sick Leaves
-     */
-    public int getSickLeaves(){
-        return this.sickLeaves;
+        this.leaveType = leaveType;
+        this.startDt = startDt;
+        this.endDt = endDt;
+        this.applyDt = applyDt;
+        this.leaveId = leaveId;
+        this.comment = comment;
+        this.approveDt = approveDt;
+        this.cancelDt = cancelDt;
     }
 
     /**
      * @return Employee ID
      */
-    public long getEmpId(){
+    public long getEmpId() {
         return this.empId;
+    }
+
+    /**
+     * @return Leave ID
+     */
+    public int getLeaveId() {
+        return this.leaveId;
+    }
+
+    /**
+     * @return Start Date
+     */
+    public LocalDate getStartDt() {
+        return this.startDt;
+    }
+
+    /**
+     * @return End Date
+     */
+    public LocalDate getEndDt() {
+        return this.endDt;
+    }
+
+    /**
+     * @return Apply Date
+     */
+    public LocalDate getApplyDt() {
+        return this.applyDt;
+    }
+
+    /**
+     * @return Apply Date
+     */
+    public LocalDate getApproveDt() {
+        return this.applyDt;
+    }
+    
+    /**
+     * @return Cancel Date
+     */
+    public LocalDate getCancelDt() {
+        return this.cancelDt;
+    }
+
+    /**
+     * @return if leave is approved or not
+     */
+    public boolean isApproved() {
+        return this.approveDt != null;
+    }
+
+    /**
+     * @return leave message
+     */
+    public String getComment() {
+        return this.comment;
+    }
+
+    /**
+     * @return Leave Type
+     */
+    public String getLeaveType() {
+        return this.leaveType;
     }
 }
