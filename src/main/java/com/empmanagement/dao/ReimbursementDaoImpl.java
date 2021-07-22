@@ -2,10 +2,8 @@ package com.empmanagement.dao;
 
 import java.util.List;
 
-import org.attoparser.trace.MarkupTraceEvent.InnerWhiteSpaceTraceEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.empmanagement.domain.ReimbursementDetails;
@@ -16,8 +14,6 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    @Autowired
-    private ReimbursementDetails reimbursementDetails;
 
 	@Override
 	public List<ReimbursementDetails> getReimbursementDetails() {
@@ -33,7 +29,7 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	}
 
 	@Override
-	public String getGrade(int empID) {
+	public String getGrade(Long empID) {
 		try {
 			String sql = "SELECT grade from employee WHERE empID = ?";
 			String grade = jdbcTemplate.queryForObject(sql, String.class, empID);
@@ -62,11 +58,11 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	}
 
 	@Override
-	public String updateReimb(int reimbId, String status) {
+	public String updateReimb(Long empId, String status) {
 		
 		try {		
-			String sql = "UPDATE reimbursement SET status = ? WHERE reimbursementid = ?";
-			int update = jdbcTemplate.update(sql,status,reimbId);
+			String sql = "UPDATE reimbursement SET status = ? WHERE employeeId = ?";
+			int update = jdbcTemplate.update(sql,status,empId);
 			return "success";
 			}
 		catch (Exception e) {
@@ -76,17 +72,31 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	}
 
 	@Override
-	public String getStatus(int reimbID) {
+	public String getStatus(Long empID) {
 		
 		try {
 			String sql = "SELECT status from reimbursement WHERE reimbursementid = ?";
-			String status = jdbcTemplate.queryForObject(sql, String.class,reimbID);
+			String status = jdbcTemplate.queryForObject(sql, String.class,empID);
 			return status;
 		}
 		catch (Exception e) {
 			System.out.print(e);
 		}
 		return "error";	
+	}
+
+	@Override
+	public int updateAllowance(Long empId, int reimburseAmount) {
+		
+		try {
+			String sql = "UPDATE employee SET redeemedMAllowance = ? WHERE empId = ?";
+			int status = jdbcTemplate.update(sql,reimburseAmount,empId);
+			return status;
+		}
+		catch (Exception e) {
+			System.out.print(e);
+		}
+		return 0;
 	}
 	
 }
