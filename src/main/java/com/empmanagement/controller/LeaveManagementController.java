@@ -9,6 +9,7 @@ import com.empmanagement.domain.EmployeeLeave;
 import com.empmanagement.domain.EmployeeLeaveBuilder;
 import com.empmanagement.domain.LeaveBalance;
 import com.empmanagement.service.LeaveManagementService;
+import com.empmanagement.service.NotificationService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LeaveManagementController {
 	@Autowired
 	private LeaveManagementService leaveManagementService;
+
+	@Autowired
+	private NotificationService notificationService;
 
 	private Logger logger = LoggerFactory.getLogger(LeaveManagementController.class);
 
@@ -49,14 +53,26 @@ public class LeaveManagementController {
 	@PostMapping(value = "/ems/leave-management/apply", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public String applyLeave(HttpSession session, Model model, @RequestBody MultiValueMap<String, String> formData) {
 		try {
+			Long employeeId = (Long) session.getAttribute("EMP_ID");
+
+			if (employeeId == null) {
+				return "redirect:/ems/login";
+			}
+
 			EmployeeLeaveBuilder elb = new EmployeeLeaveBuilder();
-			elb.setEmpId((Long) session.getAttribute("EMP_ID"));
+			elb.setEmpId(employeeId);
 			elb.setStartDt(LocalDate.parse(formData.get("startDt").get(0)));
 			elb.setEndDt(LocalDate.parse(formData.get("endDt").get(0)));
 			elb.setLeaveType(formData.get("leaveType").get(0));
 			elb.setComment(formData.get("reason").get(0));
 			elb.setApplyDt(LocalDate.now());
-			leaveManagementService.applyLeave(elb.build());
+
+			if (leaveManagementService.applyLeave(elb.build())) {
+				logger.info("Leave applied successfully");
+				notificationService.createNotification(employeeId, "Leave Applied Successfully");
+			} else {
+				logger.error("Error while leave creation");
+			}
 		} catch (Exception ex) {
 			logger.error("Error occurred while creating a leave, ex: " + ex);
 		}
@@ -66,7 +82,18 @@ public class LeaveManagementController {
 	@GetMapping(value = "/ems/leave-management/cancel")
 	public String cancelLeave(HttpSession session, Model model, @RequestParam("leaveId") int leaveId) {
 		try {
-			leaveManagementService.cancelLeave(leaveId);
+			Long employeeId = (Long) session.getAttribute("EMP_ID");
+
+			if (employeeId == null) {
+				return "redirect:/ems/login";
+			}
+
+			if (leaveManagementService.cancelLeave(leaveId)) {
+				logger.info("Leave canceled successfully");
+				notificationService.createNotification(employeeId, "Leave canceled successfully");
+			} else {
+				logger.error("Error while leave cancellation");
+			}
 		} catch (Exception ex) {
 			logger.error("Error occurred while canceling a leave, ex: " + ex);
 		}
