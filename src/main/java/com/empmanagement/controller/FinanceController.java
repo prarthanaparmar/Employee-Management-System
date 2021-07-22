@@ -1,5 +1,7 @@
 package com.empmanagement.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,37 +12,62 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.empmanagement.dao.InvestmentDeclarationDAO;
-
+import com.empmanagement.domain.InvestmentDeclaration;
+import com.empmanagement.domain.Salary;
+import com.empmanagement.service.IInvestmentDeclarationService;
+import com.empmanagement.service.ISalaryService;
+import com.empmanagement.util.DateUtils;
+/**
+ * This class is the controller class for finance related operations in the application
+ * Handles the request mappings for Investment Declaration and salary calculation
+ * @author Priti Sri Pandey
+ * 
+ */
 @Controller
 public class FinanceController {
 	@Autowired
-	private InvestmentDeclarationDAO investmentDAO;
+	private IInvestmentDeclarationService investmentService;
+
+	@Autowired
+	private ISalaryService salaryService;
 
 	@GetMapping("/ems/investmentdeclaration")
 	public String investmentDeclarationForm(HttpSession session, Model model) {
 		Long employeeId = (Long) session.getAttribute("EMP_ID");
-		
-		if(employeeId == null) {
+
+		if (employeeId == null) {
 			return "redirect:/ems/login";
 		}
 
-		System.out.println(employeeId);
-
 		Long empId = employeeId;
-		model.addAttribute("emp_id", empId);
+		InvestmentDeclaration investment = investmentService.getInvestmentDeclaration(empId);
+		model.addAttribute("investment", investment);
 		return "investment-declaration";
 	}
 
-	@PostMapping("/ems/investmentdeclaration/submit")
-	public String submitInvestmentDeclaration(@RequestParam(name = "empId", required = true) Long empId,
-			@RequestParam(name = "homeLoanInterest", required = true) Long homeLoanInterest,
-			@RequestParam(name = "lifeInsuranceInvestment", required = true) Long lifeInsuranceInvestment,
-			@RequestParam(name = "mutualFundInvestment", required = true) Long mutualFundInvestment,
-			RedirectAttributes redirectAttribute) {
+	@GetMapping("/ems/edit-investmentdeclaration")
+	public String editInvestmentDeclarationForm(HttpSession session, Model model) {
+		Long employeeId = (Long) session.getAttribute("EMP_ID");
 
-		String dbSaveStatus = investmentDAO.saveInvestmentDeclaration(empId, homeLoanInterest, lifeInsuranceInvestment,
-				mutualFundInvestment);
+		if (employeeId == null) {
+			return "redirect:/ems/login";
+		}
+
+		Long empId = employeeId;
+		model.addAttribute("emp_id", empId);
+		return "edit-investment-declaration";
+	}
+
+	@PostMapping("/ems/investmentdeclaration/submit")
+	public String submitInvestmentDeclaration(
+			@RequestParam(name = "homeLoanInterest", required = true, defaultValue = "0") Long homeLoanInterest,
+			@RequestParam(name = "lifeInsuranceInvestment", required = true, defaultValue = "0") Long lifeInsuranceInvestment,
+			@RequestParam(name = "mutualFundInvestment", required = true, defaultValue = "0") Long mutualFundInvestment,
+			RedirectAttributes redirectAttribute, HttpSession session) {
+
+		Long employeeId = (Long) session.getAttribute("EMP_ID");
+		String dbSaveStatus = investmentService.saveInvestmentDeclaration(employeeId, homeLoanInterest,
+				lifeInsuranceInvestment, mutualFundInvestment);
 
 		if (dbSaveStatus.equals("success")) {
 			redirectAttribute.addFlashAttribute("success",
@@ -51,6 +78,23 @@ public class FinanceController {
 		}
 		return "redirect:/ems/investmentdeclaration";
 
+	}
+
+	@GetMapping("/ems/salarystructure")
+	public String getSalaryStructure(HttpSession session, Model model) {
+		Long employeeId = (Long) session.getAttribute("EMP_ID");
+		if (employeeId == null) {
+			return "redirect:/ems/login";
+		}
+		Long empId = employeeId;
+        Date lastSalDate = DateUtils.getLastDayLastMonth();
+		Salary salary = salaryService.getSalaryForEmployee(empId);
+
+		model.addAttribute("salary", salary);
+		model.addAttribute("salaryDate", lastSalDate);
+
+		model.addAttribute("emp_id", empId);
+		return "salary-structure";
 	}
 
 }
