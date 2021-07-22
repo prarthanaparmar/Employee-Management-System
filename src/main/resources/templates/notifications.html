@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 container">
+                <a th:href="@{/ems/home}"> Home </a> / <a href="#"> Notifications </a>
+                <a th:href="@{/ems/logout}"> Log Out </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                    <tr>
+                        <th>Notification ID</th>
+                        <th>Employee ID</th>
+                        <th>Message</th>
+                        <th>Create Date</th>
+                    </tr>
+                    <tr th:each="notification: ${notifications}">
+                        <td th:text="${notification.getNotificationId()}" />
+                        <td th:text="${notification.getEmpId()}" />
+                        <td th:text="${notification.getMessage()}" />
+                        <td th:text="${notification.getCreateDate()}" />
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
