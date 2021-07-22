@@ -22,7 +22,7 @@ Create Table employee_leave_balance(
 -- Employee Notifications
 Create Table employee_notifications(
 	notificationId int(11) primary key auto_increment,
-    empId int(11) unique not null references employee(empId),
+    empId int(11) not null references employee(empId),
     message varchar(5000) not null,
     createDate date not null 
 );
