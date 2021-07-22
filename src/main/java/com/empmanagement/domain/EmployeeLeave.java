@@ -1,6 +1,7 @@
 package com.empmanagement.domain;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 /**
  * Data model which represents employee leave
@@ -74,9 +75,9 @@ public class EmployeeLeave {
      * @return Apply Date
      */
     public LocalDate getApproveDt() {
-        return this.applyDt;
+        return this.approveDt;
     }
-    
+
     /**
      * @return Cancel Date
      */
@@ -85,10 +86,24 @@ public class EmployeeLeave {
     }
 
     /**
-     * @return if leave is approved or not
+     * @return if the leave is taken or not
+     */
+    public boolean isTaken() {
+        return this.startDt.isBefore(LocalDate.now());
+    }
+
+    /**
+     * @return if the leave is approved or not
      */
     public boolean isApproved() {
         return this.approveDt != null;
+    }
+
+    /**
+     * @return if the sleave is approved or not
+     */
+    public boolean isCanceled() {
+        return this.cancelDt != null;
     }
 
     /**
@@ -103,5 +118,28 @@ public class EmployeeLeave {
      */
     public String getLeaveType() {
         return this.leaveType;
+    }
+
+    /**
+     * @return leave length as number of days
+     */
+    public int getLeaveLength() {
+        return Period.between(this.startDt, this.endDt).getDays() + 1;
+    }
+
+    public void cancelLeave(LocalDate cancelDt) {
+        this.cancelDt = cancelDt;
+    }
+
+    public void cancelLeave() {
+        this.cancelLeave(LocalDate.now());
+    }
+
+    public void approveLeave(LocalDate approveDt) {
+        this.approveDt = approveDt;
+    }
+
+    public void approveLeave() {
+        this.approveLeave(LocalDate.now());
     }
 }

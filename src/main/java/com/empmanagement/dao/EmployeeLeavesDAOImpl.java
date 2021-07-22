@@ -1,9 +1,9 @@
 package com.empmanagement.dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.util.List;
 
 import com.empmanagement.domain.EmployeeLeave;
@@ -23,9 +23,9 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 
     private static final String TABLE_NAME = "employee_leaves";
     private static final String QUERY_CREATE = "INSERT INTO " + TABLE_NAME
-            + " (empId, leaveType, startDt, endDt, applyDt, approveDt, cancelDt, reason) values (?, ?, ?, ?, ?, ?, ?)";
+            + " (empId, leaveType, startDt, endDt, applyDt, approveDt, cancelDt, reason) values (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String QUERY_UPDATE = "UPDATE " + TABLE_NAME
-            + " SET leaveType=?, startD=?, endDt=?, applyDt=?, approveDt=?, cancelDt=?, reason=? WHERE leaveId=?";
+            + " SET leaveType=?, startDt=?, endDt=?, applyDt=?, approveDt=?, cancelDt=?, reason=? WHERE leaveId=?";
     private static final String QUERY_GET_BY_LEAVE_ID = "SELECT leaveId, empId, leaveType, startDt, endDt, applyDt, approveDt, cancelDt, reason FROM "
             + TABLE_NAME + " WHERE leaveId=?";
     private static final String QUERY_GET_BY_EMP_ID = "SELECT leaveId, empId, leaveType, startDt, endDt, applyDt, approveDt, cancelDt, reason FROM "
@@ -60,8 +60,21 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
                     ps.setDate(3, Date.valueOf(employeeLeave.getStartDt()));
                     ps.setDate(4, Date.valueOf(employeeLeave.getEndDt()));
                     ps.setDate(5, Date.valueOf(employeeLeave.getApplyDt()));
-                    ps.setDate(6, Date.valueOf(employeeLeave.getApproveDt()));
-                    ps.setDate(7, Date.valueOf(employeeLeave.getCancelDt()));
+
+                    if (employeeLeave.isApproved()) {
+                        ps.setDate(6, Date.valueOf(employeeLeave.getApproveDt()));
+                    } else {
+                        ps.setNull(6, java.sql.Types.NULL);
+                        logger.debug("Leave not approved");
+                    }
+
+                    if (employeeLeave.isCanceled()) {
+                        ps.setDate(7, Date.valueOf(employeeLeave.getCancelDt()));
+                    } else {
+                        ps.setNull(7, java.sql.Types.NULL);
+                        logger.debug("Leave not canceled");
+                    }
+
                     ps.setString(8, employeeLeave.getComment());
 
                     ps.execute();
@@ -85,8 +98,23 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
                     ps.setDate(2, Date.valueOf(employeeLeave.getStartDt()));
                     ps.setDate(3, Date.valueOf(employeeLeave.getEndDt()));
                     ps.setDate(4, Date.valueOf(employeeLeave.getApplyDt()));
-                    ps.setDate(5, Date.valueOf(employeeLeave.getApproveDt()));
-                    ps.setDate(6, Date.valueOf(employeeLeave.getCancelDt()));
+
+                    if (employeeLeave.isApproved()) {
+                        ps.setDate(5, Date.valueOf(employeeLeave.getApproveDt()));
+                    } else {
+                        ps.setNull(5, java.sql.Types.NULL);
+                        logger.debug("Leave not approved");
+                    }
+
+                    if (employeeLeave.isCanceled()) {
+                        ps.setDate(6, Date.valueOf(employeeLeave.getCancelDt()));
+                    } else {
+                        ps.setNull(6, java.sql.Types.NULL);
+                        logger.debug("Leave not canceled");
+                    }
+
+                    // ps.setDate(5, Date.valueOf(employeeLeave.getApproveDt()));
+                    // ps.setDate(6, Date.valueOf(employeeLeave.getCancelDt()));
                     ps.setString(7, employeeLeave.getComment());
                     ps.setInt(8, employeeLeave.getLeaveId());
 

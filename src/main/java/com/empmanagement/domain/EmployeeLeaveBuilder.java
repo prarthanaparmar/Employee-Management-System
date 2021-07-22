@@ -1,8 +1,6 @@
 package com.empmanagement.domain;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 
 public class EmployeeLeaveBuilder {
 
@@ -10,15 +8,17 @@ public class EmployeeLeaveBuilder {
     private long empId;
     private LocalDate startDt;
     private LocalDate endDt;
-    private LocalDateTime applyDt;
+    private LocalDate applyDt;
     private String leaveType;
-    private LocalDateTime approveDt;
-    
+    private String comment;
+    private LocalDate approveDt;
+    private LocalDate cancelDt;
+
     public EmployeeLeaveBuilder() {
         this.leaveId = -1;
     }
-    
-    public EmployeeLeaveBuilder(EmployeeLeave el){
+
+    public EmployeeLeaveBuilder(EmployeeLeave el) {
         this.empId = el.getEmpId();
         this.startDt = el.getStartDt();
         this.endDt = el.getEndDt();
@@ -29,16 +29,16 @@ public class EmployeeLeaveBuilder {
 
     public EmployeeLeaveBuilder setLeaveType(String leaveType) {
         if (EmployeeLeave.LEAVE_TYPE_PTO.equals(leaveType) || EmployeeLeave.LEAVE_TYPE_CASUAL.equals(leaveType)
-            || EmployeeLeave.LEAVE_TYPE_SICK.equals(leaveType)){
-                this.leaveType = leaveType;
+                || EmployeeLeave.LEAVE_TYPE_SICK.equals(leaveType)) {
+            this.leaveType = leaveType;
             return this;
         } else {
             throw new IllegalArgumentException("Invalid leave type.");
         }
     }
-    
+
     public EmployeeLeaveBuilder setStartDt(LocalDate startDt) {
-        if (startDt != null && endDt != null && startDt.isAfter(endDt)){
+        if (startDt != null && endDt != null && startDt.isAfter(endDt)) {
             throw new IllegalArgumentException("Invalid Start date. Start date should be earlier than end date");
         } else {
             this.startDt = startDt;
@@ -54,9 +54,9 @@ public class EmployeeLeaveBuilder {
             return this;
         }
     }
-    
-    public EmployeeLeaveBuilder setStartDt(LocalDateTime applyDt) {
-        if (applyDt != null && approveDt != null && applyDt.isAfter(approveDt)){
+
+    public EmployeeLeaveBuilder setApplyDt(LocalDate applyDt) {
+        if (applyDt != null && approveDt != null && applyDt.isAfter(approveDt)) {
             throw new IllegalArgumentException("Invalid apply date. Apply date should be earlier than approve date");
         } else {
             this.applyDt = applyDt;
@@ -64,7 +64,7 @@ public class EmployeeLeaveBuilder {
         }
     }
 
-    public EmployeeLeaveBuilder setEndDt(LocalDateTime approveDt) {
+    public EmployeeLeaveBuilder setApproveDt(LocalDate approveDt) {
         if (applyDt != null && this.approveDt != null && approveDt.isBefore(applyDt)) {
             throw new IllegalArgumentException("Invalid Apply date. Apply date should be earlier than approve date");
         } else {
@@ -73,31 +73,37 @@ public class EmployeeLeaveBuilder {
         }
     }
 
-    public EmployeeLeaveBuilder setEmpId(long empId){
+    public EmployeeLeaveBuilder setEmpId(long empId) {
         this.empId = empId;
         return this;
     }
 
-    public EmployeeLeaveBuilder setLeaveId(int leaveId){
+    public EmployeeLeaveBuilder setLeaveId(int leaveId) {
         this.leaveId = leaveId;
         return this;
     }
 
-    // public EmployeeLeave build() {
-    //     if (this.isValid()){
-    //         return new EmployeeLeave(empId, leaveType, startDt, endDt, applyDt, leaveId, approveDt);
-    //     } else {
-    //         throw new IllegalStateException("Invalid EmployeeLeaveBuilder state.");
-    //     }
+    public EmployeeLeaveBuilder setComment(String comment) {
+        this.comment = comment;
+        return this;
+    }
 
-    // }
+    public EmployeeLeaveBuilder setCancelDt(LocalDate cancelDt) {
+        this.cancelDt = cancelDt;
+        return this;
+    }
 
     public boolean isValid() {
-        if (this.empId < 0 || this.startDt == null || this.endDt == null || this.applyDt == null || this.leaveType == null){
+        if (this.empId < 0 || this.startDt == null || this.endDt == null || this.applyDt == null
+                || this.leaveType == null) {
             return false;
         } else {
             return true;
         }
+    }
+
+    public EmployeeLeave build() {
+        return new EmployeeLeave(leaveId, empId, leaveType, startDt, endDt, applyDt, approveDt, cancelDt, comment);
     }
 
 }
