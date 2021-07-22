@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.empmanagement.domain.EmployeeLeave;
 import com.empmanagement.domain.Notification;
 
 import org.slf4j.Logger;
