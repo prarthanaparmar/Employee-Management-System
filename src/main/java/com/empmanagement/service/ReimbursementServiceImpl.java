@@ -9,10 +9,8 @@ import com.empmanagement.dao.IReimbursementDao;
 import com.empmanagement.dao.ReimbursementDaoImpl;
 import com.empmanagement.domain.ReimbursementDetails;
 
-import ch.qos.logback.core.status.Status;
-
 @Service
-public class ReimbursementServiceImpl implements IReimbursementService{
+public class ReimbursementServiceImpl implements IReimbursementService {
 
 	@Autowired
 	IReimbursementDao reimbursementDao = new ReimbursementDaoImpl();
@@ -21,42 +19,53 @@ public class ReimbursementServiceImpl implements IReimbursementService{
 	private double reimbLimit;
 	private boolean valid;
 	private String status;
-	private int employeeID;
-	
+	private Long employeeID;
+	private int reimbAmount;
+	static final int REIMBDECLINE = 0;
+	static final double PERC = 0.1;
+	static final String APPROVED = "approved";
+	static final String DECLINED = "declined";
+
 	@Override
 	public void getAllRequests() {
 
 		List<ReimbursementDetails> details = reimbursementDao.getReimbursementDetails();
-		for(ReimbursementDetails r:details) {
-			
+		for (ReimbursementDetails r : details) {
+
 			IReimbursementService object = new ReimbursementServiceImpl();
-			System.out.print("ReimbursementID:" + r.getReimbursementId());
-			System.out.print("Amount:" + r.getReimbursementAmount());
-			System.out.print("empID:" +  r.getEmployeeId());
-			employeeID = r.getEmployeeId();
 			status = r.getStatus();
-			if(status == null) {
+			employeeID = r.getEmployeeId();
+			reimbAmount = r.getReimbursementAmount();
+
+			if (status == null) {
 				grade = reimbursementDao.getGrade(employeeID);
 				baseSalary = reimbursementDao.getBasicSalary(grade);
 				valid = object.validity(baseSalary, r.getReimbursementAmount());
-				if(valid){
-					reimbursementDao.updateReimb(r.getReimbursementId(),"approved");
-					}
-				else {
-					reimbursementDao.updateReimb(r.getReimbursementId(),"declined");
-					}
+				if (valid) {
+					reimbursementDao.updateReimb(employeeID, APPROVED);
+					reimbursementDao.updateApprovedAllowance(employeeID, reimbAmount);
+				} else {
+					reimbursementDao.updateReimb(r.getEmployeeId(), DECLINED);
+					reimbursementDao.updateApprovedAllowance(r.getEmployeeId(), REIMBDECLINE);
 				}
 			}
 		}
-	
+	}
+
 	public boolean validity(int basic, int reimbAmount) {
-		
-		reimbLimit = basic*0.1;
-		if(reimbAmount <= reimbLimit) {
+
+		reimbLimit = basic * PERC;
+		if (reimbAmount <= reimbLimit) {
 			return true;
 		}
-		return false;				
+		return false;
 	}
-	
+
+	@Override
+	public String saveAppliedReimbursement(Long empId, Long appliedReimbursementAmt) {
+
+		String dbSaveStatus = reimbursementDao.updateAppliedReimbursement(empId, appliedReimbursementAmt);
+		return dbSaveStatus;
+	}
 
 }

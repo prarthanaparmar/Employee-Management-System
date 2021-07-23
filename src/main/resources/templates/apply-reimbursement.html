@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1> Apply Reimbursement </h1>
+<a th:href="@{/ems/home}"> Go to Home Page </a> |
+<a th:href="@{/ems/logout}"> Log Out </a>
+
+    <form action="#" th:action="@{/ems/applyreimbursement/submit}" th:object="${ReimbursementDetails}" method="post">
+    	<p> <b><label style="width: 250px;display: inline-block;font-family: cursive;font-size: larger;" > Reimbursement Claim Type:</label><input type="text" /></p>
+    	<p style="padding-bottom: 30px;"> <b> 
+    	<label style="width: 250px;display: inline-block;font-family: cursive;font-size: larger;"> Reimbursement Amount:</label><input style="width: 150px;" type="number" min="0" max="30000" field="*{reimbursementAmount}" name="reimbursementAmount" />
+    	</p>
+        
+        <p><input style="background-color: steelblue;  font-size: 12px;display: inline-block;color: white;padding: 8px 30px;" type="submit" value="Submit Claim" /> 
+        <input style="background-color: lightslategrey;font-size: 12px;display: inline-block;color: white;padding: 8px 30px;" type="reset" value="Reset" /></p>
+        
+    </form>
+    
+    <div th:if="${success}" style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${success}"/> </div>
+    <div th:if="${error}" style="background-color:pink; width:fit-content; font-size:20px;" th:text="${error}"/> </div>
+
+</body>
+
+</html>

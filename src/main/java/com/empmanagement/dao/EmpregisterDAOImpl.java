@@ -14,12 +14,13 @@ public class EmpregisterDAOImpl implements IEmpregisterDAO {
 	String dbupdatestatus;
 	int deptId;
 	String loginupdate;
-	int empId;
+	Long empId;
 	
-	public String registerEmp(String name,String email,Date doj,Date dob, String role,String grade,int deptId,String team) {
+	public String registerEmp(String name,String email,Date doj,Date dob, String role,String grade,int deptId,String team,String status,String personalEmail) {
 		try{
 			int dbupdate = jdbcTemplate.update(
-					"INSERT INTO employee(empName,empEmail,DOJ,DOB,role,grade,deptId,team) values(?,?,?,?,?,?,?,?)",name, email, doj, dob, role, grade, deptId,team);
+					"INSERT INTO employee(empName,empEmail,DOJ,DOB,role,grade,deptId,team,status,personalEmail) values(?,?,?,?,?,?,?,?,?,?)",
+					name, email, doj, dob, role, grade, deptId,team,status,personalEmail);
 			System.out.println("Successfully added values"+dbupdate);
 			dbupdatestatus = "success";
 		}
@@ -41,7 +42,7 @@ public class EmpregisterDAOImpl implements IEmpregisterDAO {
 		return deptId;
 	}
 	
-	public String loginDetails(String username, String password, int empId) {
+	public String loginDetails(String username, String password, Long empId) {
 		try {
 			int update = jdbcTemplate.update("INSERT INTO login(empUsername, empPassword, empId) values (?,?,?)", username, password,empId);
 			System.out.println("Successfully added values"+update);
@@ -55,12 +56,13 @@ public class EmpregisterDAOImpl implements IEmpregisterDAO {
 		
 	}
 	
-	public int getEmpId(String empName, Date DOB) {
+	public Long getEmpId(String empName, Date DOB) {
 		
 		try {
 						
 		     empId = jdbcTemplate.queryForObject("select empId from employee where empName = ? && DOB = ?  ",
-					int.class, empName, DOB);
+					Long.class, empName, DOB);
+		     System.out.println("ID : " + empId);
 			}
 			catch (Exception e){
 				System.out.println(e);
