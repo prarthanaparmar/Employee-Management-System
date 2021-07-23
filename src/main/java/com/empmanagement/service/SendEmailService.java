@@ -1,6 +1,5 @@
 package com.empmanagement.service;
 
-import org.apache.logging.log4j.util.StringBuilderFormattable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -22,7 +21,7 @@ public class SendEmailService implements ISendEmailService {
 
         javaMailSender.send(mesg);	
         
-        System.out.println("MAil sent successfully");	
+        System.out.println("Mail sent successfully");	
 		
 	}
 

@@ -2,6 +2,6 @@ package com.empmanagement.service;
 
 public interface IReimbursementService {
 
-	void getAllRequests();
+	String getAllRequests();
 	boolean validity(int basic, int reimbAmount);
 }

@@ -6,14 +6,13 @@
 	</title>  
 </head>
 <body>
-<a th:href="@{/ems/hr-homescreen}"> Go to Home Page </a>
+<a th:href="@{/ems/hr-homescreen}"> Go to HR Home Page </a>
 <form action="#" th:action="@{/ems/emp-offboarding/submit}" th:object="${EmployeeDetail}" method="post">
 <h1> Enter the details </h1>
 <label> Employee Id </label>         
 <input type="text" name="employeeId" size="15"/> <br> <br> 
 <br> <br>    
-<input type="submit" value="Calculate FNF" />
+<input type="submit" value="Calculate FNF and off board" />
 </form>
-</body>
 </body>
 </html>

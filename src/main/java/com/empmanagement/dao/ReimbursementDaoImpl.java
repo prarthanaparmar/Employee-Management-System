@@ -14,7 +14,12 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
+    
+    private String rowsAffected;
+    private int basic;
+    private String status;
+    private String grade;
+    
 	@Override
 	public List<ReimbursementDetails> getReimbursementDetails() {
 		try {			
@@ -32,14 +37,12 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	public String getGrade(Long empID) {
 		try {
 			String sql = "SELECT grade from employee WHERE empID = ?";
-			String grade = jdbcTemplate.queryForObject(sql, String.class, empID);
-			System.out.print("\n" + grade);
-			return grade;		
+			grade = jdbcTemplate.queryForObject(sql, String.class, empID);	
 		}
 		catch(Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
-		return null;
+		return grade;	
 	}
 
 	@Override
@@ -47,14 +50,13 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 		try {
 				
 			String sql = "SELECT basic from salary WHERE grade = ?";
-			int basic = jdbcTemplate.queryForObject(sql, int.class, grade);
-			System.out.print("\n" + basic);
-			return basic;
+			basic = jdbcTemplate.queryForObject(sql, int.class, grade);
+			
 			}
 		catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
-		return 0;
+		return basic;
 	}
 
 	@Override
@@ -63,12 +65,15 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 		try {		
 			String sql = "UPDATE reimbursement SET status = ? WHERE employeeId = ?";
 			int update = jdbcTemplate.update(sql,status,empId);
-			return "success";
+			if(update > 0) {
+				rowsAffected =  "success";
 			}
-		catch (Exception e) {
-			System.out.print(e);
 		}
-		return "error";	
+		catch (Exception e) {
+			rowsAffected = "error";
+			e.printStackTrace();
+		}
+		return rowsAffected ;	
 	}
 
 	@Override
@@ -76,27 +81,30 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 		
 		try {
 			String sql = "SELECT status from reimbursement WHERE reimbursementid = ?";
-			String status = jdbcTemplate.queryForObject(sql, String.class,empID);
-			return status;
+			status = jdbcTemplate.queryForObject(sql, String.class,empID);
+			
 		}
 		catch (Exception e) {
-			System.out.print(e);
+			e.printStackTrace();
 		}
-		return "error";	
+		return status;	
 	}
 
 	@Override
-	public int updateAllowance(Long empId, int reimburseAmount) {
+	public String updateAllowance(Long empId, int reimburseAmount) {
 		
 		try {
 			String sql = "UPDATE employee SET redeemedMAllowance = ? WHERE empId = ?";
 			int status = jdbcTemplate.update(sql,reimburseAmount,empId);
-			return status;
+			if(status>0) {
+				rowsAffected = "success";
+			}
 		}
 		catch (Exception e) {
-			System.out.print(e);
+			rowsAffected = "error";
+			e.printStackTrace();
 		}
-		return 0;
+		return rowsAffected;
 	}
 	
 }

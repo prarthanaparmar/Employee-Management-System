@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.empmanagement.dao.IOffBoardingDao;
-import com.empmanagement.dao.IReimbursementDao;
-import com.empmanagement.dao.OffBoardingDaoImpl;
-import com.empmanagement.dao.ReimbursementDaoImpl;
 
 @Service
 public class OffBoardingServiceImpl implements IOffBoardingService{
@@ -26,6 +23,7 @@ public class OffBoardingServiceImpl implements IOffBoardingService{
 	private int workedFor;
 	private Date dateOfJoin;
 	static final double GRATUITY = 0.57;
+	private String status;
 	
 	@Override
 	public double calculateFNF(Long empId) {
@@ -37,5 +35,27 @@ public class OffBoardingServiceImpl implements IOffBoardingService{
 		fullAndFinal = workedFor*GRATUITY*monthlySalary;
 		
 		return fullAndFinal;
+	}
+
+	@Override
+	public String offBoardEmp(Long empId) {
+		
+		status = offBoardDao.offBoardEmp(empId);
+		return status;
+		
+	}
+
+	@Override
+	public String disableUser(Long empId) {
+		
+		status = offBoardDao.disableUser(empId);
+		return status;
+	}
+
+	@Override
+	public String getEMail(Long empId) {
+	
+		String mail = offBoardDao.getEMail(empId);
+		return mail;
 	}
 }

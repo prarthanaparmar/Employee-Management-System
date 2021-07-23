@@ -8,54 +8,65 @@ import org.springframework.stereotype.Service;
 import com.empmanagement.dao.IReimbursementDao;
 import com.empmanagement.dao.ReimbursementDaoImpl;
 import com.empmanagement.domain.ReimbursementDetails;
+import com.mysql.cj.conf.BooleanPropertyDefinition.AllowableValues;
 
 @Service
 public class ReimbursementServiceImpl implements IReimbursementService{
 
 	@Autowired
 	IReimbursementDao reimbursementDao = new ReimbursementDaoImpl();
-	private int baseSalary;
-	private String grade;
-	private double reimbLimit;
-	private boolean valid;
-	private String status;
-	private Long employeeID;
-	private int reimbAmount;
+	
 	static final int REIMBDECLINE = 0;
 	static final double PERC = 0.1;
 	static final String APPROVED = "approved";
 	static final String DECLINED = "declined";
+
+	private String updateReim;
+	private String allow;
 	
 	@Override
-	public void getAllRequests() {	
+	public String getAllRequests() {	
 
 		List<ReimbursementDetails> details = reimbursementDao.getReimbursementDetails();
 		for(ReimbursementDetails r:details) {
 			
 			IReimbursementService object = new ReimbursementServiceImpl();
-			status = r.getStatus();
-			employeeID = r.getEmployeeId();	
-			reimbAmount = r.getReimbursementAmount();
+		 	String status = r.getStatus();
+			Long employeeID = r.getEmployeeId();	
+			int reimbAmount = r.getReimbursementAmount();
 			
 			if(status == null){				
-				grade = reimbursementDao.getGrade(employeeID);
-				baseSalary = reimbursementDao.getBasicSalary(grade);
-				valid = object.validity(baseSalary, r.getReimbursementAmount());
+				String grade = reimbursementDao.getGrade(employeeID);
+				int baseSalary = reimbursementDao.getBasicSalary(grade);
+				boolean valid = object.validity(baseSalary, r.getReimbursementAmount());
 				if(valid){					
-					reimbursementDao.updateReimb(employeeID,APPROVED);
-					reimbursementDao.updateAllowance(employeeID,reimbAmount);
+					updateReim = reimbursementDao.updateReimb(employeeID,APPROVED);
+					allow = reimbursementDao.updateAllowance(employeeID,reimbAmount);
+					if(updateReim == "success" && allow == "success") {
+						continue;
+					}
+					else {
+						return "error";
+					}
 					}
 				else {					
-					reimbursementDao.updateReimb(r.getEmployeeId(),DECLINED);
-					reimbursementDao.updateAllowance(r.getEmployeeId(),REIMBDECLINE);
+					updateReim = reimbursementDao.updateReimb(r.getEmployeeId(),DECLINED);
+					allow = reimbursementDao.updateAllowance(r.getEmployeeId(),REIMBDECLINE);
+					if(updateReim == "success" && allow == "success") {
+						continue;
+					}
+					else {
+						return "error";
+					}
 					}
 				}
 			}
+		return "success";
 		}
 	
 	public boolean validity(int basic, int reimbAmount) {
 		
-		reimbLimit = basic*PERC;
+		double reimbLimit = basic*PERC;
 		if(reimbAmount <= reimbLimit) {
 			return true;
 		}
