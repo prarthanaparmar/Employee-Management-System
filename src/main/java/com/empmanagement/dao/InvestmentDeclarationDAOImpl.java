@@ -9,11 +9,18 @@ import com.empmanagement.domain.InvestmentDeclaration;
 
 /**
  * This is the DAO class to get investment related data from the database
+ * 
  * @author Priti Sri Pandey
  *
  */
 @Repository
 public class InvestmentDeclarationDAOImpl implements IInvestmentDeclarationDAO {
+	private static final String QUERY_INVESTMENT_DECLARATION = "SELECT homeLoanInterest, lifeInsuranceInvestment, mutualFundInvestment FROM investment_declaration where empId = ?";
+	private static final String QUERY_SAVE_INVESTMENT_DECLARATION = "INSERT INTO investment_declaration(empId, homeLoanInterest, lifeInsuranceInvestment, mutualFundInvestment)"
+			+ " VALUES (?, ? ,?, ?) ON DUPLICATE KEY "
+			+ "UPDATE empId = values(empId), homeLoanInterest = values(homeLoanInterest), "
+			+ "lifeInsuranceInvestment = values(lifeInsuranceInvestment), mutualFundInvestment = values(mutualFundInvestment)";
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	String dbSaveStatus;
@@ -27,8 +34,7 @@ public class InvestmentDeclarationDAOImpl implements IInvestmentDeclarationDAO {
 
 		try {
 
-			investment = jdbcTemplate.queryForObject(
-					"SELECT homeLoanInterest, lifeInsuranceInvestment, mutualFundInvestment FROM investment_declaration where empId = ?",
+			investment = jdbcTemplate.queryForObject(QUERY_INVESTMENT_DECLARATION,
 					(rs, rowNum) -> new InvestmentDeclaration(rs.getLong("homeLoanInterest"),
 							rs.getLong("lifeInsuranceInvestment"), rs.getLong("mutualFundInvestment")),
 					empId);
@@ -54,9 +60,8 @@ public class InvestmentDeclarationDAOImpl implements IInvestmentDeclarationDAO {
 
 		try {
 
-			int rowsUpdatedInDBTable = jdbcTemplate.update(
-					"INSERT INTO investment_declaration(empId, homeLoanInterest, lifeInsuranceInvestment, mutualFundInvestment) VALUES (?, ? ,?, ?) ON DUPLICATE KEY UPDATE empId = values(empId), homeLoanInterest = values(homeLoanInterest), lifeInsuranceInvestment = values(lifeInsuranceInvestment), mutualFundInvestment = values(mutualFundInvestment)",
-					empId, homeLoanInterest, lifeInsuranceInvestment, mutualFundInvestment);
+			int rowsUpdatedInDBTable = jdbcTemplate.update(QUERY_SAVE_INVESTMENT_DECLARATION, empId, homeLoanInterest,
+					lifeInsuranceInvestment, mutualFundInvestment);
 
 			if (rowsUpdatedInDBTable > 0) {
 				dbSaveStatus = "success";
