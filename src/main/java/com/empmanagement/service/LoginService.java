@@ -1,9 +1,12 @@
 package com.empmanagement.service;
 
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.empmanagement.dao.ILoginDAO;
+import com.empmanagement.util.PasswordEncoder;
 
 /**
  * @author Priti Sri Pandey
@@ -19,11 +22,15 @@ public class LoginService {
 	public boolean validatePassword(String userName, String password) {
 
 		String savedPassword = loginDao.getPasswordFromDatabase(userName);
-		if (password.equals(savedPassword)) {
-			doesPasswordMatch = true;
+		try {
+			if (PasswordEncoder.encodePassword(password).equals(savedPassword)) {
+				doesPasswordMatch = true;
 
-		} else {
-			doesPasswordMatch = false;
+			} else {
+				doesPasswordMatch = false;
+			}
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
 		}
 
 		return doesPasswordMatch;

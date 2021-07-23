@@ -17,7 +17,6 @@ import com.empmanagement.dao.IEmpregisterDAO;
 import com.empmanagement.dao.IOffBoardingDao;
 import com.empmanagement.dao.EmpregisterDAOImpl;
 import com.empmanagement.service.IEmpRegService;
-import com.empmanagement.service.IEncodePassService;
 import com.empmanagement.service.IOffBoardingService;
 import com.empmanagement.service.EmpRegServiceImpl;
 import com.empmanagement.service.IReimbursementService;
@@ -25,6 +24,7 @@ import com.empmanagement.service.ISendEmailService;
 import com.empmanagement.service.OffBoardingServiceImpl;
 import com.empmanagement.service.ReimbursementServiceImpl;
 import com.empmanagement.service.SendEmailService;
+import com.empmanagement.util.PasswordEncoder;
 import com.sun.mail.handlers.message_rfc822;
 
 @Controller
@@ -44,9 +44,6 @@ public class HRController {
 	
 	@Autowired
 	private ISendEmailService sendEmail;
-	
-	@Autowired
-	private IEncodePassService encodeService;
 	
 	@Autowired
 	private IOffBoardingDao offBoardDao;
@@ -86,7 +83,7 @@ public class HRController {
 		registerStatus = empRegDao.registerEmp(empreg.getFullName(firstname, lastname),companyEmail,doj,dob,role,grade, empRegDao.getDeptId(deptname),team,STATUS,email);
 		empId = empRegDao.getEmpId(empreg.getFullName(firstname, lastname), dob);
 		password = empreg.getPassword();
-		encodePass = encodeService.encodePassword(password);
+		encodePass = PasswordEncoder.encodePassword(password);
 		String loginDetails = empRegDao.loginDetails(empreg.getEmpUserName(firstname, lastname), encodePass,empId);
 				
 		if(registerStatus.equals("success") && loginDetails.equals("success")) {

@@ -5,27 +5,31 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
- * This class in the data access implementation for fetching and updating login and authentication related data in the database
+ * This class in the data access implementation for fetching and updating login
+ * and authentication related data in the database
+ * 
  * @author Priti Sri Pandey
  *
  */
 @Repository
 public class LoginDAOImpl implements ILoginDAO {
 
+	private static final String QUERY_GET_PASSWORD = "select empPassword from login where empUsername = ?";
+	private static final String QUERY_EMPID_LOGIN = "select empId from login where empUsername = ?";
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	String empPassword;
 	Long empId;
 
-/*
- * Gets the password from database for the employee
- */
+	/*
+	 * Gets the password from database for the employee
+	 */
 	public String getPasswordFromDatabase(String userName) {
 
 		try {
 
-			empPassword = jdbcTemplate.queryForObject("select empPassword from login where empUsername = ?",
-					String.class, userName);
+			empPassword = jdbcTemplate.queryForObject(QUERY_GET_PASSWORD, String.class, userName);
 
 		} catch (Exception e) {
 
@@ -34,8 +38,7 @@ public class LoginDAOImpl implements ILoginDAO {
 
 		return empPassword;
 	}
-	
-	
+
 	/*
 	 * Gets the empId from database for the userName
 	 */
@@ -43,8 +46,7 @@ public class LoginDAOImpl implements ILoginDAO {
 
 		try {
 
-			empId = jdbcTemplate.queryForObject("select empId from login where empUsername = ?",
-					Long.class, userName);
+			empId = jdbcTemplate.queryForObject(QUERY_EMPID_LOGIN, Long.class, userName);
 
 		} catch (Exception e) {
 
@@ -53,6 +55,5 @@ public class LoginDAOImpl implements ILoginDAO {
 
 		return empId;
 	}
-
 
 }
