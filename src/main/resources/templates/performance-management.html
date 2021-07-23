@@ -5,6 +5,9 @@
 </head>
 <body>
 
+<a th:href="@{/ems/home}"> Go to Home Page </a> |
+<a th:href="@{/ems/logout}"> Log Out </a>
+
 <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your scores are:'" />
 <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Communication Score'" />
 <div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${communicationScore}"/>

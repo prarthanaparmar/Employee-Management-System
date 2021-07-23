@@ -12,10 +12,11 @@ import org.springframework.stereotype.Repository;
  *
  */
 @Repository
-public class LoginDAOImpl implements ILoginDAO {
+public class AuthenticationDAOImpl implements IAuthenticationDAO {
 
 	private static final String QUERY_GET_PASSWORD = "select empPassword from login where empUsername = ?";
 	private static final String QUERY_EMPID_LOGIN = "select empId from login where empUsername = ?";
+	private static final String QUERY_UPDATE_PASSWORD = "UPDATE login SET empPassword = ? WHERE empId = ?";
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -54,6 +55,25 @@ public class LoginDAOImpl implements ILoginDAO {
 		}
 
 		return empId;
+	}
+
+	@Override
+	public String updatePassword(Long empId, String password) {
+		String dbSaveStatus = "error";
+		try {
+
+			int rowsUpdatedInDBTable = jdbcTemplate.update(QUERY_UPDATE_PASSWORD, password, empId);
+
+			if (rowsUpdatedInDBTable > 0) {
+				dbSaveStatus = "success";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			dbSaveStatus = "error";
+		}
+
+		return dbSaveStatus;
 	}
 
 }
