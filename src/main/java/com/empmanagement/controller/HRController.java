@@ -26,12 +26,16 @@ import com.empmanagement.service.ISendEmailService;
 import com.empmanagement.service.OffBoardingServiceImpl;
 import com.empmanagement.service.ReimbursementServiceImpl;
 import com.empmanagement.service.SendEmailService;
+import com.empmanagement.util.PasswordEncoder;
 import com.sun.mail.handlers.message_rfc822;
 
 import ch.qos.logback.core.joran.conditional.IfAction;
 
 @Controller
 public class HRController {
+
+	@Autowired
+	private IEmpregisterDAO empRegDao;
 	
 	@Autowired
 	private IEmpRegService empreg;
@@ -47,7 +51,7 @@ public class HRController {
 	
 	@Autowired
 	private IEncodePassService encodeService;
-	
+
 	
 	private String companyEmail;
 	private String registerStatus;
@@ -61,7 +65,7 @@ public class HRController {
 	private int deptId;
 	static final String STATUS = "active";
 	private String empUserName;
-	
+
 	@GetMapping("ems/hr-homescreen")
 	public String hrhomescreen(HttpSession session, Model model) {
 		Long employeeId = (Long) session.getAttribute("EMP_ID");
@@ -95,11 +99,11 @@ public class HRController {
 		deptId = empreg.getDeptId(deptname);
 		System.out.println("dept "+ deptId);
 		if(deptId == 0) {
-			redirectAttribute.addFlashAttribute("error", "Please enter a valid department");	
+			redirectAttribute.addFlashAttribute("error", "Please enter a valid department");
 			return "redirect:/ems/employee-registration";
 		}
 		else {
-		
+
 			registerStatus = empreg.registerEmp(empreg.getFullName(firstname, lastname),companyEmail,doj,dob,role,grade, deptId,team,STATUS,email);
 			empId = empreg.getEmpId(empreg.getFullName(firstname, lastname), dob);
 			System.out.println(empId);
@@ -113,9 +117,9 @@ public class HRController {
 			empUserName = empreg.getUsername(empId);
 			message = "Hello Welcome Aboard! Your employee Id is: " +String.valueOf(empId) + ", your username is " + empUserName+" ,password: " + password + " and company email: " + companyEmail;
 			subject = "Welcome Onboard" + firstname;
-					
+
 			if(registerStatus.equals("success") && loginDetails.equals("success")) {
-				
+
 				sendEmail.sendMail(subject,message, email);
 				redirectAttribute.addFlashAttribute("success", "The details of new employee have been saved successfully");
 			} else {
@@ -142,12 +146,12 @@ public class HRController {
 		
 		String status = reimburseservice.getAllRequests();
 		if(status == "success" ) {
-			
-			redirectAttribute.addFlashAttribute("success", "Reimbursement approval succeeded");	
+
+			redirectAttribute.addFlashAttribute("success", "Reimbursement approval succeeded");
 			return "redirect:/ems/reimbursement-approval";
 		}
 		else {
-		
+
 			redirectAttribute.addFlashAttribute("error", "Please try again");
 			return "redirect:/ems/reimbursement-approval";
 		}
@@ -181,5 +185,5 @@ public class HRController {
 						
 			return "redirect:/ems/emp-offboarding";	
 	}
-	
+
 }
