@@ -11,7 +11,7 @@ import com.empmanagement.domain.ReimbursementDetails;
 import com.mysql.cj.conf.BooleanPropertyDefinition.AllowableValues;
 
 @Service
-public class ReimbursementServiceImpl implements IReimbursementService{
+public class ReimbursementServiceImpl implements IReimbursementService {
 
 	@Autowired
 	IReimbursementDao reimbursementDao = new ReimbursementDaoImpl();
@@ -28,8 +28,8 @@ public class ReimbursementServiceImpl implements IReimbursementService{
 	public String getAllRequests() {	
 
 		List<ReimbursementDetails> details = reimbursementDao.getReimbursementDetails();
-		for(ReimbursementDetails r:details) {
-			
+		for (ReimbursementDetails r : details) {
+
 			IReimbursementService object = new ReimbursementServiceImpl();
 		 	String status = r.getStatus();
 			Long employeeID = r.getEmployeeId();	
@@ -41,7 +41,7 @@ public class ReimbursementServiceImpl implements IReimbursementService{
 				boolean valid = object.validity(baseSalary, r.getReimbursementAmount());
 				if(valid){					
 					updateReim = reimbursementDao.updateReimb(employeeID,APPROVED);
-					allow = reimbursementDao.updateAllowance(employeeID,reimbAmount);
+					allow = reimbursementDao.updateApprovedAllowance(employeeID,reimbAmount);
 					if(updateReim == "success" && allow == "success") {
 						continue;
 					}
@@ -51,7 +51,7 @@ public class ReimbursementServiceImpl implements IReimbursementService{
 					}
 				else {					
 					updateReim = reimbursementDao.updateReimb(r.getEmployeeId(),DECLINED);
-					allow = reimbursementDao.updateAllowance(r.getEmployeeId(),REIMBDECLINE);
+					allow = reimbursementDao.updateApprovedAllowance(r.getEmployeeId(),REIMBDECLINE);
 					if(updateReim == "success" && allow == "success") {
 						continue;
 					}
@@ -63,15 +63,22 @@ public class ReimbursementServiceImpl implements IReimbursementService{
 			}
 		return "success";
 		}
-	
+
+
 	public boolean validity(int basic, int reimbAmount) {
 		
 		double reimbLimit = basic*PERC;
 		if(reimbAmount <= reimbLimit) {
 			return true;
 		}
-		return false;				
+		return false;
 	}
-	
+
+	@Override
+	public String saveAppliedReimbursement(Long empId, Long appliedReimbursementAmt) {
+
+		String dbSaveStatus = reimbursementDao.updateAppliedReimbursement(empId, appliedReimbursementAmt);
+		return dbSaveStatus;
+	}
 
 }
