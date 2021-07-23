@@ -12,5 +12,5 @@ public interface IReimbursementDao {
 	String getStatus(Long empId);
 	String updateReimb(Long empId, String status);
 	String updateAppliedReimbursement(Long empId, Long appliedReimbursementAmt);
-	int updateApprovedAllowance(Long empId, int reimburseAmount);
+	String updateApprovedAllowance(Long empId, int reimburseAmount);
 }
