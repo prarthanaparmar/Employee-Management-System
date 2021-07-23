@@ -1,7 +1,5 @@
 package com.empmanagement.service;
 
-import java.sql.Date;
-
 public interface IOffBoardingService {
 
 	double calculateFNF(Long empId);

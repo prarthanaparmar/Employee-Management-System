@@ -2,21 +2,17 @@ package com.empmanagement.controller;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.Period;
 
-import javax.security.auth.Subject;
+
 import javax.servlet.http.HttpSession;
 
-import org.apache.logging.log4j.util.StringBuilderFormattable;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.empmanagement.dao.IEmpregisterDAO;
-import com.empmanagement.dao.IOffBoardingDao;
-import com.empmanagement.dao.EmpregisterDAOImpl;
+
 import com.empmanagement.service.IEmpRegService;
 import com.empmanagement.service.IOffBoardingService;
 import com.empmanagement.service.EmpRegServiceImpl;
@@ -26,15 +22,9 @@ import com.empmanagement.service.OffBoardingServiceImpl;
 import com.empmanagement.service.ReimbursementServiceImpl;
 import com.empmanagement.service.SendEmailService;
 import com.empmanagement.util.PasswordEncoder;
-import com.sun.mail.handlers.message_rfc822;
-
-import ch.qos.logback.core.joran.conditional.IfAction;
 
 @Controller
 public class HRController {
-
-	@Autowired
-	private IEmpregisterDAO empRegDao;
 	
 	@Autowired
 	private IEmpRegService empreg;
@@ -47,10 +37,6 @@ public class HRController {
 	
 	@Autowired
 	private ISendEmailService sendEmail;
-	
-	@Autowired
-	private PasswordEncoder encoder;
-
 	
 	private String companyEmail;
 	private String registerStatus;
@@ -107,7 +93,7 @@ public class HRController {
 			empId = empreg.getEmpId(empreg.getFullName(firstname, lastname), dob);
 			System.out.println(empId);
 			password = empreg.getPassword();
-			encodePass = encoder.encodePassword(password);
+			encodePass = PasswordEncoder.encodePassword(password);
 			if(empId == 0){
 				redirectAttribute.addFlashAttribute("error", "Please try again");
 				return "redirect:/ems/employee-registration";
