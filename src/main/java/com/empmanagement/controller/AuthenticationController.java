@@ -1,6 +1,7 @@
 package com.empmanagement.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.empmanagement.service.IAuthenticationService;
+import com.empmanagement.service.IEmployeeDirectoryService;
 
 /**
  * This classes takes care of login and authentication related operations
@@ -23,6 +25,9 @@ public class AuthenticationController {
 
 	@Autowired
 	private IAuthenticationService authenticationService;
+	
+	@Autowired
+	private IEmployeeDirectoryService empDirectoryService;
 
 	@GetMapping("/ems/login")
 	public String loginForm() {
@@ -78,7 +83,15 @@ public class AuthenticationController {
 	}
 
 	@GetMapping("/ems/home")
-	public String homePage() {
+	public String homePage(HttpSession session, Model model) {
+		Long employeeId = (Long) session.getAttribute("EMP_ID");
+
+		if (employeeId == null) {
+			return "redirect:/ems/login";
+		}
+		String empRole = empDirectoryService.getEmployeeRole(employeeId);
+		model.addAttribute("empRole", empRole);
+		
 		return "home-screen";
 	}
 }

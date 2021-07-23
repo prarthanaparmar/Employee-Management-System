@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.empmanagement.domain.EmployeeInfo;
 
-public interface EmployeeInfoDAO {
+public interface IEmployeeInfoDAO {
     
     /**
      * Return filtered list of employees
@@ -23,5 +23,7 @@ public interface EmployeeInfoDAO {
      * @return list of all the dept in the system
      */
     public List<String> getAllDept();
+    
+    public String getEmployeeRole(Long empId);
 
 }
