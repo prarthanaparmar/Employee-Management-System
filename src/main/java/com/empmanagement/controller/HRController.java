@@ -18,7 +18,6 @@ import com.empmanagement.dao.IEmpregisterDAO;
 import com.empmanagement.dao.IOffBoardingDao;
 import com.empmanagement.dao.EmpregisterDAOImpl;
 import com.empmanagement.service.IEmpRegService;
-import com.empmanagement.service.IEncodePassService;
 import com.empmanagement.service.IOffBoardingService;
 import com.empmanagement.service.EmpRegServiceImpl;
 import com.empmanagement.service.IReimbursementService;
@@ -50,7 +49,7 @@ public class HRController {
 	private ISendEmailService sendEmail;
 	
 	@Autowired
-	private IEncodePassService encodeService;
+	private PasswordEncoder encoder;
 
 	
 	private String companyEmail;
@@ -108,7 +107,7 @@ public class HRController {
 			empId = empreg.getEmpId(empreg.getFullName(firstname, lastname), dob);
 			System.out.println(empId);
 			password = empreg.getPassword();
-			encodePass = encodeService.encodePassword(password);
+			encodePass = encoder.encodePassword(password);
 			if(empId == 0){
 				redirectAttribute.addFlashAttribute("error", "Please try again");
 				return "redirect:/ems/employee-registration";
