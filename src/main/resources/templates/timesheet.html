@@ -23,6 +23,9 @@ tr:nth-child(even) {
 <body>
 <a th:href="@{/ems/home}"> Go to Home Page </a> |
 <a th:href="@{/ems/logout}"> Log Out </a>
+<div th:unless="${ not#lists.isEmpty(timesheet)}">
+    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'You do not have any Time Sheet generated yet'" />
+</div>
 <div th:if="${ not#lists.isEmpty(timesheet)}">
     <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your current time sheet'" />
     <table>
@@ -41,6 +44,11 @@ tr:nth-child(even) {
             <td th:text="${t.hours_worked}"></td>
         </tr>
         </table>
+</div>
+<div th:unless="${ not#lists.isEmpty(future_timesheet)}">
+    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'You do not have any scheduled shifts'" />
+</div>
+<div th:if="${ not#lists.isEmpty(future_timesheet)}">
     <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your scheduled shift details are'" />
     <table>
         <tr>
@@ -58,8 +66,10 @@ tr:nth-child(even) {
             <td th:text="${t.hours_worked}"></td>
         </tr>
     </table>
-            <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your total worked hours are:'" />
-            <div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${totalhours}"/>
+</div>
+<div th:if="${ not#lists.isEmpty(timesheet)}">
+    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your total worked hours are:'" />
+    <div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${totalhours}"/>
     <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your total weekly worked hours are:'" />
     <div style="background-color:palegreen; width:fit-content; font-size:20px;" th:text="${totalhours_week}"/>
     <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your total monthly worked hours are:'" />
