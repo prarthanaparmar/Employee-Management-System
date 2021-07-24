@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+
+</head>
+<body>
+<div>
+    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Search Results'+ ${keyword}" />
+    <div>
+        <form th:action="@{/ems/training/search}" method="GET">
+
+            <p> <b><label style="width: 100px;display: inline-block;font-family: cursive;font-size: larger;" > Search training:</label>
+                <input type="text" name="searchkeyword" placeholder="keyword" /></b>
+            </p>
+
+            <p><input style="background-color: steelblue;  font-size: 12px;display: inline-block;color: white;padding: 8px 30px;" type="submit" value="Search" />
+        </form>
+    </div>
+    <div>
+        <div th:if="${keyword == 'Excel'}">
+            <table>
+                <tr>
+                    <th>Course Id</th>
+                    <th>Course Name</th>
+                    <th>Course Type</th>
+                    <th>Certification</th>
+                </tr>
+                <tr>
+                    <td>b001</td>
+                    <td>beginning Excel</td>
+                    <td>Mandatory</td>
+                    <td>yes</td>
+                </tr>
+            </table>
+    </div>
+        <div th:if="${keyword == 'Word'}">
+            <table>
+                <tr>
+                    <th>Course Id</th>
+                    <th>Course Name</th>
+                    <th>Course Type</th>
+                    <th>Certification</th>
+                </tr>
+                <tr>
+                    <td>b008</td>
+                    <td>Advanced Word</td>
+                    <td>Mandatory</td>
+                    <td>yes</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

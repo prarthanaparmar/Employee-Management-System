@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+
+</head>
+<body>
+<div>
+    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your Trainings'" />
+    <table>
+        <tr>
+            <th>CourseId</th>
+            <th>Course name</th>
+            <th>Course Type</th>
+
+        </tr>
+        <tr th:each="t : ${training}">
+            <td th:text="${t.courseId}"></td>
+            <td th:text="${t.coursename}"></td>
+            <td th:text="${t.coursetype}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
