@@ -7,11 +7,11 @@ import com.empmanagement.domain.Salary;
  */
 public interface ISalaryService {
 
-	/*
-	 * Returns the total salary for an employee
-	 */
+/*
+ * Returns the total salary for an employee
+ */
 	public double getBasicPayForEmployee(Long empId);
-
 	public Salary getSalaryForEmployee(Long empId);
+
 
 }

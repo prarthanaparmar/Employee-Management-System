@@ -21,8 +21,7 @@ tr:nth-child(even) {
 </style>
 </head>
 <body>
-<h1> My Monthly Salary and Payslip </h1>
- <p> <b><label style="width: 140px;display: inline-block;font-family: cursive;font-size: larger;" > Salary As of : </label> <label style="width: 100px;display: inline-block;font-family: cursive;font-size: larger;"> <span th:text="${#dates.format(salaryDate, 'dd.MM.yyyy')}"></span></label> </p>
+<h1> My Salary and Payslip </h1>
 <a th:href="@{/ems/home}"> Go to Home Page </a> |
 <a th:href="@{/ems/logout}"> Log Out </a>
     
@@ -51,7 +50,7 @@ tr:nth-child(even) {
               
             </tr>
             <tr>
-            <td>Monthly Reimbursements</td>
+            <td>Special Allowance</td>
               <td th:text="${salary.earnings.allowances}"></td>
             </tr>
             <tr>
