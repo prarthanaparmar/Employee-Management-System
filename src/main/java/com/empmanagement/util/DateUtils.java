@@ -4,12 +4,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtils {
-	public static Date getLastDayLastMonth() {
+	public static Date getTodaysDate() {
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH, -1);
+        calendar.add(Calendar.MONTH, 0);
 
-        int max = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        calendar.set(Calendar.DAY_OF_MONTH, max);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
 
         Date lastSalaryDay = calendar.getTime();
         return lastSalaryDay;
