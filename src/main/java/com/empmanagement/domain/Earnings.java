@@ -1,5 +1,7 @@
 package com.empmanagement.domain;
 
+import com.empmanagement.util.DecimalFormatter;
+
 /**
  * @author Priti Sri Pandey
  */
@@ -14,7 +16,7 @@ public class Earnings {
 	}
 
 	public void setBasic(double basic) {
-		this.basic = basic;
+		this.basic = DecimalFormatter.format(basic);
 	}
 
 	public double getHra() {
@@ -22,7 +24,7 @@ public class Earnings {
 	}
 
 	public void setHra(double hra) {
-		this.hra = hra;
+		this.hra = DecimalFormatter.format(hra);
 	}
 
 	public double getAllowances() {
@@ -30,7 +32,7 @@ public class Earnings {
 	}
 
 	public void setAllowances(double allowances) {
-		this.allowances = allowances;
+		this.allowances = DecimalFormatter.format(allowances);
 	}
 
 	public double getShiftAllowance() {
@@ -38,7 +40,7 @@ public class Earnings {
 	}
 
 	public void setShiftAllowance(double shiftAllowance) {
-		this.shiftAllowance = shiftAllowance;
+		this.shiftAllowance = DecimalFormatter.format(shiftAllowance);
 	}
 
 }

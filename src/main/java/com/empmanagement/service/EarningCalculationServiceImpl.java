@@ -8,6 +8,7 @@ import com.empmanagement.domain.Earnings;
 
 /**
  * This class is the service layer implementation of calculating total earnings
+ * 
  * @author Priti Sri Pandey
  *
  */
@@ -16,7 +17,7 @@ public class EarningCalculationServiceImpl implements IEarningCalculationService
 
 	@Autowired
 	ISalaryDAO salaryDAO;
-	
+
 	private static final double hraRate = 0.3;
 
 	double hra = 0;
@@ -42,7 +43,7 @@ public class EarningCalculationServiceImpl implements IEarningCalculationService
 
 		return monthlyAllowances;
 	}
-	
+
 	@Override
 	public double getHRAForEmp(double basicPay) {
 		hra = hraRate * basicPay;

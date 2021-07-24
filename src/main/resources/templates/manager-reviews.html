@@ -22,10 +22,15 @@ tr:nth-child(even) {
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+<a th:href="@{/ems/home}"> Go to Home Page </a> |
+<a th:href="@{/ems/logout}"> Log Out </a>
 <p style="font-size: 20px;font-family: monospace; background-color: azure;"
    th:text="'Please note you can review an employee only once. Submitting review for same person is not allowed again.'"/>
-<p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your submitted reviews are:'"/>
+<div th:unless="${ not#lists.isEmpty(reviews)}">
+    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'You have not submitted any reviews yet'"/>
+</div>
 <div th:if="${ not#lists.isEmpty(reviews)}">
+    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your submitted reviews are:'"/>
     <table>
         <tr>
             <th>Employee ID</th>
@@ -46,6 +51,17 @@ tr:nth-child(even) {
     </table>
 </div>
 </br>
+<div th:if="${success}" style="background-color:palegreen; width:fit-content; font-size:20px;"
+     th:text="${success}"/>
+</div>
+<div th:if="${error}" style="background-color:pink; width:fit-content; font-size:20px;" th:text="${error}"/>
+</div>
+<div th:if="${managerError}" style="background-color:palegreen; width:fit-content; font-size:20px;"
+     th:text="${managerError}"/>
+</div>
+<div th:if="${IncorrectInputError}" style="background-color:pink; width:fit-content; font-size:20px;"
+     th:text="${IncorrectInputError}"/>
+</div>
 <form action="#" th:action="@{/ems/managerReviews}" th:object="${reviewForm}" method="post">
     <table>
         <tr>
@@ -93,19 +109,9 @@ tr:nth-child(even) {
     <p><input
             style="background-color: steelblue;  font-size: 12px;display: inline-block;color: white;padding: 8px 30px;"
             type="submit" value="Submit"/>
-
-    <div th:if="${success}" style="background-color:palegreen; width:fit-content; font-size:20px;"
-         th:text="${success}"/>
-    </div>
-    <div th:if="${error}" style="background-color:pink; width:fit-content; font-size:20px;" th:text="${error}"/>
-    </div>
-    <div th:if="${managerError}" style="background-color:palegreen; width:fit-content; font-size:20px;"
-         th:text="${managerError}"/>
-    </div>
-    <div th:if="${IncorrectInputError}" style="background-color:pink; width:fit-content; font-size:20px;"
-         th:text="${IncorrectInputError}"/>
-    </div>
-
 </form>
+<ul style="text-align: center; font-family: cursive;font-size: larger; list-style-type: none;">
+    <li><a th:href="@{/ems/performanceManagement}"> Back to Performance Management Page </a></li>
+</ul>
 </body>
 </html>
