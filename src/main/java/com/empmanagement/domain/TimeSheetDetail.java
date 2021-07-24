@@ -7,7 +7,7 @@ public class TimeSheetDetail {
     public TimeSheetDetail() {
     }
 
-    private String empId="",date="",day="",start_time="",end_time="";
+    private String empId,date,day,start_time,end_time;
     private String hours_worked="0";
 
     public String getHours_worked() {

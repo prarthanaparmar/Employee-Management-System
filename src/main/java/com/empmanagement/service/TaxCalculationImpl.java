@@ -23,7 +23,7 @@ public class TaxCalculationImpl implements ITaxCalculationService {
 	private static final double incomeTaxRateA = 0.05;
 	private static final double incomeTaxRateB = 0.1;
 	private static final double incomeTaxRateC = 0.2;
-	private static final double professionalTaxRate = 0.02;
+	private static final double professionalTaxRate = 0.2;
 	
 	double incomeTax = 0;
 	double professionaltax = 0;

@@ -1,9 +1,22 @@
 variables:
+  # This is a place for you to define variables you can use
+  # later in the script by referring to the variable like so:
+  #   ${EXAMPLE_VARIABLE}
   EXAMPLE_VARIABLE: "Example"
   
+
 image: node:latest
 
 before_script:
+  # Do anything you have to do before your stages below here.
+  # For example, do you need to change permissions on a build folder
+  # or modify a file to insert a variable from your CI config here?
+  # - apt-get update -qy
+  # - apt-get install -y openssh-client
+  # - eval $(ssh-agent -s)
+  # - echo "$PROD_DEPLOY_SSH_KEY" | tr -d '\r' | ssh-add -
+  # - mkdir -p ~/.ssh
+  # - chmod 700 ~/.ssh
 
 stages:
 # These are the three states we want, building the app, testing it by
@@ -12,8 +25,7 @@ stages:
   # You will need to define this stage somewhere below.
   - test
   # I will provide this example for you below.
-  - deploy_develop
-  - deploy_prod
+  - deploy
 
 buildStep:
   image: maven:3-jdk-8
@@ -39,34 +51,19 @@ testStep:
   script:
     mvn verify
 
-deployStepDevelop:
-  type: deploy
-  stage: deploy_develop
+deployStep:
+  stage: deploy
   image: ruby:latest
   script:
     - cd /builds/courses/2021-summer/csci-5308/group10/
     - gem install dpl --source http://rubygems.org
-    - dpl --provider=heroku --app=$HEROKU_APP_TEST --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
   environment:
     name: staging
-    url: https://employee-management-g10-test.herokuapp.com/
+    url: https://employee-management-g10.herokuapp.com/
   only:
     - develop
-  tags:
-    - dalfcs_gitlab_docker_ci
-
-deployStepProd:
-  type: deploy
-  stage: deploy_prod
-  image: ruby:latest
-  script:
-    - cd /builds/courses/2021-summer/csci-5308/group10/
-    - gem install dpl --source http://rubygems.org
-    - dpl --provider=heroku --app=$HEROKU_APP_PROD --api-key=$HEROKU_API_KEY
-  environment:
-    name: production
-    url: https://employee-management-g10-prod.herokuapp.com/
-  only:
     - master
   tags:
     - dalfcs_gitlab_docker_ci
+

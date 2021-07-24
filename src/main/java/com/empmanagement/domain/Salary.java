@@ -1,7 +1,5 @@
 package com.empmanagement.domain;
 
-import com.empmanagement.util.DecimalFormatter;
-
 /**
  * @author Priti Sri Pandey
  */
@@ -41,7 +39,7 @@ public class Salary {
 	}
 
 	public void setNetPay(double netPay) {
-		this.netPay = DecimalFormatter.format(netPay);
+		this.netPay = netPay;
 	}
 
 }
