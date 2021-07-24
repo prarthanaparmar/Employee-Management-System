@@ -10,7 +10,7 @@ public class ReimbursementDetails {
 	}
 	
 	int reimbursementId;
-	int employeeId;
+	Long employeeId;
 	int reimbursementAmount;
 	String status;
 	
@@ -26,10 +26,10 @@ public class ReimbursementDetails {
 	public void setReimbursementId(int reimbursementId) {
 		this.reimbursementId = reimbursementId;
 	}
-	public int getEmployeeId() {
+	public Long getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(Long employeeId) {
 		this.employeeId = employeeId;
 	}
 	public int getReimbursementAmount() {
