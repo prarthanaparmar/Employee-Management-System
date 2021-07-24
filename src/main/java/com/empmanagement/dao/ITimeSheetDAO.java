@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public interface TimeSheetDAO {
+public interface ITimeSheetDAO {
     List<TimeSheetDetail> getTimeSheetDetail(String empId);
     List<TimeSheetDetail> getFutureTimeSheetDetail(String empId);
     List<TimeSheetDetail> getCurrentMonthDetail(String empId);

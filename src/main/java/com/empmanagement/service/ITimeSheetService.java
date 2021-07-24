@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface TimeSheetService {
+public interface ITimeSheetService {
     public List<TimeSheetDetail> getTimeSheetDetails(String userId);
     public List<TimeSheetDetail> getFutureTimeSheetDetails(String userId);
     public String getHoursWorked(String userId);

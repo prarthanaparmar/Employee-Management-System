@@ -1,8 +1,7 @@
 package com.empmanagement.controller;
 
-import com.empmanagement.service.PerformanceManagementService;
+import com.empmanagement.service.IPerformanceManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,7 @@ import java.util.Map;
 @Controller
 public class PerformanceManagementController {
     @Autowired
-    PerformanceManagementService performanceManagementService;
+    IPerformanceManagementService performanceManagementService;
 
     @GetMapping("/ems/performanceManagement")
     public String getData(HttpSession session, Model model){

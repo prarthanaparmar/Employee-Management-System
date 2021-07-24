@@ -1,6 +1,5 @@
 package com.empmanagement.dao;
 
-import com.empmanagement.domain.EmployeeDetail;
 import com.empmanagement.domain.TimeSheetDetail;
 import com.empmanagement.domain.TimeSheetRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class TimeSheetDAOImpl implements TimeSheetDAO{
+public class TimeSheetDAOImpl implements ITimeSheetDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
