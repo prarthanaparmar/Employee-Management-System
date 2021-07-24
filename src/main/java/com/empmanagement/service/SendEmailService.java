@@ -21,7 +21,7 @@ public class SendEmailService implements ISendEmailService {
 
         javaMailSender.send(mesg);	
         
-        System.out.println("MAil sent successfully");	
+        System.out.println("Mail sent successfully");	
 		
 	}
 

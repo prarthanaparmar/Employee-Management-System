@@ -1,8 +1,7 @@
 package com.empmanagement.controller;
 
 import com.empmanagement.domain.TimeSheetDetail;
-import com.empmanagement.service.TimeSheetService;
-import com.empmanagement.service.TimeSheetServiceImpl;
+import com.empmanagement.service.ITimeSheetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpSession;
 public class TimeSheetController {
 
     @Autowired
-    TimeSheetService timeSheetService;
+    ITimeSheetService timeSheetService;
 
     @GetMapping("/ems/timeSheet")
     public String timeSheetInfo(HttpSession session,Model model) {

@@ -1,7 +1,6 @@
 package com.empmanagement.service;
 
-import com.empmanagement.dao.TimeSheetDAO;
-import com.empmanagement.domain.EmployeeDetail;
+import com.empmanagement.dao.ITimeSheetDAO;
 import com.empmanagement.domain.TimeSheetDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +14,10 @@ import java.util.concurrent.TimeUnit;
 
 
 @Service
-public class TimeSheetServiceImpl implements TimeSheetService{
+public class TimeSheetServiceImpl implements ITimeSheetService {
 
     @Autowired
-    private TimeSheetDAO timeSheetDAO;
+    private ITimeSheetDAO timeSheetDAO;
 
     public List<TimeSheetDetail> getTimeSheetDetails(String userId){
         List<TimeSheetDetail> tsd=timeSheetDAO.getTimeSheetDetail(userId);
@@ -34,7 +33,7 @@ public class TimeSheetServiceImpl implements TimeSheetService{
             return tsd;
         }
         else{
-            return null;
+            return tsd;
         }
     }
 
@@ -52,7 +51,7 @@ public class TimeSheetServiceImpl implements TimeSheetService{
             return tsd;
         }
         else{
-            return null;
+            return tsd;
         }
     }
 
@@ -72,7 +71,7 @@ public class TimeSheetServiceImpl implements TimeSheetService{
             return getHours(totalHours);
         }
         else{
-            return null;
+            return "0";
         }
     }
 
@@ -92,10 +91,9 @@ public class TimeSheetServiceImpl implements TimeSheetService{
             return getHours(totalHours_month);
         }
         else{
-            return null;
+            return "0";
         }
 
-       // return timeSheetDAO.getTimeSheetDetail(userId).size() != 0 ? timeSheetDAO.getCurrentMonthDetail(userId) : null;
     }
 
     public String getCurrentWeekDetail(String userId){
@@ -114,7 +112,7 @@ public class TimeSheetServiceImpl implements TimeSheetService{
             return getHours(totalHours_week);
         }
         else{
-            return null;
+            return "0";
         }
     }
 
@@ -169,10 +167,10 @@ public class TimeSheetServiceImpl implements TimeSheetService{
         final long days = TimeUnit.MILLISECONDS.toDays(milliseconds);
 
         if(milliseconds < 1000){
-            return (days +"d:" +hours+"h:" +minute+"m:" +seconds +"s:" +milliseconds +"ms");
+            return (days +"d:" +hours+"h:" +minute+"m");
         }
         else{
-            return (days +"d:" +hours % 24 +"h:" +minute % 60 +"m:" +seconds % 60 +"s");
+            return (days +"d:" +hours % 24 +"h:" +minute % 60 +"m");
         }
 
     }

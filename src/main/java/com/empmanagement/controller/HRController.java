@@ -2,20 +2,17 @@ package com.empmanagement.controller;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.Period;
 
-import javax.security.auth.Subject;
 
-import org.apache.logging.log4j.util.StringBuilderFormattable;
+import javax.servlet.http.HttpSession;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.empmanagement.dao.IEmpregisterDAO;
-import com.empmanagement.dao.IOffBoardingDao;
-import com.empmanagement.dao.EmpregisterDAOImpl;
+
 import com.empmanagement.service.IEmpRegService;
 import com.empmanagement.service.IOffBoardingService;
 import com.empmanagement.service.EmpRegServiceImpl;
@@ -25,13 +22,9 @@ import com.empmanagement.service.OffBoardingServiceImpl;
 import com.empmanagement.service.ReimbursementServiceImpl;
 import com.empmanagement.service.SendEmailService;
 import com.empmanagement.util.PasswordEncoder;
-import com.sun.mail.handlers.message_rfc822;
 
 @Controller
 public class HRController {
-
-	@Autowired
-	private IEmpregisterDAO empRegDao;
 	
 	@Autowired
 	private IEmpRegService empreg;
@@ -45,9 +38,6 @@ public class HRController {
 	@Autowired
 	private ISendEmailService sendEmail;
 	
-	@Autowired
-	private IOffBoardingDao offBoardDao;
-	
 	private String companyEmail;
 	private String registerStatus;
 	private Long empId;
@@ -57,17 +47,28 @@ public class HRController {
 	private String message;
 	private String subject;
 	private String personalEmail;
-	
+	private int deptId;
 	static final String STATUS = "active";
-	
+	private String empUserName;
+
 	@GetMapping("ems/hr-homescreen")
-	public String hrhomescreen() {
+	public String hrhomescreen(HttpSession session, Model model) {
+		Long employeeId = (Long) session.getAttribute("EMP_ID");
+
+		if (employeeId == null) {
+			return "redirect:/ems/login";
+		}
 		return "hr-homescreen";
 	}
 
 	
 	@GetMapping("/ems/employee-registration")
-	public String empRegistrationForm() {
+	public String empRegistrationForm(HttpSession session, Model model) {
+		Long employeeId = (Long) session.getAttribute("EMP_ID");
+
+		if (employeeId == null) {
+			return "redirect:/ems/login";
+		}
 		return "employee-registration";
 	}
 
@@ -80,25 +81,47 @@ public class HRController {
 					Model model) throws NoSuchAlgorithmException{	
 		
 		companyEmail = empreg.generateEmail(firstname, lastname);
-		registerStatus = empRegDao.registerEmp(empreg.getFullName(firstname, lastname),companyEmail,doj,dob,role,grade, empRegDao.getDeptId(deptname),team,STATUS,email);
-		empId = empRegDao.getEmpId(empreg.getFullName(firstname, lastname), dob);
-		password = empreg.getPassword();
-		encodePass = PasswordEncoder.encodePassword(password);
-		String loginDetails = empRegDao.loginDetails(empreg.getEmpUserName(firstname, lastname), encodePass,empId);
-				
-		if(registerStatus.equals("success") && loginDetails.equals("success")) {
-			message = "Hello Welcome Aboard! Your employee Id is: " +String.valueOf(empId) +" ,password: " + password + " and company email: " + companyEmail;
+		deptId = empreg.getDeptId(deptname);
+		System.out.println("dept "+ deptId);
+		if(deptId == 0) {
+			redirectAttribute.addFlashAttribute("error", "Please enter a valid department");
+			return "redirect:/ems/employee-registration";
+		}
+		else {
+
+			registerStatus = empreg.registerEmp(empreg.getFullName(firstname, lastname),companyEmail,doj,dob,role,grade, deptId,team,STATUS,email);
+			empId = empreg.getEmpId(empreg.getFullName(firstname, lastname), dob);
+			System.out.println(empId);
+			password = empreg.getPassword();
+			encodePass = PasswordEncoder.encodePassword(password);
+			if(empId == 0){
+				redirectAttribute.addFlashAttribute("error", "Please try again");
+				return "redirect:/ems/employee-registration";
+			}
+			String loginDetails = empreg.updateLogin(empreg.getEmpUserName(firstname, lastname), encodePass,empId);
+			empUserName = empreg.getUsername(empId);
+			message = "Hello Welcome Aboard! Your employee Id is: " +String.valueOf(empId) + ", your username is " + empUserName+" ,password: " + password + " and company email: " + companyEmail;
 			subject = "Welcome Onboard" + firstname;
-			sendEmail.sendMail(subject,message, email);
-			redirectAttribute.addFlashAttribute("Done", "The details of new wmployee have been saved successfully");
-		} else {
-	    redirectAttribute.addFlashAttribute("error", "The details were not saved properly. Please try again");
+
+			if(registerStatus.equals("success") && loginDetails.equals("success")) {
+
+				sendEmail.sendMail(subject,message, email);
+				redirectAttribute.addFlashAttribute("success", "The details of new employee have been saved successfully");
+			} else {
+				redirectAttribute.addFlashAttribute("error", "The details were not saved properly. Please try again");
+				return "redirect:/ems/employee-registration";
+			}
 		}
 		return "redirect:/ems/employee-registration";
 	}
 
 	@GetMapping("/ems/reimbursement-approval")
-	public String reimbursementapproval() {
+	public String reimbursementapproval(HttpSession session, Model model) {
+		Long employeeId = (Long) session.getAttribute("EMP_ID");
+
+		if (employeeId == null) {
+			return "redirect:/ems/login";
+		}
 		return "reimbursement-approval";
 	}
 	
@@ -106,14 +129,26 @@ public class HRController {
 	public String reimburseApproval(RedirectAttributes redirectAttribute,
 			Model model) {
 		
-		reimburseservice.getAllRequests();
-		
-		return "redirect:/ems/reimbursement-approval";
+		String status = reimburseservice.getAllRequests();
+		if(status == "success" ) {
+
+			redirectAttribute.addFlashAttribute("success", "Reimbursement approval succeeded");
+			return "redirect:/ems/reimbursement-approval";
+		}
+		else {
+
+			redirectAttribute.addFlashAttribute("error", "Please try again");
+			return "redirect:/ems/reimbursement-approval";
+		}
 	}
 	
 	@GetMapping("ems/emp-offboarding")
-	public String offBoarding(){
-		
+	public String offBoarding(HttpSession session, Model model) {
+		Long employeeId = (Long) session.getAttribute("EMP_ID");
+
+		if (employeeId == null) {
+			return "redirect:/ems/login";
+		}
 		return "emp-offboarding";		
 	}
 	
@@ -125,13 +160,15 @@ public class HRController {
 			fullAndFinal = offBoardService.calculateFNF(employeeId);
 			message = "Hello, your FNF is " + fullAndFinal;
 			subject = "Wish you good luck!";
-			personalEmail = offBoardDao.getEMail(employeeId);
+			personalEmail = offBoardService.getEMail(employeeId);
+			System.out.println(personalEmail);
 			sendEmail.sendMail(subject, message,personalEmail);
 			
 			System.out.println(fullAndFinal);
-			offBoardDao.disableUser(employeeId);
-			offBoardDao.offBoardEmp(employeeId);
+			offBoardService.disableUser(employeeId);
+			offBoardService.offBoardEmp(employeeId);
 						
 			return "redirect:/ems/emp-offboarding";	
 	}
+
 }

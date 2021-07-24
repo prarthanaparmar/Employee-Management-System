@@ -12,51 +12,60 @@ public class OffBoardingDaoImpl  implements IOffBoardingDao{
 	@Autowired
 	 private JdbcTemplate jdbcTemplate;
 	
+	private String dbStatus;
 	static final String STATUS = "Disabled";
-
+	private String email;
+	private Date doj;
+	
 	@Override
 	public Date getDateOfJoin(Long empId) {
 		
 		try {			
 			String sql = "SELECT DOJ FROM employee WHERE empId = ?";
-			Date doj = jdbcTemplate.queryForObject(sql, Date.class, empId);;		
-		
-		return doj;
+			 doj = jdbcTemplate.queryForObject(sql, Date.class, empId);;		
 			}
 		catch (Exception e) {
 			
-			return null;
+			e.printStackTrace();
 			}
+		return doj;
 		}
 
 	@Override
-	public int offBoardEmp(Long empId) {
+	public String offBoardEmp(Long empId) {
 		
 		try {
 			String sql = "DELETE FROM login WHERE empId = ? ";
-			int status = jdbcTemplate.update(sql,empId);
-			return status;
+			int update = jdbcTemplate.update(sql,empId);
+			if(update>0) {
+				dbStatus = "success"; 
+			}
 		}
 		catch(Exception e) {
-			System.out.print(e);
+			dbStatus = "error";
+			e.printStackTrace();
 		}
 		
-		return 0;
+		return dbStatus;
 	}
 
 	@Override
-	public int disableUser(Long empId) {
+	public String disableUser(Long empId) {
 		
 		try {
 			String sql = "UPDATE employee set status = ? WHERE empId = ? ";
 			int status = jdbcTemplate.update(sql,STATUS,empId);
-			return status;
+			if(status > 0) {
+				dbStatus = "success";				
+			}
 		}
 		catch(Exception e) {
+			
+			dbStatus = "error";
 			System.out.print(e);
 		}
 		
-		return 0;
+		return dbStatus;
 	}
 
 	@Override
@@ -64,13 +73,13 @@ public class OffBoardingDaoImpl  implements IOffBoardingDao{
 		
 		try {
 			String sql = "SELECT personalEmail FROM employee WHERE empId = ?";
-			String email = jdbcTemplate.queryForObject(sql,String.class,empId);
-			return email;
+			email = jdbcTemplate.queryForObject(sql,String.class,empId);
+			
 		}
 		catch(Exception e) {
 			System.out.print(e);
 		}
-		return null;
+		return email;
 	}	
 }
 

@@ -6,6 +6,6 @@ public interface IOffBoardingDao {
 	
 	Date getDateOfJoin(Long empId);
 	String getEMail(Long empId);
-	int offBoardEmp(Long empId);
-	int disableUser(Long empId); 
+	String offBoardEmp(Long empId);
+	String disableUser(Long empId); 
 }

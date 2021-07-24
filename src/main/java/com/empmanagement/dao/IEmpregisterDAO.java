@@ -8,5 +8,6 @@ public interface IEmpregisterDAO {
 	int getDeptId(String deptname);
 	String loginDetails(String username, String password, Long empId);
 	Long getEmpId(String empName, Date DOB);
-
+	String getUsername(Long empId);
+	
 }

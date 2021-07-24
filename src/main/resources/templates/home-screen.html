@@ -31,7 +31,7 @@ div.a {
   <li><a th:href="@{/ems/notifications}"> My Notifications </a></li>
     <li><a th:href="@{/ems/timeSheet}"> Your Time Sheet </a> </li>
     <li><a th:href="@{/ems/performanceManagement}"> Performance Management Portal </a> </li>
-    <li><a th:href="@{/ems/hr-homescreen}"> HR View </a></li>
+    <li><a th:if = "${empRole} == 'HR'" th:href="@{/ems/hr-homescreen}"> HR View </a></li>
 </ul>
  
 </body>
