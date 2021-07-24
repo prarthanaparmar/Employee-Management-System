@@ -23,19 +23,22 @@ tr:nth-child(even) {
 </head>
 <body>
 <div>
-    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Your Trainings'" />
-    <div>
-        <form th:action="@{/ems/training/search}" method="post">
+    <form th:action="@{/ems/training/search}" method="post">
 
-            <p> <b><label style="width: 100px;display: inline-block;font-family: cursive;font-size: larger;" > Search training:</label>
-                <input type="search" name="searchkeyword" placeholder="keyword" /></b>
-            </p>
+        <p> <b><label style="width: 100px;display: inline-block;font-family: cursive;font-size: larger;" > Search training:</label>
+            <input type="search" name="searchkeyword" placeholder="keyword" /></b>
+        </p>
 
-            <p><input style="background-color: steelblue;  font-size: 12px;display: inline-block;color: white;padding: 8px 30px;" type="submit" value="Search" />
+        <p><input style="background-color: steelblue;  font-size: 12px;display: inline-block;color: white;padding: 8px 30px;" type="submit" value="Search" />
 
 
-        </form>
-    </div>
+    </form>
+</div>
+<div>
+
+
+    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Mandatory Trainings'" />
+
     <table>
         <tr>
             <th>CourseId</th>

@@ -43,7 +43,7 @@ public class CheckInCheckOutDAOImpl implements ICheckInCheckOutDAO {
     @Override
     public void setCheckIn(Long empId) {
         String sql="Insert into timesheet_employee(empId,date,day,start_time,end_time) values(?,?,?,?,?)";
-        jdbcTemplate.update(sql,12,sqldate,sayDay(sqldate),date1,"00:00:00");
+        jdbcTemplate.update(sql,16,sqldate,sayDay(sqldate),date1,"00:00:00");
         System.out.println("In DAO SetcheckIn");
     }
 
