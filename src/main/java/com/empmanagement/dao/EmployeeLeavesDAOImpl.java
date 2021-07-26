@@ -19,7 +19,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
+public class EmployeeLeavesDAOImpl implements IEmployeeLeavesDAO {
 
     private static final String TABLE_NAME = "employee_leaves";
     private static final String QUERY_CREATE = "INSERT INTO " + TABLE_NAME

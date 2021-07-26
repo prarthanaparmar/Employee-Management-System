@@ -10,14 +10,9 @@ public class TimeSheetDetail {
     private String empId="",date="",day="",start_time="",end_time="";
     private String hours_worked="0";
 
-    public String getHours_worked() {
-        return hours_worked;}
+    public String getHours_worked() { return hours_worked;}
 
-    public void setHours_worked(String hours_worked) {
-        this.hours_worked = hours_worked;
-    }
-
-
+    public void setHours_worked(String hours_worked) { this.hours_worked = hours_worked; }
 
     public String getEmpId() {
         return empId;

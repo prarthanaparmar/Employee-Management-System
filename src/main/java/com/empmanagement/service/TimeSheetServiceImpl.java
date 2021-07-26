@@ -14,79 +14,33 @@ import java.util.concurrent.TimeUnit;
 
 
 @Service
-public class TimeSheetServiceImpl implements ITimeSheetService {
+public class TimeSheetServiceImpl implements ITimeSheetService,ITimeSheetOverTimeLimit {
+    private static final int OVERTIME_LIMIT=40;
 
     @Autowired
     private ITimeSheetDAO timeSheetDAO;
 
     public List<TimeSheetDetail> getTimeSheetDetails(String userId){
         List<TimeSheetDetail> tsd=timeSheetDAO.getTimeSheetDetail(userId);
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         if(tsd.size()!=0) {
-            for (TimeSheetDetail t : tsd) {
-                try {
-                    t.setHours_worked(getHours(getTimeDifference(format.parse(t.getStart_time()), format.parse(t.getEnd_time()))));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-            return tsd;
+            setHoursWorked(tsd);
         }
-        else{
-            return tsd;
-        }
+        return tsd;
     }
 
     public List<TimeSheetDetail> getFutureTimeSheetDetails(String userId){
         List<TimeSheetDetail> tsd=timeSheetDAO.getFutureTimeSheetDetail(userId);
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         if(tsd.size()!=0) {
-            for (TimeSheetDetail t : tsd) {
-                try {
-                    t.setHours_worked(getHours(getTimeDifference(format.parse(t.getStart_time()), format.parse(t.getEnd_time()))));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-            return tsd;
+            setHoursWorked(tsd);
         }
-        else{
-            return tsd;
-        }
+        return tsd;
     }
 
-    public String getHoursWorked(String userId){
-        List<TimeSheetDetail> tsd=timeSheetDAO.getTimeSheetDetail(userId);
-        List<Long> hoursWorked=new ArrayList<>();
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-        if(tsd.size()!=0) {
-            for (TimeSheetDetail t : tsd) {
-                try {
-                    hoursWorked.add(getTimeDifference(format.parse(t.getStart_time()), format.parse(t.getEnd_time())));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-            long totalHours = getTotalHours(tsd, hoursWorked);
-            return getHours(totalHours);
-        }
-        else{
-            return "0";
-        }
-    }
-
-    public String getCurrentMonthDetail(String userId){
+    public String getCurrentMonthlyHoursDetail(String userId){
         List<TimeSheetDetail> tsd_month=timeSheetDAO.getCurrentMonthDetail(userId);
-        List<Long> hoursWorked_month=new ArrayList<>();
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        List<Long> hoursWorked_month;
         if(tsd_month.size()!=0) {
-            for (TimeSheetDetail t_month : tsd_month) {
-                try {
-                    hoursWorked_month.add(getTimeDifference(format.parse(t_month.getStart_time()), format.parse(t_month.getEnd_time())));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
+            hoursWorked_month=getHoursList(tsd_month);
             long totalHours_month=getTotalHours(tsd_month,hoursWorked_month);
             return getHours(totalHours_month);
         }
@@ -96,18 +50,11 @@ public class TimeSheetServiceImpl implements ITimeSheetService {
 
     }
 
-    public String getCurrentWeekDetail(String userId){
+    public String getCurrentWeeklyHoursDetail(String userId){
         List<TimeSheetDetail> tsd_week=timeSheetDAO.getCurrentWeekDetail(userId);
-        List<Long> hoursWorked_week=new ArrayList<>();
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        List<Long> hoursWorked_week;
         if(tsd_week.size() !=0){
-            for(TimeSheetDetail t_week:tsd_week){
-                try {
-                    hoursWorked_week.add(getTimeDifference(format.parse(t_week.getStart_time()),format.parse(t_week.getEnd_time())));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
+            hoursWorked_week=getHoursList(tsd_week);
             long totalHours_week=getTotalHours(tsd_week,hoursWorked_week);
             return getHours(totalHours_week);
         }
@@ -116,20 +63,14 @@ public class TimeSheetServiceImpl implements ITimeSheetService {
         }
     }
 
-    public boolean getLimit(String userId){
+    public boolean getOvertimeLimit(String userId){
         List<TimeSheetDetail> tsd_week=timeSheetDAO.getCurrentWeekDetail(userId);
-        List<Long> hoursWorked_week=new ArrayList<>();
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        List<Long> hoursWorked_week;
         if(tsd_week.size() !=0){
-            for(TimeSheetDetail t_week:tsd_week){
-                try {
-                    hoursWorked_week.add(getTimeDifference(format.parse(t_week.getStart_time()),format.parse(t_week.getEnd_time())));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
+            hoursWorked_week=getHoursList(tsd_week);
             long totalHours_week=getTotalHours(tsd_week,hoursWorked_week);
-            if(getOnlyHours(totalHours_week)>40){
+
+            if(getOnlyHours(totalHours_week)>OVERTIME_LIMIT){
                 return true;
             }
             else{
@@ -141,29 +82,50 @@ public class TimeSheetServiceImpl implements ITimeSheetService {
         }
     }
 
+    public String getHoursWorked(String userId){
+        List<TimeSheetDetail> tsd=timeSheetDAO.getTimeSheetDetail(userId);
+        List<Long> hoursWorked;
+        if(tsd.size()!=0) {
+            hoursWorked=getHoursList(tsd);
+            long totalHours = getTotalHours(tsd, hoursWorked);
+            return getHours(totalHours);
+        }
+        else{
+            return "0";
+        }
+    }
+
+    private void setHoursWorked(List<TimeSheetDetail> timeSheetDetail){
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        for (TimeSheetDetail t : timeSheetDetail) {
+            try {
+                t.setHours_worked(getHours(getTimeDifference(format.parse(t.getStart_time()), format.parse(t.getEnd_time()))));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private long getTotalHours(List<TimeSheetDetail> tsd,List<Long> hoursWorked){
-        int count=0;
+        int counter=0;
         long totalHours=0;
         for(Long hours:hoursWorked){
             totalHours+=hours;
-            tsd.get(count).setHours_worked((hours / (60 * 60 * 1000) % 24) +":"+(hours / (60 * 1000) % 60));
-            count++;
+            long days_worked=hours / (60 * 60 * 1000) % 24;
+            long hours_worked=hours / (60 * 1000) % 60;
+            tsd.get(counter).setHours_worked(days_worked +":"+hours_worked);
+            counter++;
         }
         return totalHours;
     }
 
     private long getOnlyHours(long milliseconds){
-        final long hours = TimeUnit.MILLISECONDS.toHours(milliseconds);
-        return hours;
+        return TimeUnit.MILLISECONDS.toHours(milliseconds);
     }
 
     private String getHours(long milliseconds){
-        final long seconds = TimeUnit.MILLISECONDS.toSeconds(milliseconds);
-
         final long minute = TimeUnit.MILLISECONDS.toMinutes(milliseconds);
-
         final long hours = TimeUnit.MILLISECONDS.toHours(milliseconds);
-
         final long days = TimeUnit.MILLISECONDS.toDays(milliseconds);
 
         if(milliseconds < 1000){
@@ -172,11 +134,26 @@ public class TimeSheetServiceImpl implements ITimeSheetService {
         else{
             return (days +"d:" +hours % 24 +"h:" +minute % 60 +"m");
         }
-
     }
 
     private long getTimeDifference(Date start, Date end){
         return end.getTime()-start.getTime();
     }
+
+    private List<Long> getHoursList(List<TimeSheetDetail> timeSheetDetails){
+        List<Long> hoursWorked = new ArrayList<>();
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+
+        for (TimeSheetDetail t : timeSheetDetails) {
+            try {
+                hoursWorked.add(getTimeDifference(format.parse(t.getStart_time()), format.parse(t.getEnd_time())));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return hoursWorked;
+    }
+
+
 }
 

@@ -1,6 +1,7 @@
 package com.empmanagement.controller;
 
 import com.empmanagement.domain.EmployeeReviewForm;
+import com.empmanagement.service.ICheckReviews;
 import com.empmanagement.service.IPeerReviewsService;
 import com.empmanagement.service.IReviewsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class PeerReviewsController {
     IPeerReviewsService peerReviews;
     @Autowired
     IReviewsService reviews;
+    @Autowired
+    ICheckReviews checkReviews;
 
     @GetMapping("/ems/peerReviews")
     public String getPeerData(HttpSession session, Model model){
@@ -32,14 +35,14 @@ public class PeerReviewsController {
                                      RedirectAttributes redirectAttribute,
                                      HttpSession session){
         Long employeeId = (Long) session.getAttribute("EMP_ID");
-        if(!peerReviews.checkPeerInput(employeeReviewForm)){
+        if(!checkReviews.checkInput(employeeReviewForm)){
             redirectAttribute.addFlashAttribute("managerError", "Please select a manager");
         }
-        else if(!peerReviews.checkPeerGeneralInput(employeeReviewForm)){
+        else if(!checkReviews.checkGeneralInput(employeeReviewForm)){
             redirectAttribute.addFlashAttribute("IncorrectInputError", "Your input is invalid. Please enter again");
         }
         else{
-            String dbSaveStatus=peerReviews.savePeerReview(employeeId.toString(),employeeReviewForm);
+            String dbSaveStatus=checkReviews.saveReview(employeeId.toString(),employeeReviewForm);
             if (dbSaveStatus.equals("success")) {
                 redirectAttribute.addFlashAttribute("success",
                         "Your review has been submitted successfully. ");

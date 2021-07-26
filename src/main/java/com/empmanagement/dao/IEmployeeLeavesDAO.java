@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.empmanagement.domain.EmployeeLeave;
 
-public interface EmployeeLeavesDAO {
+public interface IEmployeeLeavesDAO {
     /**
      * Create or update employee leave.
      * 

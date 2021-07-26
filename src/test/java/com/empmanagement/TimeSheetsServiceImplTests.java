@@ -2,6 +2,7 @@ package com.empmanagement;
 
 import com.empmanagement.dao.ITimeSheetDAO;
 import com.empmanagement.domain.TimeSheetDetail;
+import com.empmanagement.service.ITimeSheetOverTimeLimit;
 import com.empmanagement.service.ITimeSheetService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ class TimeSheetsServiceImplTests {
 
     @Autowired
     private ITimeSheetService timeSheetService;
+    @Autowired
+    private ITimeSheetOverTimeLimit timeSheetOverTimeLimit;
 
     @MockBean
     private ITimeSheetDAO timeSheetDAO;
@@ -89,7 +92,7 @@ class TimeSheetsServiceImplTests {
 
         when(timeSheetDAO.getCurrentMonthDetail("1")).thenReturn(Stream
                 .of(timeSheetDetail).collect(Collectors.toList()));
-        assertEquals("0d:11h:0m", timeSheetService.getCurrentMonthDetail("1"));
+        assertEquals("0d:11h:0m", timeSheetService.getCurrentMonthlyHoursDetail("1"));
     }
 
     @Test
@@ -98,7 +101,7 @@ class TimeSheetsServiceImplTests {
 
         when(timeSheetDAO.getCurrentWeekDetail("1")).thenReturn(Stream
                 .of(timeSheetDetail).collect(Collectors.toList()));
-        assertEquals("0d:11h:0m", timeSheetService.getCurrentWeekDetail("1"));
+        assertEquals("0d:11h:0m", timeSheetService.getCurrentWeeklyHoursDetail("1"));
     }
 
     @Test
@@ -107,7 +110,7 @@ class TimeSheetsServiceImplTests {
 
         when(timeSheetDAO.getCurrentWeekDetail("1")).thenReturn(Stream
                 .of(timeSheetDetail).collect(Collectors.toList()));
-        assertEquals(false, timeSheetService.getLimit("1"));
+        assertEquals(false, timeSheetOverTimeLimit.getOvertimeLimit("1"));
     }
 
 }

@@ -1,9 +1,9 @@
 package com.empmanagement.dao;
 
-import com.empmanagement.domain.ManagerEmployeeRelation;
+import com.empmanagement.domain.EmployeePeer;
 
 import java.util.List;
 
 public interface IManagerReviewDAO {
-    List<ManagerEmployeeRelation> getManagers(String empId);
+    List<EmployeePeer> getManagers(String empId);
 }
