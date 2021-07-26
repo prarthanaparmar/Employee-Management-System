@@ -1,9 +1,8 @@
 package com.empmanagement.controller;
 
 import com.empmanagement.domain.EmployeetrainingDetails;
-import com.empmanagement.domain.TimeSheetDetail;
+
 import com.empmanagement.service.IEmployeetrainingService;
-import com.empmanagement.service.TimeSheetService;
 //import jdk.internal.icu.text.NormalizerBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
