@@ -94,7 +94,7 @@ public class FinanceController {
 			return "redirect:/ems/login";
 		}
 		Long empId = employeeId;
-		Date lastSalDate = DateUtils.getLastDayLastMonth();
+		Date lastSalDate = DateUtils.getTodaysDate();
 		Salary salary = salaryService.getSalaryForEmployee(empId);
 
 		model.addAttribute("salary", salary);

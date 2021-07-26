@@ -1,5 +1,7 @@
 package com.empmanagement.domain;
 
+import com.empmanagement.util.DecimalFormatter;
+
 /**
  * @author Priti Sri Pandey
  */
@@ -11,13 +13,13 @@ public class Taxes {
 		return incomeTax;
 	}
 	public void setIncomeTax(double incomeTax) {
-		this.incomeTax = incomeTax;
+		this.incomeTax = DecimalFormatter.format(incomeTax);
 	}
 	public double getProfessionalTax() {
 		return professionalTax;
 	}
 	public void setProfessionalTax(double professionalTax) {
-		this.professionalTax = professionalTax;
+		this.professionalTax = DecimalFormatter.format(professionalTax);
 	}
 	
 }
