@@ -19,7 +19,8 @@ div.a {
 <body>
 <h1 style="text-align: center"> Home </h1>
 <a style="float: right; font-family: cursive;font-size: medium; padding-right: 10px" th:href="@{/ems/logout}"> Log Out </a> |
-<a style="float: right; font-family: cursive;font-size: medium; padding-right: 10px" th:href="@{/ems/changepassword}"> Change Password </a>
+<a style="float: right; font-family: cursive;font-size: medium; padding-right: 10px" th:href="@{/ems/changepassword}"> Change Password </a> |
+<a style="float: right; font-family: cursive;font-size: medium; padding-right: 10px" th:href="@{/ems/employeehomescreen}"> Check-In </a>
     <h1 style="text-align: center; color: steelblue; font-family: cursive; font-size: 20px;"> Welcome </h1>
 <h1 style="text-align: center">Redirection Links</h1>
 
@@ -31,7 +32,9 @@ div.a {
   <li><a th:href="@{/ems/notifications}"> My Notifications </a></li>
     <li><a th:href="@{/ems/timeSheet}"> Your Time Sheet </a> </li>
     <li><a th:href="@{/ems/performanceManagement}"> Performance Management Portal </a> </li>
+    <li><a th:href="@{/ems/training}"> Employee training </a> </li>
     <li><a th:if = "${empRole} == 'HR'" th:href="@{/ems/hr-homescreen}"> HR View </a></li>
+    <li><a th:if = "${empRole} == 'manager'" th:href="@{/ems/employeehomescreen}"> Employee view </a></li>
 </ul>
  
 </body>
