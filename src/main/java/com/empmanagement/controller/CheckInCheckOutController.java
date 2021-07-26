@@ -27,12 +27,6 @@ public class CheckInCheckOutController {
 
         checkInOutService.addCheckIn(employeeId);
 
-        //model.addAttribute("CheckIn", checkInOutService.addCheckIn(employeeId));
-        //model.addAttribute("CheckOut", checkInOutService.addCheckOut(employeeId));
-        //model.addAttribute("totalhours", timeSheetService.getHoursWorked(employeeId.toString()));
-        //model.addAttribute("totalhours_week", timeSheetService.getCurrentWeekDetail(employeeId.toString()));
-
-
         return "employee-homescreen";
     }
 
