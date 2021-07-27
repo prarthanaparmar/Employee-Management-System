@@ -56,11 +56,8 @@ public class PerformanceManagementServiceImpl implements IPerformanceManagementS
             scores.put("goalsScore",goalsScore/performanceManagementList.size()*CONVERT_TO_PERCENTAGE);
             scores.put("otherScore",otherScore/performanceManagementList.size()*CONVERT_TO_PERCENTAGE);
 
-            return scores;
         }
-        else{
-            return scores;
-        }
+        return scores;
     }
 
     /*
