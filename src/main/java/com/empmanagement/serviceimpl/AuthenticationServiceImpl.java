@@ -38,12 +38,6 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 	}
 
 	@Override
-	public Long getEmpID(String userName) {
-		Long empId = authenticationDao.getEmpIDFromDatabase(userName);
-		return empId;
-	}
-
-	@Override
 	public String updatePassword(Long empId, String password) {
 		String dbSaveStatus = "error";
 		try {

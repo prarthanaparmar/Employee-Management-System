@@ -7,7 +7,6 @@ package com.empmanagement.dao;
 public interface IAuthenticationDAO {
 
 	public String getPasswordFromDatabase(String userName);
-	public Long getEmpIDFromDatabase(String userName);
 	public String updatePassword(Long empId, String password);
 
 }

@@ -65,7 +65,7 @@ public class AuthenticationController {
 		boolean isPasswordValid = authenticationService.validatePassword(userName, password);
 
 		if (isPasswordValid) {
-			Long empId = authenticationService.getEmpID(userName);
+			Long empId = empDirectoryService.getEmpID(userName);
 
 			Long employeeId = (Long) request.getSession().getAttribute("EMP_ID");
 			if (employeeId == null) {

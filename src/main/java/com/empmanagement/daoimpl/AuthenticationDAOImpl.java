@@ -17,13 +17,11 @@ import com.empmanagement.dao.IAuthenticationDAO;
 public class AuthenticationDAOImpl implements IAuthenticationDAO {
 
 	private static final String QUERY_GET_PASSWORD = "select empPassword from login where empUsername = ?";
-	private static final String QUERY_EMPID_LOGIN = "select empId from login where empUsername = ?";
 	private static final String QUERY_UPDATE_PASSWORD = "UPDATE login SET empPassword = ? WHERE empId = ?";
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	String empPassword;
-	Long empId;
 
 	/*
 	 * Gets the password from database for the employee
@@ -40,23 +38,6 @@ public class AuthenticationDAOImpl implements IAuthenticationDAO {
 		}
 
 		return empPassword;
-	}
-
-	/*
-	 * Gets the empId from database for the userName
-	 */
-	public Long getEmpIDFromDatabase(String userName) {
-
-		try {
-
-			empId = jdbcTemplate.queryForObject(QUERY_EMPID_LOGIN, Long.class, userName);
-
-		} catch (Exception e) {
-
-			System.err.println(e);
-		}
-
-		return empId;
 	}
 
 	@Override
