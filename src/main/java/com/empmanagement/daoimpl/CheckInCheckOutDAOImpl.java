@@ -1,5 +1,6 @@
-package com.empmanagement.dao;
+package com.empmanagement.daoimpl;
 
+import com.empmanagement.dao.ICheckInCheckOutDAO;
 import com.empmanagement.domain.CheckInOutDetails;
 import com.empmanagement.domain.CheckInOutRowMapper;
 

@@ -1,5 +1,6 @@
-package com.empmanagement.dao;
+package com.empmanagement.daoimpl;
 
+import com.empmanagement.dao.IPerformanceManagementDAO;
 import com.empmanagement.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

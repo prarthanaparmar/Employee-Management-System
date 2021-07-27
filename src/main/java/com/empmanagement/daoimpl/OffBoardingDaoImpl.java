@@ -1,10 +1,12 @@
-package com.empmanagement.dao;
+package com.empmanagement.daoimpl;
 
 import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.empmanagement.dao.IOffBoardingDao;
 
 @Repository
 public class OffBoardingDaoImpl  implements IOffBoardingDao{

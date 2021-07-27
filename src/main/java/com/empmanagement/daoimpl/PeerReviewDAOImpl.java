@@ -1,5 +1,6 @@
-package com.empmanagement.dao;
+package com.empmanagement.daoimpl;
 
+import com.empmanagement.dao.IPeerReviewDAO;
 import com.empmanagement.domain.EmployeePeer;
 import com.empmanagement.domain.EmployeePeerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;

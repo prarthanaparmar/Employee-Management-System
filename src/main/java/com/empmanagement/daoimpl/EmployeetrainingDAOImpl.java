@@ -1,5 +1,6 @@
-package com.empmanagement.dao;
+package com.empmanagement.daoimpl;
 
+import com.empmanagement.dao.IEmployeetrainingDAO;
 import com.empmanagement.domain.EmployeetrainingDetails;
 import com.empmanagement.domain.EmployeetrainingRowMapper;
 import com.empmanagement.domain.TimeSheetDetail;

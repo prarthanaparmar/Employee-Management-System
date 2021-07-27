@@ -1,5 +1,6 @@
-package com.empmanagement.dao;
+package com.empmanagement.daoimpl;
 
+import com.empmanagement.dao.IManagerReviewDAO;
 import com.empmanagement.domain.ManagerEmployeeRelation;
 import com.empmanagement.domain.ManagerEmployeeRelationRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;

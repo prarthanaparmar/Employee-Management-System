@@ -1,8 +1,10 @@
-package com.empmanagement.dao;
+package com.empmanagement.daoimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.empmanagement.dao.IAuthenticationDAO;
 
 /**
  * This class in the data access implementation for fetching and updating login

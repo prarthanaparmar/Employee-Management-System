@@ -1,4 +1,4 @@
-package com.empmanagement.service;
+package com.empmanagement.serviceimpl;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.empmanagement.dao.IOffBoardingDao;
+import com.empmanagement.service.IOffBoardingService;
+import com.empmanagement.service.ISalaryService;
 
 @Service
 public class OffBoardingServiceImpl implements IOffBoardingService{

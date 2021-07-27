@@ -1,5 +1,6 @@
-package com.empmanagement.dao;
+package com.empmanagement.daoimpl;
 
+import com.empmanagement.dao.ITimeSheetDAO;
 import com.empmanagement.domain.TimeSheetDetail;
 import com.empmanagement.domain.TimeSheetRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;

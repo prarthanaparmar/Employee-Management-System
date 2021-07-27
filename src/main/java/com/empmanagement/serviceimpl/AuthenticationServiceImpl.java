@@ -1,4 +1,4 @@
-package com.empmanagement.service;
+package com.empmanagement.serviceimpl;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.empmanagement.dao.IAuthenticationDAO;
+import com.empmanagement.service.IAuthenticationService;
 import com.empmanagement.util.PasswordEncoder;
 
 /**

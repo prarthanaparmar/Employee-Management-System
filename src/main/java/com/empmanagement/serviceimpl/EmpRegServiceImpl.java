@@ -1,4 +1,4 @@
-package com.empmanagement.service;
+package com.empmanagement.serviceimpl;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.empmanagement.dao.IEmpregisterDAO;
+import com.empmanagement.service.IEmpRegService;
 import com.empmanagement.util.RandomUtils;
 
 @Service

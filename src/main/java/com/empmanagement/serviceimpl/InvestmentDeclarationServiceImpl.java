@@ -1,10 +1,11 @@
-package com.empmanagement.service;
+package com.empmanagement.serviceimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.empmanagement.dao.IInvestmentDeclarationDAO;
 import com.empmanagement.domain.InvestmentDeclaration;
+import com.empmanagement.service.IInvestmentDeclarationService;
 
 /**
  * This class is the service layer implementation of calculating total

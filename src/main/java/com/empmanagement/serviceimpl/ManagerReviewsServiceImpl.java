@@ -1,9 +1,11 @@
-package com.empmanagement.service;
+package com.empmanagement.serviceimpl;
 
 import com.empmanagement.dao.IManagerReviewDAO;
 import com.empmanagement.dao.IReviewsDAO;
 import com.empmanagement.domain.ManagerEmployeeRelation;
 import com.empmanagement.domain.ManagerReviewForm;
+import com.empmanagement.service.IManangerReviewsService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

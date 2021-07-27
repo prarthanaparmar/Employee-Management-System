@@ -1,9 +1,10 @@
-package com.empmanagement.service;
+package com.empmanagement.serviceimpl;
 
-import com.empmanagement.dao.CheckInCheckOutDAOImpl;
 import com.empmanagement.dao.ICheckInCheckOutDAO;
 import com.empmanagement.domain.CheckInOutDetails;
 import com.empmanagement.domain.TimeSheetDetail;
+import com.empmanagement.service.ICheckInOutService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

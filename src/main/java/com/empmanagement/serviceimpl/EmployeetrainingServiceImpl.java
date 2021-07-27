@@ -1,7 +1,8 @@
-package com.empmanagement.service;
+package com.empmanagement.serviceimpl;
 
 import com.empmanagement.dao.IEmployeetrainingDAO;
 import com.empmanagement.domain.EmployeetrainingDetails;
+import com.empmanagement.service.IEmployeetrainingService;
 import com.empmanagement.domain.EmployeetrainingDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

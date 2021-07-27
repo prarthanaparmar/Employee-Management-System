@@ -1,10 +1,11 @@
-package com.empmanagement.dao;
+package com.empmanagement.daoimpl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.empmanagement.dao.IEmployeeInfoDAO;
 import com.empmanagement.domain.EmployeeInfo;
 
 import org.slf4j.Logger;

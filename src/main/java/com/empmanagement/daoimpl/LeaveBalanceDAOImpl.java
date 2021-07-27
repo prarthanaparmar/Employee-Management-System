@@ -1,10 +1,11 @@
-package com.empmanagement.dao;
+package com.empmanagement.daoimpl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.empmanagement.dao.LeaveBalanceDAO;
 import com.empmanagement.domain.LeaveBalance;
 
 import org.slf4j.Logger;

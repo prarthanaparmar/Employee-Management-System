@@ -1,4 +1,4 @@
-package com.empmanagement.dao;
+package com.empmanagement.daoimpl;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.empmanagement.dao.NotificationDAO;
 import com.empmanagement.domain.Notification;
 
 import org.slf4j.Logger;

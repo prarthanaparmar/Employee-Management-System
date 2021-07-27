@@ -1,4 +1,4 @@
-package com.empmanagement.service;
+package com.empmanagement.serviceimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +8,9 @@ import com.empmanagement.domain.Deductions;
 import com.empmanagement.domain.Earnings;
 import com.empmanagement.domain.Salary;
 import com.empmanagement.domain.Taxes;
+import com.empmanagement.service.IDeductionService;
+import com.empmanagement.service.IEarningCalculationService;
+import com.empmanagement.service.ISalaryService;
 
 /**
  * @author Priti Sri Pandey
