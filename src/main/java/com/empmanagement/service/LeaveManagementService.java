@@ -2,7 +2,7 @@ package com.empmanagement.service;
 
 import java.util.List;
 
-import com.empmanagement.dao.EmployeeLeavesDAO;
+import com.empmanagement.dao.IEmployeeLeavesDAO;
 import com.empmanagement.dao.LeaveBalanceDAO;
 import com.empmanagement.domain.EmployeeLeave;
 import com.empmanagement.domain.LeaveBalance;
@@ -19,7 +19,7 @@ public class LeaveManagementService {
 	LeaveBalanceDAO leaveBalanceDAO;
 
 	@Autowired
-	EmployeeLeavesDAO employeeLeavesDAO;
+    IEmployeeLeavesDAO employeeLeavesDAO;
 
 	private Logger logger = LoggerFactory.getLogger(LeaveManagementService.class);
 
