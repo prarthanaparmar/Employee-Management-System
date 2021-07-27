@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 
+/*
+ * @author: Dhruv Bharatbhai Patel - B00868931
+ * @description: This controller handles all the request related to peers functionality of our application
+ *               This controller will handle all the request mappings related to peer activities such as peer review management.
+ *               Peers here means teammates working in same team.
+ * */
 @Controller
 public class PeerReviewsController {
     @Autowired
@@ -52,6 +58,5 @@ public class PeerReviewsController {
             }
         }
         return "redirect:/ems/peerReviews";
-
     }
 }

@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpSession;
 
 /*
-* This controller handles all the request related to Time Sheet functionality of our application
-* This controller will handle all the request mappings related to timeSheet.
-*
-* @author: Dhruv Bharatbhai Patel (B00868931)
-*
-* */
+ * @author: Dhruv Bharatbhai Patel - B00868931
+ * @description: This controller handles all the request related to time sheet functionality of our application
+ *               This controller will handle all the request mappings related to time sheet activities.
+ * */
 @Controller
 public class TimeSheetController {
 

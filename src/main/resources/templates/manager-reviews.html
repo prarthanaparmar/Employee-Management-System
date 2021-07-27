@@ -70,8 +70,8 @@ tr:nth-child(even) {
                 <select name="peers">
                     <option value=""> --</option>
                     <option th:each="manager : ${managers}"
-                            th:value="${manager.managerId} + ' ' + ${manager.empName}"
-                            th:text="${manager.managerId} + ' ' + ${manager.empName}"></option>
+                            th:value="${manager.empId} + ' ' + ${manager.empName}"
+                            th:text="${manager.empId} + ' ' + ${manager.empName}"></option>
                 </select></td>
         </tr>
         <tr>

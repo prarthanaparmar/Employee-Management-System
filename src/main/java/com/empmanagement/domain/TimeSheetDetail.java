@@ -2,13 +2,21 @@ package com.empmanagement.domain;
 
 import org.springframework.stereotype.Component;
 
+/*
+ * @author: Dhruv Bharatbhai Patel - B00868931
+ * @description: Model for Time Sheet according to timesheet_employee table in our database.
+ * */
 @Component
 public class TimeSheetDetail {
-    public TimeSheetDetail() {
-    }
 
-    private String empId="",date="",day="",start_time="",end_time="";
+    private String empId="";
+    private String date="";
+    private String day="";
+    private String start_time="";
+    private String end_time="";
     private String hours_worked="0";
+
+    public TimeSheetDetail() { }
 
     public String getHours_worked() { return hours_worked;}
 

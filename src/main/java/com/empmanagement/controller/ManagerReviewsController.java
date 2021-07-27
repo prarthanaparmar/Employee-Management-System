@@ -14,6 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
+/*
+* @author: Dhruv Bharatbhai Patel - B00868931
+* @description: This controller handles all the request related to Manager functionality of our application
+*               This controller will handle all the request mappings related to manager activities such as manager review management.
+* */
 @Controller
 public class ManagerReviewsController {
     @Autowired
@@ -53,6 +58,5 @@ public class ManagerReviewsController {
             }
         }
         return "redirect:/ems/managerReviews";
-
     }
 }
