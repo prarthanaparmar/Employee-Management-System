@@ -4,28 +4,34 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.util.Random;
 
-import com.empmanagement.dao.EmpregisterDAOImpl;
+import com.empmanagement.daoimpl.EmpregisterDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.empmanagement.dao.IEmpregisterDAO;
 import com.empmanagement.service.IEmpRegService;
 import com.empmanagement.util.RandomUtils;
+/**
+ *This class contains the bsiness logic for Employee registration
+ *
+ * @author Prarthanaben Parmar
+ *
+ */
 
 @Service
-public class EmpRegServiceImpl implements IEmpRegService{
+	public class EmpRegServiceImpl implements IEmpRegService{
 	
 	@Autowired
 	IEmpregisterDAO empregdao = new EmpregisterDAOImpl();
 
 	private RandomUtils randUtils = new RandomUtils();
 
-	String username;
-	String name;
-	String email;
-	String update;
-	int deptId;
-	Long empId;
+	private String username;
+	private String name;
+	private String email;
+	private String update;
+	private int deptId;
+	private Long empId;
 	static final String CAPITAL = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	static final String SMALL = "abcdefghijklmnopqrstuvwxyz";
     static final String NUM = "0123456789";

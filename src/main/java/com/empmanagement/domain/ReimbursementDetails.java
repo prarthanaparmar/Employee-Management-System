@@ -1,7 +1,11 @@
 package com.empmanagement.domain;
 
 import org.springframework.stereotype.Component;
-
+/**
+ *
+ * @author Prarthanaben Parmar
+ *
+ */
 @Component
 public class ReimbursementDetails {
 	

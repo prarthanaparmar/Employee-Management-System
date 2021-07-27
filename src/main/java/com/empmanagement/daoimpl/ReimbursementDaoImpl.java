@@ -1,4 +1,4 @@
-package com.empmanagement.dao;
+package com.empmanagement.daoimpl;
 
 import java.util.List;
 
@@ -9,7 +9,12 @@ import org.springframework.stereotype.Repository;
 import com.empmanagement.dao.IReimbursementDao;
 import com.empmanagement.domain.ReimbursementDetails;
 import com.empmanagement.domain.ReimbursementRowMapper;
-
+/**
+ * This class in the data access implementation for employee reimbursement approval.
+ *
+ * @author Prarthanaben Parmar
+ *
+ */
 @Repository
 public class ReimbursementDaoImpl implements IReimbursementDao {
 	
@@ -24,15 +29,16 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 			private int basic;
 			private String status;
 			private String grade;
+			private String sql;
 
 	@Override
 	public List<ReimbursementDetails> getReimbursementDetails() {
 		try {
-			String sql = "SELECT * FROM reimbursement";
+			sql = "SELECT * FROM reimbursement";
 			List<ReimbursementDetails> details = jdbcTemplate.query(sql, new ReimbursementRowMapper());
 			return details;
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -40,7 +46,7 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	@Override
 	public String getGrade(Long empID) {
 		try {
-			String sql = "SELECT grade from employee WHERE empID = ?";
+			sql = "SELECT grade from employee WHERE empID = ?";
 			grade = jdbcTemplate.queryForObject(sql, String.class, empID);	
 		}
 		catch(Exception e) {
@@ -52,10 +58,8 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	@Override
 	public int getBasicSalary(String grade) {
 		try {
-
-			String sql = "SELECT basic from salary WHERE grade = ?";
+			sql = "SELECT basic from salary WHERE grade = ?";
 			basic = jdbcTemplate.queryForObject(sql, int.class, grade);
-			
 			}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -67,7 +71,7 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	public String updateReimb(Long empId, String status) {
 
 		try {
-			String sql = "UPDATE reimbursement SET status = ? WHERE employeeId = ?";
+			sql = "UPDATE reimbursement SET status = ? WHERE employeeId = ?";
 			int update = jdbcTemplate.update(sql,status,empId);
 			if(update > 0) {
 				rowsAffected =  "success";
@@ -81,24 +85,10 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	}
 
 	@Override
-	public String getStatus(Long empID) {
-
-		try {
-			String sql = "SELECT status from reimbursement WHERE reimbursementid = ?";
-			status = jdbcTemplate.queryForObject(sql, String.class,empID);
-			
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return status;	
-	}
-
-	@Override
 	public String updateApprovedAllowance(Long empId, int reimburseAmount) {
 		
 		try {
-			String sql = "UPDATE employee SET redeemedMAllowance = ? WHERE empId = ?";
+			sql = "UPDATE employee SET redeemedMAllowance = ? WHERE empId = ?";
 			int status = jdbcTemplate.update(sql,reimburseAmount,empId);
 			if(status>0) {
 				rowsAffected = "success";

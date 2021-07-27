@@ -19,18 +19,18 @@ import com.empmanagement.service.IReimbursementService;
 import com.empmanagement.service.ISendEmailService;
 import com.empmanagement.service.SendEmailService;
 import com.empmanagement.util.PasswordEncoder;
+/**
+ * This class takes care of Employee registration related operations
+ *
+ * @author Prarthanaben Parmar
+ *
+ */
 
 @Controller
-public class HRController {
+public class EmployeeRegController {
 
     @Autowired
     private IEmpRegService empreg;
-
-    @Autowired
-    private IReimbursementService reimburseservice;
-
-    @Autowired
-    private IOffBoardingService offBoardService;
 
     @Autowired
     private ISendEmailService sendEmail;
@@ -38,12 +38,10 @@ public class HRController {
     private String companyEmail;
     private String registerStatus;
     private Long empId;
-    private double fullAndFinal;
     private String password;
     private String encodePass;
     private String message;
     private String subject;
-    private String personalEmail;
     private int deptId;
     static final String STATUS = "active";
     private String empUserName;
@@ -57,7 +55,6 @@ public class HRController {
         }
         return "hr-homescreen";
     }
-
 
     @GetMapping("/ems/employee-registration")
     public String empRegistrationForm(HttpSession session, Model model) {
@@ -78,7 +75,6 @@ public class HRController {
                                 Model model) throws NoSuchAlgorithmException {
         companyEmail = empreg.generateEmail(firstname, lastname);
         deptId = empreg.getDeptId(deptname);
-        System.out.println("dept " + deptId);
 
         if (deptId == 0) {
             redirectAttribute.addFlashAttribute("error", "Please enter a valid department");
@@ -86,7 +82,6 @@ public class HRController {
         } else {
             registerStatus = empreg.registerEmp(empreg.getFullName(firstname, lastname), companyEmail, doj, dob, role, grade, deptId, team, STATUS, email);
             empId = empreg.getEmpId(empreg.getFullName(firstname, lastname), dob);
-            System.out.println(empId);
             password = empreg.getPassword();
             encodePass = PasswordEncoder.encodePassword(password);
 
@@ -97,7 +92,7 @@ public class HRController {
 
             String loginDetails = empreg.updateLogin(empreg.getEmpUserName(firstname, lastname), encodePass, empId);
             empUserName = empreg.getUsername(empId);
-            message = "Hello Welcome Aboard! Your employee Id is: " + String.valueOf(empId) + ", your username is " + empUserName + " ,password: " + password + " and company email: " + companyEmail;
+            message = "Hello Welcome Aboard! Your employee Id is: " + empId + ", your username is " + empUserName + " ,password: " + password + " and company email: " + companyEmail;
             subject = "Welcome Onboard" + firstname;
 
             if (registerStatus.equals("success") && loginDetails.equals("success")) {
@@ -109,54 +104,5 @@ public class HRController {
             }
         }
         return "redirect:/ems/employee-registration";
-    }
-
-    @GetMapping("/ems/reimbursement-approval")
-    public String reimbursementapproval(HttpSession session, Model model) {
-        Long employeeId = (Long) session.getAttribute("EMP_ID");
-
-        if (employeeId == null) {
-            return "redirect:/ems/login";
-        }
-        return "reimbursement-approval";
-    }
-
-    @PostMapping("/ems/reimbursement-approval/submit")
-    public String reimburseApproval(RedirectAttributes redirectAttribute,
-                                    Model model) {
-        String status = reimburseservice.getAllRequests();
-
-        if (status == "success") {
-            redirectAttribute.addFlashAttribute("success", "Reimbursement approval succeeded");
-            return "redirect:/ems/reimbursement-approval";
-        } else {
-            redirectAttribute.addFlashAttribute("error", "Please try again");
-            return "redirect:/ems/reimbursement-approval";
-        }
-    }
-
-    @GetMapping("ems/emp-offboarding")
-    public String offBoarding(HttpSession session, Model model) {
-        Long employeeId = (Long) session.getAttribute("EMP_ID");
-
-        if (employeeId == null) {
-            return "redirect:/ems/login";
-        }
-        return "emp-offboarding";
-    }
-    @PostMapping("/ems/emp-offboarding/submit")
-    public String offBoardingSubmit(@RequestParam(name = "employeeId", required = true) Long employeeId,
-                                    RedirectAttributes redirectAttribute,
-                                    Model model) {
-        fullAndFinal = offBoardService.calculateFNF(employeeId);
-        message = "Hello, your FNF is " + fullAndFinal;
-        subject = "Wish you good luck!";
-        personalEmail = offBoardService.getEMail(employeeId);
-        System.out.println(personalEmail);
-        sendEmail.sendMail(subject, message, personalEmail);
-        System.out.println(fullAndFinal);
-        offBoardService.disableUser(employeeId);
-        offBoardService.offBoardEmp(employeeId);
-        return "redirect:/ems/emp-offboarding";
     }
 }
