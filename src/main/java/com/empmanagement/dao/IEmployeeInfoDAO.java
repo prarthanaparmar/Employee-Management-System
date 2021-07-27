@@ -25,5 +25,7 @@ public interface IEmployeeInfoDAO {
     public List<String> getAllDept();
     
     public String getEmployeeRole(Long empId);
+    
+    public Long getEmpIDFromDatabase(String userName);
 
 }

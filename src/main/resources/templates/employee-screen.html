@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <style>
+ div {
+  width: 200px;
+},
+div.a {
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+  float: right;
+}
+</style>
+</head>
+<body>
+<h1 style="text-align: center"> Home </h1>
+<a style="float: right; font-family: cursive;font-size: medium; padding-right: 10px" th:href="@{/ems/logout}"> Log Out </a>
+<h1 style="text-align: center; color: steelblue; font-family: cursive; font-size: 20px;"> Welcome </h1>
+
+<form th:action="@{/ems/employeehomescreen/edit}" method="post">
+  <ul style="text-align: center; font-family: cursive;font-size: larger; list-style-type: none;">
+    <li>10012</li>
+    <li>Heli Shah</li>
+    <li>helis56@gmail.com</li>
+    <li>DOB-13-10-1998</li>
+    <li><input style="background-color: steelblue;  font-size: 12px;display: inline-block;color: white;padding: 8px 30px;" type="submit" value="Edit"> </li>
+  </ul>
+</form>
+
+<h1 style="text-align: center">Redirection Links</h1>
+
+<ul style="text-align: center; font-family: cursive;font-size: larger; list-style-type: none;">
+  <li><a th:href="@{/ems/home-screen}"> Check-out </a></li>
+  <li><a th:href="@{/ems/salarystructure}"> My CTC Structure </a></li>
+  <li><a th:href="@{/ems/timeSheet}"> Your Time Sheet </a> </li>
+  <li><a th:href="@{/ems/performanceManagement}"> Performance Management Portal </a> </li>
+</ul>
+
+</body>
+</html>

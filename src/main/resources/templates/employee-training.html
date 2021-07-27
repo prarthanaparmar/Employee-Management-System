@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+
+</head>
+<body>
+<div>
+    <form th:action="@{/ems/training/search}" method="post">
+
+        <p> <b><label style="width: 100px;display: inline-block;font-family: cursive;font-size: larger;" > Search training:</label>
+            <input type="search" name="searchkeyword" placeholder="keyword" /></b>
+        </p>
+
+        <p><input style="background-color: steelblue;  font-size: 12px;display: inline-block;color: white;padding: 8px 30px;" type="submit" value="Search" />
+
+
+    </form>
+</div>
+<div>
+
+
+    <p style="font-size: 20px;font-family: monospace; background-color: azure;" th:text="'Mandatory Trainings'" />
+
+    <table>
+        <tr>
+            <th>CourseId</th>
+            <th>Course name</th>
+            <th>Course Type</th>
+
+        </tr>
+        <tr>
+            <td>b0005</td>
+            <td>Beginning Excel</td>
+            <td>mandatory</td>
+        </tr>
+        <tr>
+            <td>b0001</td>
+            <td>public speaking</td>
+            <td>mandatory</td>
+        </tr>
+        <tr>
+            <td>b0008</td>
+            <td>Advanced word</td>
+            <td>mandatory</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
