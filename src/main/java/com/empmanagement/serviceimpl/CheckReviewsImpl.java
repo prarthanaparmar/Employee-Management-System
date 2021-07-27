@@ -1,7 +1,8 @@
-package com.empmanagement.service;
+package com.empmanagement.serviceimpl;
 
 import com.empmanagement.dao.IReviewsDAO;
 import com.empmanagement.domain.EmployeeReviewForm;
+import com.empmanagement.service.ICheckReviews;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.util.regex.Pattern;
  * @description: This class will be responsible for implementing business logic related to reviews.
  * */
 @Service
-public class CheckReviews implements ICheckReviews{
+public class CheckReviewsImpl implements ICheckReviews {
     @Autowired
     IReviewsDAO reviewsDAO;
 

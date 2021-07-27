@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 /*
 * @author: Dhruv Bharatbhai Patel - B00868931
 * */
-@DisplayName("Test suites for CheckReviews class")
+@DisplayName("Test suites for CheckReviewsImpl class")
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CheckReviewsImplTest {

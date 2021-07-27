@@ -8,5 +8,6 @@ import org.springframework.stereotype.Service;
  * */
 @Service
 public interface ITimeSheetOverTimeLimit {
+    /* Method to check if an employee has worked more than 40 hours/week. */
     public boolean getOvertimeLimit(String userId);
 }
