@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.empmanagement.dao.EmployeeLeavesDAO;
+import com.empmanagement.dao.IEmployeeLeavesDAO;
 import com.empmanagement.domain.EmployeeLeave;
 
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
+public class EmployeeLeavesDAOImpl implements IEmployeeLeavesDAO {
 
     private static final String TABLE_NAME = "employee_leaves";
     private static final String QUERY_CREATE = "INSERT INTO " + TABLE_NAME

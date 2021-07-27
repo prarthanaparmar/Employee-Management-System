@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
+/*
+ * @author: Dhruv Bharatbhai Patel - B00868931
+ * @description: This controller handles all the request related to performance management functionality of our application
+ *               This controller will handle all the request mappings related to performance management activities.
+ * */
 @Controller
 public class PerformanceManagementController {
     @Autowired

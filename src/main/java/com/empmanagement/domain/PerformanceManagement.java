@@ -2,9 +2,19 @@ package com.empmanagement.domain;
 
 import org.springframework.stereotype.Component;
 
+/*
+ * @author: Dhruv Bharatbhai Patel - B00868931
+ * @description: Model for Performance Management according to reviews table in our database.
+ * */
 @Component
 public class PerformanceManagement {
-    private String empId1,empId2,CommunicationScore,GoalsScore,LeadershipScore,OtherScore,date;
+    private String empId1;
+    private String empId2;
+    private String CommunicationScore;
+    private String GoalsScore;
+    private String LeadershipScore;
+    private String OtherScore;
+    private String date;
 
     public String getEmpId1() {
         return empId1;
@@ -61,6 +71,4 @@ public class PerformanceManagement {
     public void setDate(String date) {
         this.date = date;
     }
-
-
 }
