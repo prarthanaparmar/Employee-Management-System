@@ -24,8 +24,10 @@ public class EmployeeDirectoryController {
 	private Logger logger = LoggerFactory.getLogger(EmployeeDirectoryController.class);
 
 	@GetMapping("/ems/employee-directory")
-	public String getLeaveManagement(HttpSession session, Model model, @RequestParam(name = "name", defaultValue = "%", required = false) String name,
-			@RequestParam(name="role", defaultValue = "%", required = false) String role, @RequestParam(name = "dept", defaultValue = "%", required = false) String dept) {
+	public String getLeaveManagement(HttpSession session, Model model,
+			@RequestParam(name = "name", defaultValue = "%", required = false) String name,
+			@RequestParam(name = "role", defaultValue = "%", required = false) String role,
+			@RequestParam(name = "dept", defaultValue = "%", required = false) String dept) {
 		Long employeeId = (Long) session.getAttribute("EMP_ID");
 
 		if (employeeId == null) {
@@ -38,7 +40,7 @@ public class EmployeeDirectoryController {
 		model.addAttribute("depts", depts);
 		List<EmployeeInfo> employeeInfos = employeeDirectoryService.getEmployeeInfos(name, role, dept);
 		model.addAttribute("employeeInfos", employeeInfos);
-		
+
 		return "employee-directory";
 	}
 
