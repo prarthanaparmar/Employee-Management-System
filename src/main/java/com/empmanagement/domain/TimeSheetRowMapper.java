@@ -4,7 +4,10 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+/*
+ * @author: Dhruv Bharatbhai Patel - B00868931
+ * @description: This class is responsible for mapping result set to TimeSheetDetail model.
+ * */
 public class TimeSheetRowMapper implements RowMapper<TimeSheetDetail> {
 
     @Override
@@ -18,6 +21,5 @@ public class TimeSheetRowMapper implements RowMapper<TimeSheetDetail> {
         timeSheetDetail.setEmpId(rs.getString("empId"));
 
         return timeSheetDetail;
-
     }
 }

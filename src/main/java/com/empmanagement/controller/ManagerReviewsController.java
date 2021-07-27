@@ -1,6 +1,7 @@
 package com.empmanagement.controller;
 
-import com.empmanagement.domain.ManagerReviewForm;
+import com.empmanagement.domain.EmployeeReviewForm;
+import com.empmanagement.service.ICheckReviews;
 import com.empmanagement.service.IManangerReviewsService;
 import com.empmanagement.service.IReviewsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
+/*
+* @author: Dhruv Bharatbhai Patel - B00868931
+* @description: This controller handles all the request related to Manager functionality of our application
+*               This controller will handle all the request mappings related to manager activities such as manager review management.
+* */
 @Controller
 public class ManagerReviewsController {
     @Autowired
     IManangerReviewsService manangerReviews;
     @Autowired
     IReviewsService reviews;
+    @Autowired
+    ICheckReviews checkReviews;
 
     @GetMapping("/ems/managerReviews")
     public String getManagerData(HttpSession session, Model model){
@@ -29,18 +37,18 @@ public class ManagerReviewsController {
     }
 
     @PostMapping("/ems/managerReviews")
-    public String postManagerReviewData(@ModelAttribute("managerReviewForm") ManagerReviewForm managerReviewForm,
+    public String postManagerReviewData(@ModelAttribute("managerReviewForm") EmployeeReviewForm managerReviewForm,
                                         RedirectAttributes redirectAttribute,
                                         HttpSession session){
         Long employeeId = (Long) session.getAttribute("EMP_ID");
-        if(!manangerReviews.checkManagerInput(managerReviewForm)){
+        if(!checkReviews.checkInput(managerReviewForm)){
             redirectAttribute.addFlashAttribute("managerError", "Please select a manager");
         }
-        else if(!manangerReviews.checkManagerGeneralInput(managerReviewForm)){
+        else if(!checkReviews.checkGeneralInput(managerReviewForm)){
             redirectAttribute.addFlashAttribute("IncorrectInputError", "Your input is invalid. Please enter again");
         }
         else{
-            String dbSaveStatus=manangerReviews.saveManagerReview(employeeId.toString(),managerReviewForm);
+            String dbSaveStatus=checkReviews.saveReview(employeeId.toString(),managerReviewForm);
             if (dbSaveStatus.equals("success")) {
                 redirectAttribute.addFlashAttribute("success",
                         "Your review has been submitted successfully. ");
@@ -50,6 +58,5 @@ public class ManagerReviewsController {
             }
         }
         return "redirect:/ems/managerReviews";
-
     }
 }

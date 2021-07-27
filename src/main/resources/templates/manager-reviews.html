@@ -67,22 +67,13 @@ tr:nth-child(even) {
         <tr>
             <td>Select Manager:</td>
             <td>
-                <select name="managers">
+                <select name="peers">
                     <option value=""> --</option>
                     <option th:each="manager : ${managers}"
-                            th:value="${manager.managerId} + ' ' + ${manager.empName}"
-                            th:text="${manager.managerId} + ' ' + ${manager.empName}"></option>
+                            th:value="${manager.empId} + ' ' + ${manager.empName}"
+                            th:text="${manager.empId} + ' ' + ${manager.empName}"></option>
                 </select></td>
         </tr>
-        <!--        <tr>-->
-        <!--        <td>Select Manager:</td>-->
-        <!--        <td>-->
-        <!--            <select name="reviews">-->
-        <!--    <option th:each="peer : ${peers}"-->
-        <!--            th:value="${peer.empId}+ ' ' + ${peer.empName}"-->
-        <!--            th:text="${peer.empId}+ ' ' + ${peer.empName}"></option>-->
-        <!--            </select></td>-->
-        <!--        </tr>-->
         <tr>
             <td>Skills Score (Out of 10):</td>
             <td><input type="skillsScore" field="*{skillsScore}" name="skillsScore"/></td>
@@ -99,12 +90,6 @@ tr:nth-child(even) {
             <td>Other Score (Out of 10):</td>
             <td><input type="otherScore" field="*{otherScore}" name="otherScore"/></td>
         </tr>
-        <!--    <p> <b><label style="width: 100px;display: inline-block;font-family: cursive;font-size: larger;" > Skills Score (Out of 10):</label> <input type="skillsScore" field="*{skillsScore}" name="skillsScore" /></p>-->
-        <!--    <p style="padding-bottom: 30px;"> <b>-->
-        <!--        <label style="width: 102px;display: inline-block;font-family: cursive;font-size: larger;"> Communication Score (Out of 10): </label><input type="communicationScore" field="*{communicationScore}" name="communicationScore" />-->
-        <!--        <label style="width: 102px;display: inline-block;font-family: cursive;font-size: larger;"> Leadership Score (Out of 10): </label><input type="leadershipScore" field="*{leadershipScore}" name="leadershipScore" />-->
-        <!--        <label style="width: 102px;display: inline-block;font-family: cursive;font-size: larger;"> Other Score (Out of 10): </label><input type="otherScore" field="*{otherScore}" name="otherScore" />-->
-        <!--    </p>-->
     </table>
     <p><input
             style="background-color: steelblue;  font-size: 12px;display: inline-block;color: white;padding: 8px 30px;"
