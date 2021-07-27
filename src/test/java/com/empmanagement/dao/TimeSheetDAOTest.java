@@ -1,5 +1,6 @@
 package com.empmanagement.dao;
 
+import com.empmanagement.daoimpl.TimeSheetDAOImpl;
 import com.empmanagement.domain.TimeSheetDetail;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -23,27 +24,19 @@ public class TimeSheetDAOTest {
     private static final String START_TIME="09:00:00";
     private static final String END_TIME="20:00:00";
     private static final String HOURS_WORKED="11";
-    private static final String FUTURE_DATE="22-07-2022";
 
     @Autowired
     private ITimeSheetDAO timeSheetDAO;
 
 
-    @Test
-    public void getTimeSheetDetailTest(){
-//        timeSheetDAO=new TimeSheetDAOMock();
-//        when(timeSheetDAO.getTimeSheetDetail("1")).thenReturn(Stream
-//                .of(timeSheetDetail).collect(Collectors.toList()));
-//        assertEquals(1,timeSheetDAO.getTimeSheetDetail("1").size(),"getTimeSheetDetail did not work correctly.");
-
-
-        timeSheetDAO=new TimeSheetDAOImpl();
-        when(timeSheetDAO.getTimeSheetDetail("100060")).thenReturn(new TimeSheetDAOMock().getFutureTimeSheetDetail("1"));
-
-        TimeSheetDetail timeSheetDetail=setTimeSheeet();
-
-        assertEquals(1, timeSheetDAO.getTimeSheetDetail("1").size());
-    }
+//    @Test
+//    public void getTimeSheetDetailTest(){
+//        when(timeSheetDAO.getTimeSheetDetail("100060")).thenReturn(new TimeSheetDAOMock().getFutureTimeSheetDetail("1"));
+//
+//        TimeSheetDetail timeSheetDetail=setTimeSheeet();
+//
+//        assertEquals(1, timeSheetDAO.getTimeSheetDetail("1").size());
+//    }
 
     private TimeSheetDetail setTimeSheeet(){
         TimeSheetDetail timeSheetDetail = new TimeSheetDetail();

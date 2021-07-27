@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.empmanagement.dao.IEmployeeInfoDAO;
 import com.empmanagement.domain.EmployeeInfo;
+import com.empmanagement.service.IEmployeeDirectoryService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,12 @@ public class EmployeeDirectoryService implements IEmployeeDirectoryService {
 	
 	public String getEmployeeRole(Long empId) {
 		return employeeInfoDAO.getEmployeeRole(empId);
+	}
+	
+	@Override
+	public Long getEmpID(String userName) {
+		Long empId = employeeInfoDAO.getEmpIDFromDatabase(userName);
+		return empId;
 	}
 
 }

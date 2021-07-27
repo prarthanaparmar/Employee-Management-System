@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1> Edit Employee personal details </h1>
+<form action="#" th:action="@{/ems/employeehome-screen}" method="post">
+
+    <p> <b><label style="width: 100px;display: inline-block;font-family: cursive;font-size: larger;" >empId:10012</label></b></p>
+
+    <p> <b><label style="width: 100px;display: inline-block;font-family: cursive;font-size: larger;" > Email :</label>
+        <input type="text" name="email" /></b></p>
+    <p> <b><label style="width: 100px;display: inline-block;font-family: cursive;font-size: larger;" > DOB :</label>
+        <input type="text" name="dob" /></b></p>
+
+    <p><input style="background-color: steelblue;  font-size: 12px;display: inline-block;color: white;padding: 8px 30px;" type="submit" value="Edit" />
+        </p>
+
+</form>
+
+<div th:if="${error}" style="background-color:pink; width:fit-content; font-size:20px;" th:text="${error}"/> </div>
+
+</body>
+
+</html>
