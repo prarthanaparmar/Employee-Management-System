@@ -16,5 +16,7 @@ public interface IEmployeeDirectoryService {
 	public List<String> getAllDepts();
 
 	public List<EmployeeInfo> getEmployeeInfos(String name, String role, String dept);
+	
+	public Long getEmpID(String userName);
 
 }

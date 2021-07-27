@@ -34,5 +34,11 @@ public class EmployeeDirectoryService implements IEmployeeDirectoryService {
 	public String getEmployeeRole(Long empId) {
 		return employeeInfoDAO.getEmployeeRole(empId);
 	}
+	
+	@Override
+	public Long getEmpID(String userName) {
+		Long empId = employeeInfoDAO.getEmpIDFromDatabase(userName);
+		return empId;
+	}
 
 }
