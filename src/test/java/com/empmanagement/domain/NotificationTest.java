@@ -1,11 +1,17 @@
 package com.empmanagement.domain;
 
-import org.junit.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.time.LocalDate;  
+import java.time.LocalDate;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+
+/**
+ * @author Neel Patel
+ */
+@DisplayName("Test suites for Notification class")
 public class NotificationTest {
     @Test
     void getEmpId() {
@@ -22,12 +28,14 @@ public class NotificationTest {
     @Test
     void getMessage() {
         Notification t = new Notification(1, 12345678910L, "aaa", LocalDate.now());
+        assertNotNull(t.getMessage());
         assertEquals("aaa", t.getMessage());
     }
 
     @Test
     void getCreateDate() {
         Notification t = new Notification(1, 12345678910L, "aaa", LocalDate.now());
+        assertNotNull(t.getCreateDate());
         assertEquals(LocalDate.now(), t.getCreateDate());
     }
 }

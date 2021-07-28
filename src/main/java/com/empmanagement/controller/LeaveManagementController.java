@@ -8,8 +8,8 @@ import javax.servlet.http.HttpSession;
 import com.empmanagement.domain.EmployeeLeave;
 import com.empmanagement.domain.EmployeeLeaveBuilder;
 import com.empmanagement.domain.LeaveBalance;
-import com.empmanagement.service.LeaveManagementService;
-import com.empmanagement.service.NotificationService;
+import com.empmanagement.service.ILeaveManagementService;
+import com.empmanagement.service.INotificationService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +26,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LeaveManagementController {
 	@Autowired
-	private LeaveManagementService leaveManagementService;
+	private ILeaveManagementService leaveManagementService;
 
 	@Autowired
-	private NotificationService notificationService;
+	private INotificationService notificationService;
 
 	private Logger logger = LoggerFactory.getLogger(LeaveManagementController.class);
 

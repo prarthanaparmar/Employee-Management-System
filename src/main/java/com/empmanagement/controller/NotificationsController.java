@@ -5,7 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.empmanagement.domain.Notification;
-import com.empmanagement.service.NotificationService;
+import com.empmanagement.service.INotificationService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class NotificationsController {
 	@Autowired
-	private NotificationService notificationService;
+	private INotificationService notificationService;
 
 	private Logger logger = LoggerFactory.getLogger(LeaveManagementController.class);
 
