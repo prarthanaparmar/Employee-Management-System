@@ -1,6 +1,10 @@
 package com.empmanagement.dao;
 
 import java.sql.Date;
+/**
+ * Interface for Offboarding DAO
+ * @author Prarthanaben Parmar
+ */
 
 public interface IOffBoardingDao {
 	
