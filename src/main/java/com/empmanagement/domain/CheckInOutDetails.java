@@ -5,15 +5,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class CheckInOutDetails {
 
-    private String empId,date,day,start_time,end_time;
-
+    private String date,day,start_time,end_time;
+    private Long empId;
     public CheckInOutDetails(){}
 
-    public String getEmpId() {
+    public Long getEmpId() {
         return empId;
     }
 
-    public void setEmpId(String empId) {
+    public void setEmpId(Long empId) {
         this.empId = empId;
     }
 

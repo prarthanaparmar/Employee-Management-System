@@ -3,11 +3,9 @@ package com.empmanagement.serviceimpl;
 import com.empmanagement.dao.IEmployeetrainingDAO;
 import com.empmanagement.domain.EmployeetrainingDetails;
 import com.empmanagement.service.IEmployeetrainingService;
-import com.empmanagement.domain.EmployeetrainingDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -17,7 +15,6 @@ public class EmployeetrainingServiceImpl implements IEmployeetrainingService {
     @Autowired
     IEmployeetrainingDAO employeetrainingDAO;
 
-    //@Override
     public List<EmployeetrainingDetails> getTrainingDetails(Long type) {
 
             List<EmployeetrainingDetails> td = employeetrainingDAO.getTrainings(type);
@@ -25,7 +22,6 @@ public class EmployeetrainingServiceImpl implements IEmployeetrainingService {
             return td;
 
         }
-        //return td;
 
     @Override
     public List<EmployeetrainingDetails> getMandatoryTraining(Long empId) {
@@ -34,7 +30,7 @@ public class EmployeetrainingServiceImpl implements IEmployeetrainingService {
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         if(td.size()!=0) {
             for (EmployeetrainingDetails t : td) {
-                //t.setHours_worked(getHours(getTimeDifference(format.parse(t.getStart_time()), format.parse(t.getEnd_time()))));
+
                 t.setCoursename(t.getCoursename());
             }
             return td;

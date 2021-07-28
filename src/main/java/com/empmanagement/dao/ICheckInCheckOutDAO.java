@@ -13,7 +13,6 @@ import java.util.List;
 public interface ICheckInCheckOutDAO {
     void setCheckIn(Long empId);
     public void updateCheckIn(Long empId);
-    //Boolean getEmpID(Long eid,Date date);
     public void setCheckOut(Long empId, Date date);
     List<CheckInOutDetails> getTimeSheetDetail(Long empId);
     List<CheckInOutDetails> getdate(Long empId);
