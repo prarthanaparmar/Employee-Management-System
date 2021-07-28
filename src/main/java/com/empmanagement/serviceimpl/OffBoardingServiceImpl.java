@@ -10,6 +10,14 @@ import org.springframework.stereotype.Service;
 import com.empmanagement.dao.IOffBoardingDao;
 import com.empmanagement.service.IOffBoardingService;
 import com.empmanagement.service.ISalaryService;
+/**
+ *This class contains the bsiness logic for Off boarding full and final calculation
+ *an of Employee
+ *
+ * @author Prarthanaben Parmar
+ *
+ */
+
 
 @Service
 public class OffBoardingServiceImpl implements IOffBoardingService{

@@ -1,6 +1,10 @@
-	package com.empmanagement.dao;
+package com.empmanagement.dao;
 
 import java.sql.Date;
+/**
+ * Interface for EmpRegister DAO
+ * @author Prarthanaben Parmar
+ */
 
 public interface IEmpregisterDAO {
 	
