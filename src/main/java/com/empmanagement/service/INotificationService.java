@@ -4,10 +4,9 @@ import java.util.List;
 
 import com.empmanagement.domain.Notification;
 
-import org.springframework.stereotype.Service;
-
 /**
  * Notification service interface
+ * 
  * @author Neel Patel
  */
 public interface INotificationService {
@@ -35,11 +34,11 @@ public interface INotificationService {
 
 	/**
 	 * 
-	 * @param empId employee id
+	 * @param empId   employee id
 	 * @param message message
 	 * @return true if notification is created or updated
 	 */
-	
+
 	public boolean createNotification(long empId, String message);
 
 }

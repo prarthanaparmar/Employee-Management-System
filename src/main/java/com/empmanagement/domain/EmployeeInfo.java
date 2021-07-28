@@ -1,5 +1,8 @@
 package com.empmanagement.domain;
 
+/**
+ * @author Neel Patel
+ */
 public class EmployeeInfo {
 
     private long empId;

@@ -9,8 +9,11 @@ import com.empmanagement.service.INotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Neel Patel
+ */
 @Service
-public class NotificationService implements INotificationService{
+public class NotificationService implements INotificationService {
 
 	@Autowired
 	NotificationDAO notificationDAO;

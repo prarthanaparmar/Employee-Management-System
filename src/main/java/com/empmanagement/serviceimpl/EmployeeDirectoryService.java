@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Neel Patel
+ */
 @Service
 public class EmployeeDirectoryService implements IEmployeeDirectoryService {
 
@@ -30,11 +33,11 @@ public class EmployeeDirectoryService implements IEmployeeDirectoryService {
 	public List<EmployeeInfo> getEmployeeInfos(String name, String role, String dept) {
 		return employeeInfoDAO.getEmployeeInfos(name, role, dept);
 	}
-	
+
 	public String getEmployeeRole(Long empId) {
 		return employeeInfoDAO.getEmployeeRole(empId);
 	}
-	
+
 	@Override
 	public Long getEmpID(String userName) {
 		Long empId = employeeInfoDAO.getEmpIDFromDatabase(userName);

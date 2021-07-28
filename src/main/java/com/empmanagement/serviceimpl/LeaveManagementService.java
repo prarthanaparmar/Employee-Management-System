@@ -13,14 +13,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Neel Patel
+ */
 @Service
-public class LeaveManagementService implements ILeaveManagementService{
+public class LeaveManagementService implements ILeaveManagementService {
 
 	@Autowired
 	LeaveBalanceDAO leaveBalanceDAO;
 
 	@Autowired
-    IEmployeeLeavesDAO employeeLeavesDAO;
+	IEmployeeLeavesDAO employeeLeavesDAO;
 
 	private Logger logger = LoggerFactory.getLogger(LeaveManagementService.class);
 
