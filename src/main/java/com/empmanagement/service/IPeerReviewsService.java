@@ -1,13 +1,14 @@
 package com.empmanagement.service;
 
 import com.empmanagement.domain.EmployeePeer;
-import com.empmanagement.domain.EmployeeReviewForm;
 
 import java.util.List;
 
+/*
+ * @author: Dhruv Bharatbhai Patel - B00868931
+ * @description: This interface will be responsible for implementing business logic related to peer reviews.
+ * */
 public interface IPeerReviewsService {
+    /* Method to fetch peers from database.*/
     public List<EmployeePeer> getPeers(String empId);
-    public boolean checkPeerGeneralInput(EmployeeReviewForm employeeReviewForm);
-    public String savePeerReview(String empId1,EmployeeReviewForm employeeReviewForm);
-    public boolean checkPeerInput(EmployeeReviewForm employeeReviewForm);
 }
