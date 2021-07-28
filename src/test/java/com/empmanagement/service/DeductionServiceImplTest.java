@@ -33,7 +33,7 @@ public class DeductionServiceImplTest {
 	private static final Long EMPID = (long) 13011;
 
 	@Test
-	void getTotalDeductions() {
+	void getTotalDeductionsTest() {
 		Taxes tax = new Taxes();
 		tax.setProfessionalTax(PROFESSIONAL_TAX);
 		tax.setIncomeTax(TOTAL_TAX);
