@@ -87,8 +87,7 @@ public class TimeSheetDAOImpl implements ITimeSheetDAO {
     @Override
     public List<TimeSheetDetail> getCurrentWeekDetail(String empId) {
         try {
-            String sql = QUERY_GET_WEEEK_TIMESHEET;
-            List<TimeSheetDetail> timeSheet = jdbcTemplate.query(sql, new Object[]{empId}, new TimeSheetRowMapper());
+            List<TimeSheetDetail> timeSheet = jdbcTemplate.query(QUERY_GET_WEEEK_TIMESHEET, new Object[]{empId}, new TimeSheetRowMapper());
             return timeSheet;
         }
         catch(Exception exception){
