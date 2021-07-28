@@ -38,7 +38,7 @@ public class InvestmentDeclarationServiceImplTest {
 	private static final Long EMPID = (long) 13011;
 
 	@Test
-	void getInvestmentDeclaration() throws NoSuchAlgorithmException {
+	void getInvestmentDeclarationTest() throws NoSuchAlgorithmException {
 		InvestmentDeclaration investment = new InvestmentDeclaration(HOME_LOAN_INTEREST, LIFE_INSURANCE_PREMIUM, MF_INVEST);
 		Mockito.when(investmentDAO.getInvestmentDeclaration(EMPID))
 				.thenReturn(investment);
@@ -47,7 +47,7 @@ public class InvestmentDeclarationServiceImplTest {
 	}
 
 	@Test
-	void saveInvestmentDeclarationSuccess() throws NoSuchAlgorithmException {
+	void saveInvestmentDeclarationSuccessTest() throws NoSuchAlgorithmException {
 		Mockito.when(investmentDAO.saveInvestmentDeclaration(EMPID, HOME_LOAN_INTEREST, LIFE_INSURANCE_PREMIUM, MF_INVEST ))
 				.thenReturn(SUCCESS);
 		String dbStatus = investmentDeclarationService.saveInvestmentDeclaration(EMPID, HOME_LOAN_INTEREST, LIFE_INSURANCE_PREMIUM, MF_INVEST);
@@ -55,7 +55,7 @@ public class InvestmentDeclarationServiceImplTest {
 	}
 	
 	@Test
-	void saveInvestmentDeclarationError() throws NoSuchAlgorithmException {
+	void saveInvestmentDeclarationErrorTest() throws NoSuchAlgorithmException {
 		Mockito.when(investmentDAO.saveInvestmentDeclaration(EMPID, HOME_LOAN_INTEREST, LIFE_INSURANCE_PREMIUM, MF_INVEST ))
 				.thenReturn(ERROR);
 		String dbStatus = investmentDeclarationService.saveInvestmentDeclaration(EMPID, HOME_LOAN_INTEREST, LIFE_INSURANCE_PREMIUM, MF_INVEST);
