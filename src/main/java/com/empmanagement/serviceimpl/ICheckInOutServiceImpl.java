@@ -2,17 +2,14 @@ package com.empmanagement.serviceimpl;
 
 import com.empmanagement.dao.ICheckInCheckOutDAO;
 import com.empmanagement.domain.CheckInOutDetails;
-import com.empmanagement.domain.TimeSheetDetail;
 import com.empmanagement.service.ICheckInOutService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -26,31 +23,50 @@ public class ICheckInOutServiceImpl implements ICheckInOutService {
     @Override
     public boolean addCheckIn(long empId) {
 
-
-        //List<CheckInOutDetails> timesheet= checkInCheckOutDAO.getTimeSheetDetail(empId);
-
         java.util.Date date=new java.util.Date();
         java.sql.Date sqldate= new java.sql.Date(date.getTime());
 
+        LocalTime now=LocalTime.now();
+        DateTimeFormatter df=DateTimeFormatter.ofPattern("hh:mm:ss");
+
         Timestamp t1=new Timestamp(System.currentTimeMillis());
-        java.util.Date localtime = new java.util.Date(t1.getTime());
+        java.util.Date date1 = new java.util.Date(t1.getTime());
+
+        Boolean p=new Boolean("true");
+        List<CheckInOutDetails> d=checkInCheckOutDAO.getdate(empId);
+        for(CheckInOutDetails c: d){
+            System.out.println(c.getEmpId()+" "+c.getDate()+" "+c.getStart_time());
+        }
+
+        for(CheckInOutDetails c: d){
+
+            if(c.getEmpId().equals(empId) && c.getDate().equals(sqldate.toString())) {
+
+                    if (c.getStart_time().compareTo(now.format(df)) > 0) {
+
+                        checkInCheckOutDAO.updateCheckIn(empId);
+                        p=false;
+
+                        return true;
+                    } else {
+
+                        return false;
+                    }
 
 
-         //if(checkInCheckOutDAO.getstarttime(empId).compareTo(localtime)>0)
-        //{
+            }
 
-                    //checkInCheckOutDAO.updateCheckIn(empId);
-                    //System.out.println("In service update checkin");
-                    //return true;
+        }
+        if(p)
+        {
+            checkInCheckOutDAO.setCheckIn(empId);
+            System.out.println("In service add checkin");
+            return true;
+        }
 
-
-        checkInCheckOutDAO.setCheckIn(empId);
-        System.out.println("In service add checkin");
         return true;
 
-        //}
-        //else
-          //return false;
+
 
     }
 
@@ -58,10 +74,6 @@ public class ICheckInOutServiceImpl implements ICheckInOutService {
     public boolean addCheckOut(long empId) {
         java.util.Date date=new java.util.Date();
         java.sql.Date sqldate= new java.sql.Date(date.getTime());
-
-        //Timestamp t1=new Timestamp(System.currentTimeMillis());
-        //java.util.Date localtime = new java.util.Date(t1.getTime());
-
 
                 checkInCheckOutDAO.setCheckOut(empId,sqldate);
                 return true;

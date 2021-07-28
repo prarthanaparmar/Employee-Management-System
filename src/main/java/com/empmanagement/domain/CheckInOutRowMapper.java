@@ -15,7 +15,7 @@ public class CheckInOutRowMapper implements RowMapper<CheckInOutDetails> {
         checkInOutDetails.setDay(rs.getString("day"));
         checkInOutDetails.setStart_time(rs.getString("start_time"));
         checkInOutDetails.setEnd_time(rs.getString("end_time"));
-        checkInOutDetails.setEmpId(rs.getString("empId"));
+        checkInOutDetails.setEmpId(rs.getLong("empId"));
 
         return checkInOutDetails;
 

@@ -3,14 +3,13 @@ package com.empmanagement.controller;
 import com.empmanagement.domain.EmployeetrainingDetails;
 
 import com.empmanagement.service.IEmployeetrainingService;
-//import jdk.internal.icu.text.NormalizerBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
+
 
 @Controller
 public class EmployeetrainingController {
@@ -31,11 +30,11 @@ public class EmployeetrainingController {
     @PostMapping("/ems/training/search")
     public String search(@RequestParam(name = "searchkeyword") String keyword, Model model)
     {
-        System.out.println("Keyword: "+keyword );
 
-        //List<EmployeetrainingDetails> searchResults = employeetrainingService.search(keyword);
+
+
         model.addAttribute("keyword",keyword);
-        //model.addAttribute("searchResults",searchResults);
+
         return "training-search-result";
     }
 
