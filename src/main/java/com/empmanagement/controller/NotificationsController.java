@@ -5,7 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.empmanagement.domain.Notification;
-import com.empmanagement.service.NotificationService;
+import com.empmanagement.service.INotificationService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +14,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * Notification controller
+ * @author Neel Patel
+ */
 @Controller
 public class NotificationsController {
 	@Autowired
-	private NotificationService notificationService;
+	private INotificationService notificationService;
 
 	private Logger logger = LoggerFactory.getLogger(LeaveManagementController.class);
 
+	/**
+	 * Handles get requests
+	 * @param session HttpSession
+	 * @param model Model
+	 * @return Template name
+	 */
 	@GetMapping("/ems/notifications")
 	public String getNotifications(HttpSession session, Model model) {
 		Long employeeId = (Long) session.getAttribute("EMP_ID");

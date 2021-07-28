@@ -2,6 +2,9 @@ package com.empmanagement.domain;
 
 import java.time.LocalDate;
 
+/**
+ * @author Neel Patel
+ */
 public class EmployeeLeaveBuilder {
 
     private int leaveId;
