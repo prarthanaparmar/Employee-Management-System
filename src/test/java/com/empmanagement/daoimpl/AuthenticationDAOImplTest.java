@@ -1,4 +1,4 @@
-package com.empmanagement.dao;
+package com.empmanagement.daoimpl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
