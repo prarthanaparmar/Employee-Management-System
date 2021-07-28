@@ -1,4 +1,4 @@
-package com.empmanagement.dao;
+package com.empmanagement.daoimpl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +14,11 @@ import com.empmanagement.daoimpl.AuthenticationDAOImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * 
+ * @author Priti Sri Pandey
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 public class AuthenticationDAOImplTest {
 

@@ -15,6 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * Employee directory controller
+ * @author Neel Patel
+ */
 @Controller
 public class EmployeeDirectoryController {
 
@@ -23,8 +27,17 @@ public class EmployeeDirectoryController {
 
 	private Logger logger = LoggerFactory.getLogger(EmployeeDirectoryController.class);
 
+	/**
+	 * Retrieves List of employees based on query params
+	 * @param session HttpSession
+	 * @param model Model
+	 * @param name name query param
+	 * @param role role query param
+	 * @param dept dept query param
+	 * @return Template name
+	 */
 	@GetMapping("/ems/employee-directory")
-	public String getLeaveManagement(HttpSession session, Model model,
+	public String getEmployees(HttpSession session, Model model,
 			@RequestParam(name = "name", defaultValue = "%", required = false) String name,
 			@RequestParam(name = "role", defaultValue = "%", required = false) String role,
 			@RequestParam(name = "dept", defaultValue = "%", required = false) String dept) {
@@ -40,7 +53,8 @@ public class EmployeeDirectoryController {
 		model.addAttribute("depts", depts);
 		List<EmployeeInfo> employeeInfos = employeeDirectoryService.getEmployeeInfos(name, role, dept);
 		model.addAttribute("employeeInfos", employeeInfos);
-
+		
+		logger.info("List of employee infos retrieved.");
 		return "employee-directory";
 	}
 

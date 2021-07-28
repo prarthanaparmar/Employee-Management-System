@@ -14,6 +14,11 @@ import com.empmanagement.daoimpl.SalaryDAOImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * 
+ * @author Priti Sri Pandey
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 public class SalaryDAOImplTest {
 

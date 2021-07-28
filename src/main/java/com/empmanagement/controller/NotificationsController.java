@@ -14,6 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * Notification controller
+ * @author Neel Patel
+ */
 @Controller
 public class NotificationsController {
 	@Autowired
@@ -21,6 +25,12 @@ public class NotificationsController {
 
 	private Logger logger = LoggerFactory.getLogger(LeaveManagementController.class);
 
+	/**
+	 * Handles get requests
+	 * @param session HttpSession
+	 * @param model Model
+	 * @return Template name
+	 */
 	@GetMapping("/ems/notifications")
 	public String getNotifications(HttpSession session, Model model) {
 		Long employeeId = (Long) session.getAttribute("EMP_ID");

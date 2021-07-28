@@ -24,7 +24,7 @@ public class InvestmentDeclarationDAOImpl implements IInvestmentDeclarationDAO {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	String dbSaveStatus;
+	String dbSaveStatus = "error";
 	InvestmentDeclaration investment = null;
 
 	/*
