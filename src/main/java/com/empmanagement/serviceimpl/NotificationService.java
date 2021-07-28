@@ -1,15 +1,19 @@
-package com.empmanagement.service;
+package com.empmanagement.serviceimpl;
 
 import java.util.List;
 
 import com.empmanagement.dao.NotificationDAO;
 import com.empmanagement.domain.Notification;
+import com.empmanagement.service.INotificationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Neel Patel
+ */
 @Service
-public class NotificationService {
+public class NotificationService implements INotificationService {
 
 	@Autowired
 	NotificationDAO notificationDAO;

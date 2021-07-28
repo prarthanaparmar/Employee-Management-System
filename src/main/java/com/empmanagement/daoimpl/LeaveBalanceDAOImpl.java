@@ -18,6 +18,9 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @author Neel Patel
+ */
 @Repository
 public class LeaveBalanceDAOImpl implements LeaveBalanceDAO {
 

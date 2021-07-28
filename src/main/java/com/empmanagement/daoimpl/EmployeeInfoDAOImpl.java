@@ -16,19 +16,22 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @author Neel Patel
+ */
 @Repository
 public class EmployeeInfoDAOImpl implements IEmployeeInfoDAO {
 
     private static final String TABLE_EMP = "employee";
     private static final String QUERY_WILDCARD = "%";
     private static final String TABLE_DEPT = "dept";
-	private static final String QUERY_EMPID_LOGIN = "select empId from login where empUsername = ?";
+    private static final String QUERY_EMPID_LOGIN = "select empId from login where empUsername = ?";
     private static final String QUERY_GET_ALL_ROLES = "SELECT distinct role FROM " + TABLE_EMP + ";";
     private static final String QUERY_GET_EMP_ROLES = "SELECT role FROM " + TABLE_EMP + " WHERE empId = ? ;";
     private static final String QUERY_GET_ALL_DEPT = "SELECT distinct deptname FROM " + TABLE_DEPT + ";";
     private static final String QUERY_GET_ALL = "SELECT empId, empName, empEmail, role, deptname FROM " + TABLE_EMP
             + " e Inner Join dept d On e.deptId=d.iddept where empName like ? and role like ? and deptname like ?";
-    
+
     Long empId;
 
     @Autowired
@@ -131,38 +134,36 @@ public class EmployeeInfoDAOImpl implements IEmployeeInfoDAO {
         }
     }
 
-	@Override
-	public String getEmployeeRole(Long empId) {
-		
-		String role = null;
-		try {
-			
-			role = jdbcTemplate.queryForObject(QUERY_GET_EMP_ROLES,
-					String.class, empId);
-		     System.out.println("ID : " + empId);
-			}
-			catch (Exception e){
-				System.out.println(e);
-			}
-			return role;
-	};
-	
-	/*
-	 * Gets the empId from database for the userName
-	 */
-	@Override
-	public Long getEmpIDFromDatabase(String userName) {
+    @Override
+    public String getEmployeeRole(Long empId) {
 
-		try {
+        String role = null;
+        try {
 
-			empId = jdbcTemplate.queryForObject(QUERY_EMPID_LOGIN, Long.class, userName);
+            role = jdbcTemplate.queryForObject(QUERY_GET_EMP_ROLES, String.class, empId);
+            System.out.println("ID : " + empId);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return role;
+    };
 
-		} catch (Exception e) {
+    /*
+     * Gets the empId from database for the userName
+     */
+    @Override
+    public Long getEmpIDFromDatabase(String userName) {
 
-			System.err.println(e);
-		}
+        try {
 
-		return empId;
-	}
+            empId = jdbcTemplate.queryForObject(QUERY_EMPID_LOGIN, Long.class, userName);
+
+        } catch (Exception e) {
+
+            System.err.println(e);
+        }
+
+        return empId;
+    }
 
 }

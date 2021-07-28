@@ -6,10 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.empmanagement.dao.IReimbursementDao;
-import com.empmanagement.dao.ReimbursementDaoImpl;
+import com.empmanagement.daoimpl.ReimbursementDaoImpl;
 import com.empmanagement.domain.ReimbursementDetails;
 import com.empmanagement.service.IReimbursementService;
-import com.mysql.cj.conf.BooleanPropertyDefinition.AllowableValues;
+/**
+ *This class contains the bsiness logic for Reimbursement Approval of Employee
+ *
+ * @author Prarthanaben Parmar
+ *
+ */
+
 
 @Service
 public class ReimbursementServiceImpl implements IReimbursementService {
@@ -29,17 +35,17 @@ public class ReimbursementServiceImpl implements IReimbursementService {
 	public String getAllRequests() {	
 
 		List<ReimbursementDetails> details = reimbursementDao.getReimbursementDetails();
-		for (ReimbursementDetails r : details) {
+		for (ReimbursementDetails reimbDet : details) {
 
 			IReimbursementService object = new ReimbursementServiceImpl();
-		 	String status = r.getStatus();
-			Long employeeID = r.getEmployeeId();	
-			int reimbAmount = r.getReimbursementAmount();
+		 	String status = reimbDet.getStatus();
+			Long employeeID = reimbDet.getEmployeeId();
+			int reimbAmount = reimbDet.getReimbursementAmount();
 			
 			if(status == null){				
 				String grade = reimbursementDao.getGrade(employeeID);
 				int baseSalary = reimbursementDao.getBasicSalary(grade);
-				boolean valid = object.validity(baseSalary, r.getReimbursementAmount());
+				boolean valid = object.validity(baseSalary, reimbDet.getReimbursementAmount());
 				if(valid){					
 					updateReim = reimbursementDao.updateReimb(employeeID,APPROVED);
 					allow = reimbursementDao.updateApprovedAllowance(employeeID,reimbAmount);
@@ -51,8 +57,8 @@ public class ReimbursementServiceImpl implements IReimbursementService {
 					}
 					}
 				else {					
-					updateReim = reimbursementDao.updateReimb(r.getEmployeeId(),DECLINED);
-					allow = reimbursementDao.updateApprovedAllowance(r.getEmployeeId(),REIMBDECLINE);
+					updateReim = reimbursementDao.updateReimb(reimbDet.getEmployeeId(),DECLINED);
+					allow = reimbursementDao.updateApprovedAllowance(reimbDet.getEmployeeId(),REIMBDECLINE);
 					if(updateReim == "success" && allow == "success") {
 						continue;
 					}

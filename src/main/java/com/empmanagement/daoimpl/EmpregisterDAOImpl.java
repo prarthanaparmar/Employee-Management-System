@@ -1,21 +1,29 @@
-package com.empmanagement.dao;
+package com.empmanagement.daoimpl;
 
 import java.sql.Date;
 
+import com.empmanagement.dao.IEmpregisterDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.type.filter.AbstractClassTestingTypeFilter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+/**
+ * This class in the data access implementation for employee registration.
+ *
+ * @author Prarthanaben Parmar
+ *
+ */
 
 @Repository
 public class EmpregisterDAOImpl implements IEmpregisterDAO {
 	@Autowired
 	private  JdbcTemplate jdbcTemplate = new JdbcTemplate();
-	String dbupdatestatus;
-	int deptId;
-	String loginupdate;
-	Long empId;
-	String username;
+	private String dbupdatestatus;
+	private int deptId;
+	private String loginupdate;
+	private Long empId;
+	private String username;
+	private int update;
 	
 	public String registerEmp(String name,String email,Date doj,Date dob, String role,String grade,int deptId,String team,String status,String personalEmail) {
 		try{
@@ -42,14 +50,12 @@ public class EmpregisterDAOImpl implements IEmpregisterDAO {
 			e.printStackTrace();
 			deptId = 0;
 		}
-		System.out.println(deptId);
 		return deptId;
 	}
 	
 	public String loginDetails(String username, String password, Long empId) {
 		try {
-			int update = jdbcTemplate.update("INSERT INTO login(empUsername, empPassword, empId) values (?,?,?)", username, password,empId);
-			System.out.println("Successfully added values"+update);
+			update = jdbcTemplate.update("INSERT INTO login(empUsername, empPassword, empId) values (?,?,?)", username, password,empId);
 			loginupdate = "success";
 		}
 		catch (Exception e){
@@ -66,7 +72,6 @@ public class EmpregisterDAOImpl implements IEmpregisterDAO {
 						
 		     empId = jdbcTemplate.queryForObject("select empId from employee where empName = ? && DOB = ?  ",
 					Long.class, empName, DOB);
-		     System.out.println("ID : " + empId);
 			}
 			catch (Exception e){
 				e.printStackTrace();
@@ -79,7 +84,6 @@ public class EmpregisterDAOImpl implements IEmpregisterDAO {
 		
 		try {
 			username = jdbcTemplate.queryForObject("select empUsername from login where empId = ?",String.class,empId);
-			System.out.println(username);
 		}
 		catch (Exception e){
 			e.printStackTrace();
