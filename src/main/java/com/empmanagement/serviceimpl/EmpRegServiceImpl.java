@@ -19,7 +19,7 @@ import com.empmanagement.util.RandomUtils;
  */
 
 @Service
-	public class EmpRegServiceImpl implements IEmpRegService{
+public class EmpRegServiceImpl implements IEmpRegService{
 	
 	@Autowired
 	IEmpregisterDAO empregdao = new EmpregisterDAOImpl();
