@@ -8,8 +8,8 @@ import javax.servlet.http.HttpSession;
 import com.empmanagement.domain.EmployeeLeave;
 import com.empmanagement.domain.EmployeeLeaveBuilder;
 import com.empmanagement.domain.LeaveBalance;
-import com.empmanagement.service.LeaveManagementService;
-import com.empmanagement.service.NotificationService;
+import com.empmanagement.service.ILeaveManagementService;
+import com.empmanagement.service.INotificationService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,16 +23,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * Leave management controllers
+ * 
+ * @author Neel Patel
+ */
 @Controller
 public class LeaveManagementController {
 	@Autowired
-	private LeaveManagementService leaveManagementService;
+	private ILeaveManagementService leaveManagementService;
 
 	@Autowired
-	private NotificationService notificationService;
+	private INotificationService notificationService;
 
 	private Logger logger = LoggerFactory.getLogger(LeaveManagementController.class);
 
+	/**
+	 * Handles get html request
+	 * @param session HttpSession object
+	 * @param model Model object
+	 * @return Template name as a string 
+	 */
 	@GetMapping("/ems/leave-management")
 	public String getLeaveManagement(HttpSession session, Model model) {
 		Long employeeId = (Long) session.getAttribute("EMP_ID");
@@ -50,6 +61,13 @@ public class LeaveManagementController {
 		return "leave-management";
 	}
 
+	/**
+	 * Handles Post leave requests
+	 * @param session HttpSession
+	 * @param model Model
+	 * @param formData MultiValueMap
+	 * @return Template name as a string 
+	 */
 	@PostMapping(value = "/ems/leave-management/apply", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public String applyLeave(HttpSession session, Model model, @RequestBody MultiValueMap<String, String> formData) {
 		try {
@@ -79,6 +97,14 @@ public class LeaveManagementController {
 		return "redirect:/ems/leave-management";
 	}
 
+	/**
+	 * Handles Cancel Leave Request.
+	 * It redirects to leave management page 
+	 * @param session HttpSession object
+	 * @param model Model
+	 * @param leaveId leaveId
+	 * @return redirect intruction as String
+	 */
 	@GetMapping(value = "/ems/leave-management/cancel")
 	public String cancelLeave(HttpSession session, Model model, @RequestParam("leaveId") int leaveId) {
 		try {

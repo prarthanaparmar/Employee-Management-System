@@ -1,4 +1,4 @@
-package com.empmanagement.service;
+package com.empmanagement.serviceimpl;
 
 import java.util.List;
 
@@ -6,20 +6,24 @@ import com.empmanagement.dao.IEmployeeLeavesDAO;
 import com.empmanagement.dao.LeaveBalanceDAO;
 import com.empmanagement.domain.EmployeeLeave;
 import com.empmanagement.domain.LeaveBalance;
+import com.empmanagement.service.ILeaveManagementService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Neel Patel
+ */
 @Service
-public class LeaveManagementService {
+public class LeaveManagementService implements ILeaveManagementService {
 
 	@Autowired
 	LeaveBalanceDAO leaveBalanceDAO;
 
 	@Autowired
-    IEmployeeLeavesDAO employeeLeavesDAO;
+	IEmployeeLeavesDAO employeeLeavesDAO;
 
 	private Logger logger = LoggerFactory.getLogger(LeaveManagementService.class);
 
